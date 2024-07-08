@@ -34,7 +34,7 @@ const App: React.FC = () => {
             height: '100vh',
             position: 'fixed',
             left: 0,
-            background: '#fafafa', // 左边栏颜色
+            background: '#fff', // 左边栏颜色
             borderRight: '1px solid rgba(0, 0, 0, 0.1)', // 左侧阴影边框
           }}
         >
