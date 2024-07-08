@@ -1,0 +1,12 @@
+/* index.css */
+
+/* 设置全局背景颜色为白色 */
+body, html, #root {
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 100%;
+}
+
+/* 其他全局样式 */

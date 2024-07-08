@@ -5,56 +5,34 @@ import { RootState } from '../redux/store'
 import CourseItem from './CourseItem'
 
 const CourseSelector: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'conversion' | 'core' | 'option'>('conversion')
+  const [activeTab, setActiveTab] = useState<string>('conversion')
   const availableCourses = useSelector((state: RootState) => state.courses.availableCourses)
 
   const filteredCourses = availableCourses.filter(course => course.type === activeTab)
 
   const items = [
-    {
-      key: 'conversion',
-      label: 'Conversion',
-      children: (
-        <List
-          dataSource={filteredCourses}
-          renderItem={course => <CourseItem course={course} />}
-          split={false}
-          itemLayout="vertical"
-        />
-      ),
-    },
-    {
-      key: 'core',
-      label: 'Core',
-      children: (
-        <List
-          dataSource={filteredCourses}
-          renderItem={course => <CourseItem course={course} />}
-          split={false}
-          itemLayout="vertical"
-        />
-      ),
-    },
-    {
-      key: 'option',
-      label: 'Option',
-      children: (
-        <List
-          dataSource={filteredCourses}
-          renderItem={course => <CourseItem course={course} />}
-          split={false}
-          itemLayout="vertical"
-        />
-      ),
-    },
+    { key: 'conversion', label: 'Conversion' },
+    { key: 'core', label: 'Core' },
+    { key: 'option', label: 'Option' },
   ]
 
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
       <Tabs
         activeKey={activeTab}
-        onChange={key => setActiveTab(key as 'conversion' | 'core' | 'option')}
-        items={items}
+        onChange={setActiveTab}
+        centered
+        items={items.map(item => ({
+          ...item,
+          children: (
+            <List
+              dataSource={filteredCourses}
+              renderItem={course => <CourseItem course={course} />}
+              split={false}
+              itemLayout="vertical"
+            />
+          ),
+        }))}
       />
     </Space>
   )

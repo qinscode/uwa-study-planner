@@ -18,9 +18,25 @@ const CourseItem: React.FC<CourseItemProps> = ({ course }) => {
 
   return (
     <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1, cursor: 'move', marginBottom: 8 }}>
-      <Card size="small" title={`${course.code}: ${course.name}`}>
-        <Tag color="blue">{course.recommendedSemester}</Tag>
-        {course.note && <p style={{ fontSize: '12px', color: '#888' }}>{course.note}</p>}
+      <Card
+        size="small"
+        title={course.code}
+        extra={
+          <Tag
+            color={
+              course.recommendedSemester === 'S1'
+                ? 'blue'
+                : course.recommendedSemester === 'S2'
+                ? 'green'
+                : 'purple'
+            }
+          >
+            {course.recommendedSemester}
+          </Tag>
+        }
+      >
+        <p>{course.name}</p>
+        {course.prereq && <p style={{ fontSize: '12px', color: '#888' }}>{course.prereq}</p>}
       </Card>
     </div>
   )
