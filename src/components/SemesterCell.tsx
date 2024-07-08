@@ -116,7 +116,7 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
           onClick={handleRemoveCourse}
         >
           {course.course.name} <br />
-          {course.course.prereq && <Text type="secondary">{course.course.prereq}</Text>}
+          {course.course.note && <Text type="secondary">{course.course.note}</Text>}
         </Card>
       ) : null}
     </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Table, Typography, Space, Switch, Button } from 'antd'
+import { Table, Typography, Space, Switch, Button, Modal, message } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../redux/store'
 import SemesterCell from './SemesterCell'
@@ -91,13 +91,32 @@ const SemesterTable: React.FC = () => {
   const coreCount = selectedCourses.filter(course => course.course.type === 'core').length
   const optionCount = selectedCourses.filter(course => course.course.type === 'option').length
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const showModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleOk = () => {
+    dispatch(clearSelectedCourses())
+    setIsModalOpen(false)
+  }
+
+  const handleCancel = () => {
+    setIsModalOpen(false)
+  }
+
   const handleStartSemesterChange = (checked: boolean) => {
     setStartWithS2(checked)
     dispatch(clearSelectedCourses())
   }
 
   const handleClearTable = () => {
-    dispatch(clearSelectedCourses())
+    setIsModalOpen(true)
+  }
+
+  const handleExportTable = () => {
+    message.error('Export feature is not implemented yet!')
   }
 
   return (
@@ -108,7 +127,8 @@ const SemesterTable: React.FC = () => {
           Conversion : {conversionCount} Core : {coreCount} Option : {optionCount}
         </Space>
       </Title>
-      <Space>
+
+      <Space size={24}>
         <Switch
           checkedChildren="S2 Start"
           unCheckedChildren="S1 Start"
@@ -116,7 +136,9 @@ const SemesterTable: React.FC = () => {
           onChange={handleStartSemesterChange}
         />
         <Button onClick={handleClearTable}>Clear Table</Button>
+        <Button onClick={handleExportTable}>Export</Button>
       </Space>
+
       <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <Table
           columns={columns}
@@ -125,6 +147,27 @@ const SemesterTable: React.FC = () => {
           scroll={{ x: 'max-content' }}
         />
       </div>
+      <Modal
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        title="You are going to clear everything!"
+        footer={
+          <Space>
+            <Button key="back" onClick={handleCancel}>
+              No Way!
+            </Button>
+            <Button key="submit" type="primary" onClick={handleOk}>
+              Yes, I Dare!
+            </Button>
+          </Space>
+        }
+      >
+        <p>
+          Are you absolutely, positively, 100% sure you want to clear everything? This is serious
+          business!
+        </p>
+      </Modal>
     </Space>
   )
 }

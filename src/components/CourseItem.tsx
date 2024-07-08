@@ -11,7 +11,7 @@ const CourseItem: React.FC<CourseItemProps> = ({ course }) => {
   const [{ isDragging }, drag] = useDrag({
     type: 'COURSE',
     item: () => {
-      console.log('Dragged Course Code:', course.code)
+      console.log('dragging', course)
       return { course }
     },
     collect: monitor => ({
@@ -39,7 +39,7 @@ const CourseItem: React.FC<CourseItemProps> = ({ course }) => {
         }
       >
         <p>{course.name}</p>
-        {course.prereq && <p style={{ fontSize: '12px', color: '#888' }}>{course.prereq}</p>}
+        {course.note && <p style={{ fontSize: '12px', color: '#888' }}>{course.note}</p>}
       </Card>
     </div>
   )

@@ -4,7 +4,8 @@ export interface Course {
   name?: string
   type?: string
   recommendedSemester?: string
-  prereq?: string
+  prereq?: string[]
+  note?: string
 }
 
 export interface SemesterCourse {

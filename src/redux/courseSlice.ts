@@ -10,6 +10,7 @@ const testCourses: Course[] = [
     name: 'Introduction to Cybersecurity',
     type: 'conversion',
     recommendedSemester: 'S1',
+    prereq: [],
   },
   {
     id: '2',
@@ -17,6 +18,7 @@ const testCourses: Course[] = [
     name: 'Computational Thinking with Python',
     type: 'conversion',
     recommendedSemester: 'S1S2',
+    prereq: [],
   },
   {
     id: '3',
@@ -24,6 +26,7 @@ const testCourses: Course[] = [
     name: 'Relational Database Management Systems',
     type: 'conversion',
     recommendedSemester: 'S1S2',
+    prereq: [],
   },
   {
     id: '10',
@@ -31,7 +34,8 @@ const testCourses: Course[] = [
     name: 'Systems Programming',
     type: 'conversion',
     recommendedSemester: 'S2',
-    prereq: 'Choose one of CITS2002 or CITS2005',
+    note: 'Preq: CITS1401. Not compatible with CITS2005',
+    prereq: ['CITS1401'],
   },
   {
     id: '11',
@@ -39,38 +43,18 @@ const testCourses: Course[] = [
     name: 'Object Oriented Programming',
     type: 'conversion',
     recommendedSemester: 'S1',
-    prereq: 'Choose one of CITS2002 or CITS2005',
+    note: 'Preq: CITS1401. Not compatible with CITS2002',
+    prereq: ['CITS1401'],
   },
 
   // Core Courses
-
-  {
-    id: '34',
-    code: 'CITS1401',
-    name: 'Computational Thinking with Python',
-    type: 'core',
-    recommendedSemester: 'S1S2',
-  },
-  {
-    id: '35',
-    code: 'CITS1003',
-    name: 'Introduction to Cybersecurity',
-    type: 'core',
-    recommendedSemester: 'S1S2',
-  },
-  {
-    id: '36',
-    code: 'CITS1402',
-    name: 'Relational Database Management Systems',
-    type: 'core',
-    recommendedSemester: 'S1S2',
-  },
   {
     id: '37',
     code: 'GENG5505',
     name: 'Project Management and Engineering Practice',
     type: 'core',
     recommendedSemester: 'S1S2',
+    prereq: [],
   },
   {
     id: '38',
@@ -78,15 +62,8 @@ const testCourses: Course[] = [
     name: 'The Internet of Things',
     type: 'core',
     recommendedSemester: 'S1S2',
-    prereq: 'CITS1401',
-  },
-  {
-    id: '39',
-    code: 'CITS2002',
-    name: 'Systems Programming',
-    type: 'core',
-    recommendedSemester: 'S2',
-    prereq: 'CITS1401',
+    note: 'CITS1401',
+    prereq: ['CITS1401'],
   },
   {
     id: '40',
@@ -94,7 +71,8 @@ const testCourses: Course[] = [
     name: 'Software Requirements and Design',
     type: 'core',
     recommendedSemester: 'S1',
-    prereq: 'CITS1401',
+    note: 'CITS1401',
+    prereq: ['CITS1401'],
   },
   {
     id: '41',
@@ -102,7 +80,8 @@ const testCourses: Course[] = [
     name: 'Agile Web Development',
     type: 'core',
     recommendedSemester: 'S1',
-    prereq: 'CITS1401 and advisable prior study: CITS1402',
+    note: 'CITS1401 and advisable prior study: CITS1402',
+    prereq: ['CITS1401'],
   },
   {
     id: '42',
@@ -110,6 +89,7 @@ const testCourses: Course[] = [
     name: 'Open Source Tools and Scripting',
     type: 'core',
     recommendedSemester: 'S1',
+    prereq: [],
   },
   {
     id: '43',
@@ -117,7 +97,8 @@ const testCourses: Course[] = [
     name: 'Software Testing and Quality Assurance',
     type: 'core',
     recommendedSemester: 'S2',
-    prereq: 'CITS2002 or CITS2005',
+    note: 'CITS2002 or CITS2005',
+    prereq: ['CITS2002', 'CITS2005'],
   },
   {
     id: '44',
@@ -125,7 +106,8 @@ const testCourses: Course[] = [
     name: 'Cloud Computing',
     type: 'core',
     recommendedSemester: 'S2',
-    prereq: 'CITS2002 or CITS2005',
+    note: 'CITS2002 or CITS2005',
+    prereq: ['CITS2002', 'CITS2005'],
   },
   {
     id: '45',
@@ -133,7 +115,8 @@ const testCourses: Course[] = [
     name: 'Information Technology Capstone Project',
     type: 'core',
     recommendedSemester: 'S1S2',
-    prereq: '48 points of L4/5 units AND CITS5505',
+    note: '48 points of L4/5 units AND CITS5505',
+    prereq: [],
   },
   {
     id: '46',
@@ -141,17 +124,18 @@ const testCourses: Course[] = [
     name: 'Ethics and Critical Thinking',
     type: 'core',
     recommendedSemester: 'S1S2',
+    prereq: [],
   },
 
   // Option Courses
-
   {
     id: '15',
     code: 'AUTO4508',
     name: 'Mobile Robots',
     type: 'option',
     recommendedSemester: 'S1',
-    prereq: 'CITS1401',
+    note: 'CITS1401',
+    prereq: ['CITS1401'],
   },
   {
     id: '16',
@@ -159,7 +143,8 @@ const testCourses: Course[] = [
     name: 'Computational Data Analysis',
     type: 'option',
     recommendedSemester: 'S2',
-    prereq: '',
+    note: '',
+    prereq: [],
   },
   {
     id: '17',
@@ -167,15 +152,17 @@ const testCourses: Course[] = [
     name: 'Natural Language Processing',
     type: 'option',
     recommendedSemester: 'S1',
-    prereq: 'CITS1401',
+    note: 'CITS1401',
+    prereq: ['CITS1401'],
   },
   {
     id: '18',
     code: 'CITS4403',
     name: 'Computational Modelling',
     type: 'option',
-    recommendedSemester: 'S1',
-    prereq: '',
+    recommendedSemester: 'S2',
+    note: '',
+    prereq: [],
   },
   {
     id: '19',
@@ -183,7 +170,8 @@ const testCourses: Course[] = [
     name: 'Artificial Intelligence and Adaptive Systems',
     type: 'option',
     recommendedSemester: 'S2',
-    prereq: 'CITS1401 + CITS4009 or CITS2002 or CITS2005',
+    note: 'CITS1401 + CITS4009 or CITS2002 or CITS2005',
+    prereq: ['CITS1401'],
   },
   {
     id: '20',
@@ -191,7 +179,8 @@ const testCourses: Course[] = [
     name: 'Mobile and Wireless Computing',
     type: 'option',
     recommendedSemester: 'S1',
-    prereq: '',
+    note: '',
+    prereq: [],
   },
   {
     id: '21',
@@ -199,7 +188,8 @@ const testCourses: Course[] = [
     name: 'Data Warehousing',
     type: 'option',
     recommendedSemester: 'S1',
-    prereq: 'CITS1401 and CITS1402',
+    note: 'CITS1401 and CITS1402',
+    prereq: ['CITS1401', 'CITS1402'],
   },
   {
     id: '22',
@@ -207,7 +197,8 @@ const testCourses: Course[] = [
     name: 'High Performance Computing',
     type: 'option',
     recommendedSemester: 'S2',
-    prereq: 'CITS1401 + CITS4009 or CITS2002 or CITS2005',
+    note: 'CITS1401 + CITS4009 or CITS2002 or CITS2005',
+    prereq: ['CITS1401'],
   },
   {
     id: '23',
@@ -215,7 +206,8 @@ const testCourses: Course[] = [
     name: 'Machine Learning',
     type: 'option',
     recommendedSemester: 'S1',
-    prereq: 'CITS1401',
+    note: 'CITS1401',
+    prereq: ['CITS1401'],
   },
   {
     id: '24',
@@ -223,7 +215,8 @@ const testCourses: Course[] = [
     name: 'Geographic Information System Applications',
     type: 'option',
     recommendedSemester: '',
-    prereq: '',
+    note: '',
+    prereq: [],
   },
   {
     id: '25',
@@ -231,7 +224,8 @@ const testCourses: Course[] = [
     name: 'Risk, Reliability and Safety',
     type: 'option',
     recommendedSemester: '',
-    prereq: 'MATH1011 & MATH1012',
+    note: 'MATH1011 & MATH1012',
+    prereq: ['MATH1011', 'MATH1012'],
   },
   {
     id: '26',
@@ -239,7 +233,8 @@ const testCourses: Course[] = [
     name: 'Supply Chain Analytics',
     type: 'option',
     recommendedSemester: 'S1',
-    prereq: '',
+    note: '',
+    prereq: [],
   },
   {
     id: '27',
@@ -247,7 +242,8 @@ const testCourses: Course[] = [
     name: 'Business Intelligence',
     type: 'option',
     recommendedSemester: 'S2',
-    prereq: 'INMT5518 or BUSN5002 or BUSN5101',
+    note: 'INMT5518 or BUSN5002 or BUSN5101',
+    prereq: ['INMT5518'],
   },
   {
     id: '28',
@@ -255,7 +251,8 @@ const testCourses: Course[] = [
     name: 'Data Analysis and Decision Making',
     type: 'option',
     recommendedSemester: 'S1',
-    prereq: '',
+    note: '',
+    prereq: [],
   },
   {
     id: '29',
@@ -263,7 +260,8 @@ const testCourses: Course[] = [
     name: 'Deep Learning',
     type: 'option',
     recommendedSemester: 'S2',
-    prereq: 'CITS5508',
+    note: 'CITS5508',
+    prereq: ['CITS5508'],
   },
   {
     id: '30',
@@ -271,7 +269,8 @@ const testCourses: Course[] = [
     name: 'Data and Information Technologies Research Project Part 1',
     type: 'option',
     recommendedSemester: 'S1S2',
-    prereq: 'Research program units are by invitation only. Requires a minimum WAM of 70.',
+    note: 'Research program units are by invitation only. Requires a minimum WAM of 70.',
+    prereq: [],
   },
   {
     id: '31',
@@ -279,7 +278,8 @@ const testCourses: Course[] = [
     name: 'Data and Information Technologies Research Project Part 2',
     type: 'option',
     recommendedSemester: 'S1S2',
-    prereq: 'Research program units are by invitation only. Requires a minimum WAM of 70.',
+    note: 'Research program units are by invitation only. Requires a minimum WAM of 70.',
+    prereq: [],
   },
   {
     id: '32',
@@ -287,7 +287,8 @@ const testCourses: Course[] = [
     name: 'McCusker Centre for Citizenship Internship',
     type: 'option',
     recommendedSemester: 'S1S2',
-    prereq: 'Requires Expression of Interest (EOI) application.',
+    note: 'Requires Expression of Interest (EOI) application.',
+    prereq: [],
   },
   {
     id: '33',
@@ -295,14 +296,23 @@ const testCourses: Course[] = [
     name: 'Computer Vision',
     type: 'option',
     recommendedSemester: 'S1',
-    prereq: '',
+    note: '',
+    prereq: [],
   },
 ]
 
-const initialState: CourseState = {
-  availableCourses: testCourses,
-  selectedCourses: [],
-  allCourses: [],
+const storedState = localStorage.getItem('courseState')
+const initialState: CourseState = storedState
+  ? JSON.parse(storedState)
+  : {
+      availableCourses: testCourses,
+      selectedCourses: [],
+      allCourses: [],
+    }
+
+// 保存状态到 localStorage 的辅助函数
+const saveStateToLocalStorage = (state: CourseState) => {
+  //   localStorage.setItem('courseState', JSON.stringify(state))
 }
 
 const sortCourses = (courses: Course[]) => {
@@ -322,6 +332,58 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
 
   const hasCITS2002 = updatedSelectedCourses.some(c => c.course.code === 'CITS2002')
   const hasCITS2005 = updatedSelectedCourses.some(c => c.course.code === 'CITS2005')
+  const hasCITS1401 = updatedSelectedCourses.some(c => c.course.code === 'CITS1401')
+  const hasCITS1402 = updatedSelectedCourses.some(c => c.course.code === 'CITS1402')
+  const hasCITS4009 = updatedSelectedCourses.some(c => c.course.code === 'CITS4009')
+  const hasINMT5518 = updatedSelectedCourses.some(c => c.course.code === 'INMT5518')
+
+  if (newCourse.code === 'CITS5501' && !hasCITS2002 && !hasCITS2005) {
+    message.error('You must select either CITS2002 or CITS2005 before CITS5501.')
+    return false
+  }
+
+  if (newCourse.code === 'CITS5503' && !hasCITS2002 && !hasCITS2005) {
+    message.error('You must select either CITS2002 or CITS2005 before CITS5503.')
+    return false
+  }
+
+  if (newCourse.code === 'CITS5504' && (!hasCITS1401 || !hasCITS1402)) {
+    message.error('You must select either CITS1401 and CITS1402 before CITS5503.')
+    return false
+  }
+
+  if (
+    newCourse.code === 'CITS4404' &&
+    !hasCITS1401 &&
+    (!hasCITS4009 || !hasCITS2002 || !hasCITS2005)
+  ) {
+    message.error('You must select 2 programming units before CITS4404.')
+    return false
+  }
+
+  if (newCourse.code === 'INMT5526' && !hasINMT5518) {
+    message.error('You must select INMT5518 units before INMT5526.')
+    return false
+  }
+
+  if (newCourse.code === 'CITS5526') {
+    const levelFourOrFiveCourses = state.selectedCourses.filter(
+      sc => sc.course.code && (sc.course.code[4] === '4' || sc.course.code[4] === '5')
+    )
+    if (levelFourOrFiveCourses.length < 4) {
+      message.error('You must select at least 4 level 4 or level 5 courses before CITS5526.')
+      return false
+    }
+  }
+
+  if (
+    newCourse.code === 'CITS5507' &&
+    !hasCITS1401 &&
+    (!hasCITS4009 || !hasCITS2002 || !hasCITS2005)
+  ) {
+    message.error('You must select 2 programming units before CITS5507.')
+    return false
+  }
 
   if (conversionCount > 4) {
     message.error('You cannot select more than 4 conversion courses.')
@@ -338,6 +400,20 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
     return false
   }
 
+  console.log('isValidSelection', newCourse)
+
+  return true
+}
+
+const checkprerequisites = (state: CourseState, newCourse: Course): boolean => {
+  if (newCourse.prereq && newCourse.prereq.length > 0) {
+    for (const prereq of newCourse.prereq) {
+      if (!state.selectedCourses.some(sc => sc.course.code === prereq)) {
+        message.error(`Prerequisite not met: ${prereq} must be completed before ${newCourse.code}`)
+        return false
+      }
+    }
+  }
   return true
 }
 
@@ -346,11 +422,15 @@ const courseSlice = createSlice({
   initialState,
   reducers: {
     addCourseToSemester: (state, action: PayloadAction<SemesterCourse>) => {
-      if (isValidSelection(state, action.payload.course)) {
+      if (
+        isValidSelection(state, action.payload.course) &&
+        checkprerequisites(state, action.payload.course)
+      ) {
         state.selectedCourses.push(action.payload)
         state.availableCourses = sortCourses(
           state.availableCourses.filter(course => course.id !== action.payload.course.id)
         )
+        saveStateToLocalStorage(state) // 保存到 localStorage
       }
     },
     removeCourseFromSemester: (state, action: PayloadAction<SemesterCourse>) => {
@@ -362,6 +442,7 @@ const courseSlice = createSlice({
           )
       )
       state.availableCourses = sortCourses([...state.availableCourses, action.payload.course])
+      saveStateToLocalStorage(state) // 保存到 localStorage
     },
     clearSelectedCourses: state => {
       state.availableCourses = sortCourses([
@@ -369,6 +450,7 @@ const courseSlice = createSlice({
         ...state.selectedCourses.map(sc => sc.course),
       ])
       state.selectedCourses = []
+      saveStateToLocalStorage(state) // 保存到 localStorage
     },
   },
 })
