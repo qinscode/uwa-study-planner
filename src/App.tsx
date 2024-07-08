@@ -53,7 +53,7 @@ const App: React.FC = () => {
                   marginTop: '0',
                 }}
               >
-                Course Selector
+                Unit List
               </Title>
               <CourseSelector />
             </Sider>

@@ -128,15 +128,19 @@ const SemesterTable: React.FC = () => {
         </Space>
       </Title>
 
-      <Space size={24}>
+      <Space size={64}>
         <Switch
           checkedChildren="S2 Start"
           unCheckedChildren="S1 Start"
           checked={startWithS2}
           onChange={handleStartSemesterChange}
         />
-        <Button onClick={handleClearTable}>Clear Table</Button>
-        <Button onClick={handleExportTable}>Export</Button>
+        <Button onClick={handleClearTable} danger>
+          Clear Table
+        </Button>
+        <Button onClick={handleExportTable} ghost>
+          Export
+        </Button>
       </Space>
 
       <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
