@@ -1,22 +1,19 @@
 import React from 'react'
 import { Table, Typography } from 'antd'
-import { useAppSelector, useAppDispatch } from '../hooks/reduxHooks'
+import { useAppSelector } from '../hooks/reduxHooks'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
-import { Course } from '../types/course'
-import { moveCourse } from '../store/courseSlice'
 
 const { Title } = Typography
 
 const SemesterTable: React.FC = () => {
   const semesters = useAppSelector(state => state.courses.semesters)
-  const dispatch = useAppDispatch()
 
   const renderCourseCell = (semesterId: string, courseIndex: number) => {
     const semester = semesters.find(s => s.id === semesterId)
-    const course: Course | undefined = semester?.courses[courseIndex]
+    const course = semester?.courses[courseIndex]
 
     return (
-      <Droppable droppableId={`${semesterId}-${courseIndex}`} isDropDisabled={false}>
+      <Droppable droppableId={`${semesterId}-${courseIndex}`}>
         {provided => (
           <div
             ref={provided.innerRef}
@@ -59,11 +56,9 @@ const SemesterTable: React.FC = () => {
 
   const data = [{ key: '1' }, { key: '2' }, { key: '3' }, { key: '4' }]
 
-  const totalCourses = semesters.reduce((total, semester) => total + semester.courses.length, 0)
-
   return (
     <div>
-      <Title level={3}>Selected Courses: {totalCourses}</Title>
+      <Title level={3}>Selected Courses</Title>
       <Table columns={columns} dataSource={data} pagination={false} />
     </div>
   )

@@ -19,12 +19,13 @@ const App: React.FC = () => {
       return
     }
 
-    const [destSemesterId, destCourseIndex] = destination.droppableId.split('-')
+    const [destSemesterId] = destination.droppableId.split('-')
+    const [sourceSemesterId] = source.droppableId.split('-')
 
     dispatch(
       moveCourse({
         courseId: result.draggableId,
-        fromSemester: source.droppableId === 'courses' ? null : source.droppableId.split('-')[0],
+        fromSemester: sourceSemesterId === 'courses' ? null : sourceSemesterId,
         toSemester: destSemesterId,
       })
     )

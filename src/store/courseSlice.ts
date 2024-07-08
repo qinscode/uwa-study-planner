@@ -157,9 +157,6 @@ const courseSlice = createSlice({
   name: 'courses',
   initialState,
   reducers: {
-    addCourse: (state, action: PayloadAction<Course>) => {
-      state.availableCourses.push(action.payload)
-    },
     moveCourse: (
       state,
       action: PayloadAction<{ courseId: string; fromSemester: string | null; toSemester: string }>
@@ -194,19 +191,8 @@ const courseSlice = createSlice({
         }
       }
     },
-    removeCourse: (state, action: PayloadAction<{ courseId: string; semesterId: string }>) => {
-      const { courseId, semesterId } = action.payload
-      const semesterIndex = state.semesters.findIndex(s => s.id === semesterId)
-      if (semesterIndex !== -1) {
-        const courseIndex = state.semesters[semesterIndex].courses.findIndex(c => c.id === courseId)
-        if (courseIndex !== -1) {
-          const removedCourse = state.semesters[semesterIndex].courses.splice(courseIndex, 1)[0]
-          state.availableCourses.push(removedCourse)
-        }
-      }
-    },
   },
 })
 
-export const { addCourse, moveCourse, removeCourse } = courseSlice.actions
+export const { moveCourse } = courseSlice.actions
 export default courseSlice.reducer
