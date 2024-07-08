@@ -1,29 +1,30 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Tabs, List, Typography, Tag } from 'antd'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
-import { useAppSelector } from '../hooks/reduxHooks'
+import { useCourses } from '../hooks/useCourses'
 import { Course } from '../types/course'
 
+const { TabPane } = Tabs
 const { Text } = Typography
 
 const CourseSelector: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'conversion' | 'core' | 'option'>('conversion')
-  const courses = useAppSelector(state => state.courses.availableCourses)
-
-  const filteredCourses = courses.filter(course => course.type === activeTab)
-
-  const items = [
-    { key: 'conversion', label: 'Conversion', children: <CourseList courses={filteredCourses} /> },
-    { key: 'core', label: 'Core', children: <CourseList courses={filteredCourses} /> },
-    { key: 'option', label: 'Option', children: <CourseList courses={filteredCourses} /> },
-  ]
+  const { activeTab, setActiveTab, filteredCourses } = useCourses()
 
   return (
     <Tabs
       activeKey={activeTab}
       onChange={key => setActiveTab(key as 'conversion' | 'core' | 'option')}
-      items={items}
-    />
+    >
+      <TabPane tab="Conversion" key="conversion">
+        <CourseList courses={filteredCourses} />
+      </TabPane>
+      <TabPane tab="Core" key="core">
+        <CourseList courses={filteredCourses} />
+      </TabPane>
+      <TabPane tab="Option" key="option">
+        <CourseList courses={filteredCourses} />
+      </TabPane>
+    </Tabs>
   )
 }
 

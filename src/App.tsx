@@ -1,5 +1,3 @@
-// src/App.tsx
-
 import React from 'react'
 import { Layout, Typography } from 'antd'
 import CourseSelector from './components/CourseSelector'
