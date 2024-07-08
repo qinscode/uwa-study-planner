@@ -8,13 +8,16 @@ interface CourseItemProps {
 }
 
 const CourseItem: React.FC<CourseItemProps> = ({ course }) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [{ isDragging }, drag] = useDrag({
     type: 'COURSE',
-    item: { course },
+    item: () => {
+      console.log('Dragged Course Code:', course.code)
+      return { course }
+    },
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
     }),
-  }))
+  })
 
   return (
     <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1, cursor: 'move', marginBottom: 8 }}>
