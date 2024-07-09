@@ -4,9 +4,19 @@ import { useDrop } from 'react-dnd'
 import { Card, Tag, Typography } from 'antd'
 import { RootState } from '../redux/store'
 import { addCourseToSemester, removeCourseFromSemester } from '../redux/courseSlice'
-import { Course } from '../types'
+import { Course, SemesterCourse } from '../types'
 
 const { Text, Paragraph } = Typography
+
+// 定义课程类型
+type CourseType = 'conversion' | 'core' | 'option'
+
+// 定义颜色映射
+const typeColors: Record<CourseType, string> = {
+  conversion: '#e6f7ff',
+  core: '#fff7e6',
+  option: '#f6ffed',
+}
 
 interface SemesterCellProps {
   semesterId: string
@@ -46,6 +56,11 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
     }
   }
 
+  const backgroundColor =
+    course && course.course.type && course.course.type in typeColors
+      ? typeColors[course.course.type as CourseType]
+      : 'white'
+
   return (
     <div
       ref={drop}
@@ -84,19 +99,21 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
             </div>
           }
           extra={
-            <Tag
-              color={
-                course.course.recommendedSemester === 'S1'
-                  ? 'blue'
-                  : course.course.recommendedSemester === 'S2'
-                  ? 'green'
-                  : 'purple'
-              }
-            >
-              {course.course.recommendedSemester}
-            </Tag>
+            course.course.recommendedSemester && (
+              <Tag
+                color={
+                  course.course.recommendedSemester === 'S1'
+                    ? 'blue'
+                    : course.course.recommendedSemester === 'S2'
+                    ? 'green'
+                    : 'purple'
+                }
+              >
+                {course.course.recommendedSemester}
+              </Tag>
+            )
           }
-          style={{ width: '100%' }}
+          style={{ width: '100%', backgroundColor }}
           onClick={handleRemoveCourse}
         >
           {course.course.name} <br />
