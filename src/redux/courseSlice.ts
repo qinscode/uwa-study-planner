@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Course, SemesterCourse, CourseState } from '../types'
 import { message } from 'antd'

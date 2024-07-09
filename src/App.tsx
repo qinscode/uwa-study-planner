@@ -5,7 +5,7 @@ import SemesterGrid from './components/SemesterGrid'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { TouchBackend } from 'react-dnd-touch-backend'
 
 const { Content, Footer } = Layout
 const { Text } = Typography
@@ -13,7 +13,7 @@ const { Text } = Typography
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
         <Layout style={{ minHeight: '100vh' }}>
           <Content style={{ paddingTop: '20px' }}>
             <SemesterGrid />

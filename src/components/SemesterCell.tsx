@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useDrop, useDrag } from 'react-dnd'
-import { Card, Typography, Tag } from 'antd'
+import { useDrop } from 'react-dnd'
+import { Card, Typography } from 'antd'
 import { RootState } from '../redux/store'
 import { addCourseToSemester, removeCourseFromSemester } from '../redux/courseSlice'
 import { Course } from '../types'
@@ -38,23 +38,6 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
     }),
   }))
 
-  const [{ isDragging }, drag] = useDrag(
-    () => ({
-      type: 'COURSE',
-      item: { course: selectedCourses[courseIndex]?.course },
-      canDrag: () => !!selectedCourses[courseIndex],
-      end: (item, monitor) => {
-        if (monitor.didDrop()) {
-          dispatch(removeCourseFromSemester({ semesterId, course: item.course }))
-        }
-      },
-      collect: monitor => ({
-        isDragging: !!monitor.isDragging(),
-      }),
-    }),
-    [selectedCourses, courseIndex]
-  )
-
   const course = selectedCourses[courseIndex]
 
   const handleRemoveCourse = () => {
@@ -65,7 +48,7 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
 
   return (
     <div
-      ref={node => drag(drop(node))}
+      ref={drop}
       style={{
         height: '100%',
         minHeight: 120,
@@ -73,35 +56,16 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
         borderRadius: 4,
         padding: 8,
         background: isOver && canDrop ? '#e6f7ff' : canDrop ? '#f0f5ff' : 'white',
-        opacity: isDragging ? 0.5 : 1,
       }}
     >
       {course ? (
         <Card
           size="small"
           title={course.course.code}
-          extra={
-            <Tag
-              color={
-                course.course.recommendedSemester === 'S1'
-                  ? 'blue'
-                  : course.course.recommendedSemester === 'S2'
-                  ? 'green'
-                  : 'purple'
-              }
-            >
-              {course.course.recommendedSemester}
-            </Tag>
-          }
           style={{ height: '100%' }}
           onClick={handleRemoveCourse}
         >
           <Text>{course.course.name}</Text>
-          {course.course.note && (
-            <Text type="secondary" style={{ display: 'block', fontSize: '12px' }}>
-              {course.course.note}
-            </Text>
-          )}
         </Card>
       ) : null}
     </div>

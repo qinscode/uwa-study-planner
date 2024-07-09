@@ -1,4 +1,6 @@
-module.exports = {
+import { Config } from 'pm2'
+
+const config: Config = {
   apps: [
     {
       name: 'study-planner',
@@ -15,3 +17,5 @@ module.exports = {
     },
   ],
 }
+
+export default config
