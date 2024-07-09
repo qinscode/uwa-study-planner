@@ -1,0 +1,49 @@
+/* App.css */
+.course-table {
+  padding: 20px;
+}
+
+.ant-card {
+  border-radius: 10px;
+  margin-bottom: 16px; /* 增加 margin */
+}
+
+.semester-header {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.s1-header {
+  background-color: #e6f7ff; /* 浅蓝色背景 */
+  border-radius: 10px;
+}
+
+.s2-header {
+  background-color: #e6ffe6; /* 浅绿色背景 */
+  border-radius: 10px;
+}
+
+.simple-card {
+  border: none; /* 移除边框 */
+  box-shadow: none; /* 移除阴影 */
+  background: #fafafa; /* 添加背景颜色 */
+}
+
+.tag {
+  padding: 0 8px;
+  border-radius: 5px;
+  color: white;
+}
+
+.S1 {
+  background-color: #1890ff;
+}
+
+.S2 {
+  background-color: #52c41a;
+}
+
+.S1S2 {
+  background-color: #722ed1;
+}
