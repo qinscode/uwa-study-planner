@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Typography, FloatButton } from 'antd'
-import { BookOutlined, QuestionCircleOutlined } from '@ant-design/icons'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import SemesterGrid from './components/SemesterGrid'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
