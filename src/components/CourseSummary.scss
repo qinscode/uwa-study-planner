@@ -1,0 +1,10 @@
+.course-summary-title {
+    .course-summary-space {
+      display: flex;
+      flex-direction: column;
+  
+      @media (min-width: 576px) {
+        flex-direction: row;
+      }
+    }
+  }

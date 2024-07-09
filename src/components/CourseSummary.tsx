@@ -1,5 +1,6 @@
 import React from 'react'
 import { Row, Col, Typography, Space, Switch, Button } from 'antd'
+import './CourseSummary.scss' // 引入自定义的SCSS文件
 
 const { Title } = Typography
 
@@ -31,14 +32,16 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
     <>
       <Row justify="space-between" align="middle" style={{ marginBottom: '16px' }}>
         <Col>
-          <Title level={3}>
-            <Space>
-              Selected Units: {selectedCourses.length} Conversion: {conversionCoursesCount}
-              Core: {coreCoursesCount} Option: {optionCoursesCount}
+          <Title level={3} className="course-summary-title">
+            <Space direction="vertical" size="small" className="course-summary-space">
+              <div>Selected Units: {selectedCourses.length}</div>
+              <div>Conversion: {conversionCoursesCount}</div>
+              <div>Core: {coreCoursesCount}</div>
+              <div>Option: {optionCoursesCount}</div>
             </Space>
           </Title>
           <div>
-            <Space size={'large'}>
+            <Space size="large">
               <Switch
                 checkedChildren="S2 Start"
                 unCheckedChildren="S1 Start"
@@ -47,12 +50,12 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
               />
               <Button onClick={handleExportTable} type="primary">
                 Export
-              </Button>{' '}
+              </Button>
             </Space>
           </div>
         </Col>
         <Col>
-          <Space size={'large'}>
+          <Space size="large">
             <Button onClick={handleClearTable} danger>
               Clear
             </Button>
