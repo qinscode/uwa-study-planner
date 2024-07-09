@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
-import { Tabs, List, Space } from 'antd'
+import { Tabs, List } from 'antd'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
 import CourseItem from './CourseItem'
 
-const CourseSelector: React.FC = () => {
+interface CourseSelectorProps {
+  onDragStart?: () => void
+}
+
+const CourseSelector: React.FC<CourseSelectorProps> = ({ onDragStart }) => {
   const [activeTab, setActiveTab] = useState<string>('conversion')
   const availableCourses = useSelector((state: RootState) => state.courses.availableCourses)
 
@@ -17,24 +21,21 @@ const CourseSelector: React.FC = () => {
   ]
 
   return (
-    <Space direction="vertical" size="large" style={{ width: '100%' }}>
-      <Tabs
-        activeKey={activeTab}
-        onChange={setActiveTab}
-        centered
-        items={items.map(item => ({
-          ...item,
-          children: (
-            <List
-              dataSource={filteredCourses}
-              renderItem={course => <CourseItem course={course} />}
-              split={false}
-              itemLayout="vertical"
-            />
-          ),
-        }))}
-      />
-    </Space>
+    <Tabs
+      activeKey={activeTab}
+      onChange={setActiveTab}
+      items={items.map(item => ({
+        ...item,
+        children: (
+          <List
+            dataSource={filteredCourses}
+            renderItem={course => <CourseItem course={course} onDragStart={onDragStart} />}
+            split={false}
+            itemLayout="vertical"
+          />
+        ),
+      }))}
+    />
   )
 }
 

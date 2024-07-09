@@ -6,7 +6,7 @@ import { RootState } from '../redux/store'
 import { addCourseToSemester, removeCourseFromSemester } from '../redux/courseSlice'
 import { Course } from '../types'
 
-const { Text, Paragraph } = Typography
+const { Text } = Typography
 
 interface SemesterCellProps {
   semesterId: string
@@ -54,6 +54,7 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
     }),
     [selectedCourses, courseIndex]
   )
+
   const course = selectedCourses[courseIndex]
 
   const handleRemoveCourse = () => {
@@ -66,6 +67,7 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
     <div
       ref={node => drag(drop(node))}
       style={{
+        height: '100%',
         minHeight: 120,
         border: '1px dashed #ccc',
         borderRadius: 4,
@@ -77,28 +79,7 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
       {course ? (
         <Card
           size="small"
-          title={
-            <div
-              style={{
-                textAlign: 'center',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                height: '100%',
-              }}
-            >
-              <Paragraph
-                style={{
-                  margin: 0,
-                  whiteSpace: 'normal',
-                  width: '100%',
-                  overflowWrap: 'break-word',
-                }}
-              >
-                {course.course.code}
-              </Paragraph>
-            </div>
-          }
+          title={course.course.code}
           extra={
             <Tag
               color={
@@ -112,11 +93,15 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
               {course.course.recommendedSemester}
             </Tag>
           }
-          style={{ width: '100%' }}
+          style={{ height: '100%' }}
           onClick={handleRemoveCourse}
         >
-          {course.course.name} <br />
-          {course.course.note && <Text type="secondary">{course.course.note}</Text>}
+          <Text>{course.course.name}</Text>
+          {course.course.note && (
+            <Text type="secondary" style={{ display: 'block', fontSize: '12px' }}>
+              {course.course.note}
+            </Text>
+          )}
         </Card>
       ) : null}
     </div>

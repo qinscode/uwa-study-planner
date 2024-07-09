@@ -5,13 +5,14 @@ import { Course } from '../types'
 
 interface CourseItemProps {
   course: Course
+  onDragStart?: () => void
 }
 
-const CourseItem: React.FC<CourseItemProps> = ({ course }) => {
+const CourseItem: React.FC<CourseItemProps> = ({ course, onDragStart }) => {
   const [{ isDragging }, drag] = useDrag({
     type: 'COURSE',
     item: () => {
-      console.log('dragging', course)
+      onDragStart && onDragStart()
       return { course }
     },
     collect: monitor => ({
