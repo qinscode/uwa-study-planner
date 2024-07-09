@@ -11,7 +11,6 @@ interface CourseSelectorProps {
 const CourseSelector: React.FC<CourseSelectorProps> = ({ onDragStart }) => {
   const [activeTab, setActiveTab] = useState<string>('conversion')
   const availableCourses = useSelector((state: RootState) => state.courses.availableCourses)
-
   const filteredCourses = availableCourses.filter(course => course.type === activeTab)
 
   const items = [
@@ -35,6 +34,8 @@ const CourseSelector: React.FC<CourseSelectorProps> = ({ onDragStart }) => {
           />
         ),
       }))}
+      size="small"
+      style={{ minWidth: 0 }}
     />
   )
 }

@@ -15,7 +15,7 @@ const App: React.FC = () => {
     <Provider store={store}>
       <DndProvider backend={HTML5Backend}>
         <Layout style={{ minHeight: '100vh' }}>
-          <Content style={{ padding: '24px' }}>
+          <Content style={{ paddingTop: '20px' }}>
             <SemesterGrid />
           </Content>
           <Footer
@@ -24,6 +24,7 @@ const App: React.FC = () => {
               background: '#fff',
               borderTop: '1px solid rgba(0, 0, 0, 0.1)',
               padding: '20px 0',
+              marginTop: '20px',
             }}
           >
             <Text type="secondary">

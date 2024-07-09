@@ -5,7 +5,6 @@ import {
   Row,
   Col,
   Card,
-  Tag,
   Space,
   Switch,
   Button,
@@ -21,7 +20,7 @@ import CourseSelector from './CourseSelector'
 import SemesterCell from './SemesterCell'
 
 const { Header, Content, Sider } = Layout
-const { Title, Text } = Typography
+const { Title } = Typography
 
 const SemesterGrid: React.FC = () => {
   const [startWithS2, setStartWithS2] = useState(false)
@@ -70,8 +69,10 @@ const SemesterGrid: React.FC = () => {
     }
   }
 
+  const siderWidth = 'max(205px, 20vw)'
+
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ minHeight: '100vh', background: '#fff' }}>
       <Header
         style={{
           position: 'fixed',
@@ -83,6 +84,8 @@ const SemesterGrid: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+          left: 0,
+          top: 0,
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -93,30 +96,31 @@ const SemesterGrid: React.FC = () => {
         </div>
         {isMobile && <Button icon={<MenuOutlined />} onClick={() => setDrawerVisible(true)} />}
       </Header>
-      <Layout style={{ marginTop: 64 }}>
+      <Layout style={{ marginTop: 64, background: '#fff' }}>
         {!isMobile && (
           <Sider
-            width={300}
+            width={siderWidth}
             theme="light"
             style={{
               overflow: 'auto',
-              height: '100vh',
+              height: 'calc(100vh - 64px)',
               position: 'fixed',
               left: 0,
               top: 64,
               bottom: 0,
+              background: '#fff',
             }}
           >
             <div style={{ padding: '16px' }}>
-              <Title level={4}>Course Selector</Title>
+              <Title level={3}>Course Selector</Title>
               <CourseSelector onDragStart={handleDragStart} />
             </div>
           </Sider>
         )}
-        <Layout style={{ marginLeft: isMobile ? 0 : 300 }}>
-          <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+        <Layout style={{ marginLeft: isMobile ? 0 : siderWidth, background: '#fff' }}>
+          <Content style={{ margin: '24px 16px 0', overflow: 'initial', background: '#fff' }}>
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
-              <Row justify="space-between" align="middle">
+              <Row justify="space-between" align="middle" style={{ marginBottom: '16px' }}>
                 <Col>
                   <Title level={4}>Selected Units: {selectedCourses.length}</Title>
                 </Col>
@@ -138,7 +142,11 @@ const SemesterGrid: React.FC = () => {
                 </Col>
               </Row>
               {semesters.map((semester, semesterIndex) => (
-                <Card key={semesterIndex} title={`Semester ${semesterIndex + 1} (${semester})`}>
+                <Card
+                  key={semesterIndex}
+                  title={`Semester ${semesterIndex + 1} (${semester})`}
+                  style={{ boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}
+                >
                   <Row gutter={[16, 16]}>
                     {[0, 1, 2, 3].map(courseIndex => (
                       <Col xs={24} sm={12} md={12} lg={6} xl={6} key={courseIndex}>
@@ -161,7 +169,7 @@ const SemesterGrid: React.FC = () => {
         placement="left"
         closable={true}
         onClose={() => setDrawerVisible(false)}
-        visible={drawerVisible}
+        open={drawerVisible}
         width={300}
       >
         <CourseSelector onDragStart={handleDragStart} />
