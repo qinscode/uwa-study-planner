@@ -1,12 +1,12 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useDrop } from 'react-dnd'
-import { Card, Typography } from 'antd'
+import { Card, Tag, Typography } from 'antd'
 import { RootState } from '../redux/store'
 import { addCourseToSemester, removeCourseFromSemester } from '../redux/courseSlice'
 import { Course } from '../types'
 
-const { Text } = Typography
+const { Text, Paragraph } = Typography
 
 interface SemesterCellProps {
   semesterId: string
@@ -61,11 +61,46 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
       {course ? (
         <Card
           size="small"
-          title={course.course.code}
-          style={{ height: '100%' }}
+          title={
+            <div
+              style={{
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                height: '100%',
+              }}
+            >
+              <Paragraph
+                style={{
+                  margin: 0,
+                  whiteSpace: 'normal',
+                  width: '100%',
+                  overflowWrap: 'break-word',
+                }}
+              >
+                {course.course.code}
+              </Paragraph>
+            </div>
+          }
+          extra={
+            <Tag
+              color={
+                course.course.recommendedSemester === 'S1'
+                  ? 'blue'
+                  : course.course.recommendedSemester === 'S2'
+                  ? 'green'
+                  : 'purple'
+              }
+            >
+              {course.course.recommendedSemester}
+            </Tag>
+          }
+          style={{ width: '100%' }}
           onClick={handleRemoveCourse}
         >
-          <Text>{course.course.name}</Text>
+          {course.course.name} <br />
+          {course.course.note && <Text type="secondary">{course.course.note}</Text>}
         </Card>
       ) : null}
     </div>

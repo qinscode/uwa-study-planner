@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import html2canvas from 'html2canvas'
+
 import {
   Layout,
   Typography,
@@ -12,7 +14,7 @@ import {
   message,
   Drawer,
 } from 'antd'
-import { MenuOutlined, BookOutlined } from '@ant-design/icons'
+import { MenuOutlined } from '@ant-design/icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../redux/store'
 import { clearSelectedCourses } from '../redux/courseSlice'
@@ -31,6 +33,8 @@ const SemesterGrid: React.FC = () => {
   const dispatch = useDispatch()
 
   const semesters = startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S2']
+
+  const captureRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleResize = () => {
@@ -51,7 +55,14 @@ const SemesterGrid: React.FC = () => {
   }
 
   const handleExportTable = () => {
-    message.error('Export feature is not implemented yet!')
+    if (captureRef.current) {
+      html2canvas(captureRef.current).then(canvas => {
+        const link = document.createElement('a')
+        link.href = canvas.toDataURL('image/png')
+        link.download = 'screenshot.png'
+        link.click()
+      })
+    }
   }
 
   const handleOk = () => {
@@ -68,6 +79,15 @@ const SemesterGrid: React.FC = () => {
       setDrawerVisible(false)
     }
   }
+
+  // console.log('selectedCourses', selectedCourses)
+  const coreCoursesCount = selectedCourses.filter(course => course['course'].type === 'core').length
+  const optionCoursesCount = selectedCourses.filter(
+    course => course['course'].type === 'option'
+  ).length
+  const conversionCoursesCount = selectedCourses.filter(
+    course => course['course'].type === 'conversion'
+  ).length
 
   const siderWidth = 'max(205px, 20vw)'
 
@@ -89,9 +109,8 @@ const SemesterGrid: React.FC = () => {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <BookOutlined style={{ fontSize: '24px', marginRight: '10px', color: '#1890ff' }} />
           <Title level={3} style={{ margin: 0, color: 'black' }}>
-            UWA MIT Study Planner
+            👨‍💻 UWA MIT Study Planner
           </Title>
         </div>
         {isMobile && <Button icon={<MenuOutlined />} onClick={() => setDrawerVisible(true)} />}
@@ -118,48 +137,59 @@ const SemesterGrid: React.FC = () => {
           </Sider>
         )}
         <Layout style={{ marginLeft: isMobile ? 0 : siderWidth, background: '#fff' }}>
-          <Content style={{ margin: '24px 16px 0', overflow: 'initial', background: '#fff' }}>
+          <Content style={{ margin: '0 16px 0', overflow: 'initial', background: '#fff' }}>
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
               <Row justify="space-between" align="middle" style={{ marginBottom: '16px' }}>
                 <Col>
-                  <Title level={4}>Selected Units: {selectedCourses.length}</Title>
+                  <Title level={3}>
+                    <Space>
+                      Selected Units: {selectedCourses.length} Conversion: {conversionCoursesCount}
+                      Core: {coreCoursesCount} Option: {optionCoursesCount}
+                    </Space>
+                  </Title>
+                  <div>
+                    <Space size={'large'}>
+                      <Switch
+                        checkedChildren="S2 Start"
+                        unCheckedChildren="S1 Start"
+                        checked={startWithS2}
+                        onChange={handleStartSemesterChange}
+                      />{' '}
+                      <Button onClick={handleExportTable} type="primary">
+                        Export
+                      </Button>
+                    </Space>
+                  </div>
                 </Col>
                 <Col>
-                  <Space>
-                    <Switch
-                      checkedChildren="S2 Start"
-                      unCheckedChildren="S1 Start"
-                      checked={startWithS2}
-                      onChange={handleStartSemesterChange}
-                    />
+                  <Space size={'large'}>
                     <Button onClick={handleClearTable} danger>
                       Clear
-                    </Button>
-                    <Button onClick={handleExportTable} type="primary">
-                      Export
                     </Button>
                   </Space>
                 </Col>
               </Row>
-              {semesters.map((semester, semesterIndex) => (
-                <Card
-                  key={semesterIndex}
-                  title={`Semester ${semesterIndex + 1} (${semester})`}
-                  style={{ boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}
-                >
-                  <Row gutter={[16, 16]}>
-                    {[0, 1, 2, 3].map(courseIndex => (
-                      <Col xs={24} sm={12} md={12} lg={6} xl={6} key={courseIndex}>
-                        <SemesterCell
-                          semesterId={`${semester}-${semesterIndex}`}
-                          courseIndex={courseIndex}
-                          allowedSemester={semester as 'S1' | 'S2' | 'S1S2'}
-                        />
-                      </Col>
-                    ))}
-                  </Row>
-                </Card>
-              ))}
+              <div ref={captureRef}>
+                {semesters.map((semester, semesterIndex) => (
+                  <Card
+                    key={semesterIndex}
+                    title={`Semester ${semesterIndex + 1} (${semester})`}
+                    style={{ boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}
+                  >
+                    <Row gutter={[16, 16]}>
+                      {[0, 1, 2, 3].map(courseIndex => (
+                        <Col xs={24} sm={12} md={12} lg={6} xl={6} key={courseIndex}>
+                          <SemesterCell
+                            semesterId={`${semester}-${semesterIndex}`}
+                            courseIndex={courseIndex}
+                            allowedSemester={semester as 'S1' | 'S2' | 'S1S2'}
+                          />
+                        </Col>
+                      ))}
+                    </Row>
+                  </Card>
+                ))}
+              </div>
             </Space>
           </Content>
         </Layout>

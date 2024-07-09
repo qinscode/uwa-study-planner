@@ -15,7 +15,7 @@ const App: React.FC = () => {
     <Provider store={store}>
       <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
         <Layout style={{ minHeight: '100vh' }}>
-          <Content style={{ paddingTop: '20px' }}>
+          <Content style={{ paddingTop: '20px', paddingBottom: '35px', background: '#fff' }}>
             <SemesterGrid />
           </Content>
           <Footer
@@ -23,8 +23,9 @@ const App: React.FC = () => {
               textAlign: 'center',
               background: '#fff',
               borderTop: '1px solid rgba(0, 0, 0, 0.1)',
-              padding: '20px 0',
-              marginTop: '20px',
+              // padding: '20px 0',
+              // marginTop: '20px',
+              // marginBottom: '0',
             }}
           >
             <Text type="secondary">

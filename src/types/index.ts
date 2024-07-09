@@ -9,6 +9,7 @@ export interface Course {
 }
 
 export interface SemesterCourse {
+  type?: string
   semesterId: string
   course: Course
 }

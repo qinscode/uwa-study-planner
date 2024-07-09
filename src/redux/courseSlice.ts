@@ -11,7 +11,6 @@ const testCourses: Course[] = [
     name: 'Introduction to Cybersecurity',
     type: 'conversion',
     recommendedSemester: 'S1',
-    prereq: [],
   },
   {
     id: '2',
@@ -19,7 +18,6 @@ const testCourses: Course[] = [
     name: 'Computational Thinking with Python',
     type: 'conversion',
     recommendedSemester: 'S1S2',
-    prereq: [],
   },
   {
     id: '3',
@@ -27,7 +25,6 @@ const testCourses: Course[] = [
     name: 'Relational Database Management Systems',
     type: 'conversion',
     recommendedSemester: 'S1S2',
-    prereq: [],
   },
   {
     id: '10',
@@ -55,7 +52,6 @@ const testCourses: Course[] = [
     name: 'Project Management and Engineering Practice',
     type: 'core',
     recommendedSemester: 'S1S2',
-    prereq: [],
   },
   {
     id: '38',
@@ -90,7 +86,6 @@ const testCourses: Course[] = [
     name: 'Open Source Tools and Scripting',
     type: 'core',
     recommendedSemester: 'S1',
-    prereq: [],
   },
   {
     id: '43',
@@ -99,7 +94,6 @@ const testCourses: Course[] = [
     type: 'core',
     recommendedSemester: 'S2',
     note: 'CITS2002 or CITS2005',
-    prereq: ['CITS2002', 'CITS2005'],
   },
   {
     id: '44',
@@ -108,7 +102,6 @@ const testCourses: Course[] = [
     type: 'core',
     recommendedSemester: 'S2',
     note: 'CITS2002 or CITS2005',
-    prereq: ['CITS2002', 'CITS2005'],
   },
   {
     id: '45',
@@ -117,7 +110,6 @@ const testCourses: Course[] = [
     type: 'core',
     recommendedSemester: 'S1S2',
     note: '48 points of L4/5 units AND CITS5505',
-    prereq: [],
   },
   {
     id: '46',
@@ -125,7 +117,6 @@ const testCourses: Course[] = [
     name: 'Ethics and Critical Thinking',
     type: 'core',
     recommendedSemester: 'S1S2',
-    prereq: [],
   },
 
   // Option Courses
@@ -145,7 +136,6 @@ const testCourses: Course[] = [
     type: 'option',
     recommendedSemester: 'S2',
     note: '',
-    prereq: [],
   },
   {
     id: '17',
@@ -163,7 +153,6 @@ const testCourses: Course[] = [
     type: 'option',
     recommendedSemester: 'S2',
     note: '',
-    prereq: [],
   },
   {
     id: '19',
@@ -181,7 +170,6 @@ const testCourses: Course[] = [
     type: 'option',
     recommendedSemester: 'S1',
     note: '',
-    prereq: [],
   },
   {
     id: '21',
@@ -217,7 +205,6 @@ const testCourses: Course[] = [
     type: 'option',
     recommendedSemester: '',
     note: '',
-    prereq: [],
   },
   {
     id: '25',
@@ -235,7 +222,6 @@ const testCourses: Course[] = [
     type: 'option',
     recommendedSemester: 'S1',
     note: '',
-    prereq: [],
   },
   {
     id: '27',
@@ -253,7 +239,6 @@ const testCourses: Course[] = [
     type: 'option',
     recommendedSemester: 'S1',
     note: '',
-    prereq: [],
   },
   {
     id: '29',
@@ -271,7 +256,6 @@ const testCourses: Course[] = [
     type: 'option',
     recommendedSemester: 'S1S2',
     note: 'Research program units are by invitation only. Requires a minimum WAM of 70.',
-    prereq: [],
   },
   {
     id: '31',
@@ -280,7 +264,6 @@ const testCourses: Course[] = [
     type: 'option',
     recommendedSemester: 'S1S2',
     note: 'Research program units are by invitation only. Requires a minimum WAM of 70.',
-    prereq: [],
   },
   {
     id: '32',
@@ -289,7 +272,6 @@ const testCourses: Course[] = [
     type: 'option',
     recommendedSemester: 'S1S2',
     note: 'Requires Expression of Interest (EOI) application.',
-    prereq: [],
   },
   {
     id: '33',
@@ -298,7 +280,6 @@ const testCourses: Course[] = [
     type: 'option',
     recommendedSemester: 'S1',
     note: '',
-    prereq: [],
   },
 ]
 
@@ -338,8 +319,13 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
   const hasCITS4009 = updatedSelectedCourses.some(c => c.course.code === 'CITS4009')
   const hasINMT5518 = updatedSelectedCourses.some(c => c.course.code === 'INMT5518')
 
+  console.log('newCourse.code', newCourse.code)
+
   if (newCourse.code === 'CITS5501' && !hasCITS2002 && !hasCITS2005) {
     message.error('You must select either CITS2002 or CITS2005 before CITS5501.')
+    console.log('hasCITS2005', hasCITS2005)
+    console.log('hasCITS2002', hasCITS2002)
+
     return false
   }
 
@@ -400,8 +386,6 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
     message.error('You cannot select both CITS2002 and CITS2005.')
     return false
   }
-
-  console.log('isValidSelection', newCourse)
 
   return true
 }

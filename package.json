@@ -7,6 +7,8 @@
     "@reduxjs/toolkit": "^1.9.2",
     "@types/react-dom": "^18.0.10",
     "antd": "^5.18.3",
+    "html-to-image": "^1.11.11",
+    "html2canvas": "^1.4.1",
     "mockjs": "^1.1.0",
     "pm2": "^5.4.2",
     "qrcode.react": "^3.1.0",
