@@ -90,7 +90,7 @@ const SemesterGrid: React.FC = () => {
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <BookOutlined style={{ fontSize: '24px', marginRight: '10px', color: '#1890ff' }} />
-          <Title level={3} style={{ margin: 0, color: '#1890ff' }}>
+          <Title level={3} style={{ margin: 0, color: 'black' }}>
             UWA MIT Study Planner
           </Title>
         </div>
