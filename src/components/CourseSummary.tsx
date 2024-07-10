@@ -13,8 +13,10 @@ interface CourseSummaryProps {
   handleLoadStudyPlan: () => void
   handleYearChange: (value: string) => void
   handleSemesterChange: (value: string) => void
+  handleProgramChange: (value: string) => void
   selectedYear: string
   selectedSemester: string
+  selectedProgram: string
 }
 
 const CourseSummary: React.FC<CourseSummaryProps> = ({
@@ -26,8 +28,10 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
   handleLoadStudyPlan,
   handleYearChange,
   handleSemesterChange,
+  handleProgramChange,
   selectedYear,
   selectedSemester,
+  selectedProgram,
 }) => {
   const coreCoursesCount = selectedCourses.filter(course => course['course'].type === 'core').length
   const optionCoursesCount = selectedCourses.filter(
@@ -50,7 +54,6 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
             </Space>
           </Title>
           <Divider />
-
           <div>
             <Space size="large">
               <Switch
@@ -69,7 +72,6 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
               </Space>
             </Space>
           </div>
-
           <div style={{ marginTop: '0' }}>
             <Divider />
             <Title level={4} className="course-summary-title">
@@ -79,7 +81,6 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
               <Space>
                 <Select
                   value={selectedYear}
-                  style={{ width: 120 }}
                   onChange={handleYearChange}
                   options={[
                     { value: '2024', label: '2024' },
@@ -93,6 +94,15 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
                   options={[
                     { value: 's1', label: 'Semester 1' },
                     { value: 's2', label: 'Semester 2' },
+                  ]}
+                />
+                <Select
+                  value={selectedProgram}
+                  onChange={handleProgramChange}
+                  disabled={selectedYear === '2024'}
+                  options={[
+                    { value: 'ss', label: 'Software Systems' },
+                    { value: 'ai', label: 'Artificial Intelligence' },
                   ]}
                 />
                 <Button type="primary" onClick={handleLoadStudyPlan}>

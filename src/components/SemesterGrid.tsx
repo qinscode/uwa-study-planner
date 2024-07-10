@@ -20,6 +20,7 @@ const SemesterGrid: React.FC = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
   const [selectedYear, setSelectedYear] = useState('2024')
   const [selectedSemester, setSelectedSemester] = useState('s1')
+  const [selectedProgram, setSelectedProgram] = useState('Select specific program')
   const selectedCourses = useSelector((state: RootState) => state.courses.selectedCourses)
   const dispatch = useDispatch()
 
@@ -44,6 +45,7 @@ const SemesterGrid: React.FC = () => {
       loadStudyPlan({
         year: selectedYear,
         semester: selectedSemester,
+        // program: selectedProgram,
         startWithS2: startWithS2,
       })
     )
@@ -55,6 +57,10 @@ const SemesterGrid: React.FC = () => {
 
   const handleSemesterChange = (value: string) => {
     setSelectedSemester(value)
+  }
+
+  const handleProgramChange = (value: string) => {
+    setSelectedProgram(value)
   }
 
   const handleSwitch = () => {
@@ -129,8 +135,10 @@ const SemesterGrid: React.FC = () => {
                 handleLoadStudyPlan={handleLoadStudyPlan}
                 handleYearChange={handleYearChange}
                 handleSemesterChange={handleSemesterChange}
+                handleProgramChange={handleProgramChange}
                 selectedYear={selectedYear}
                 selectedSemester={selectedSemester}
+                selectedProgram={selectedProgram}
               />
               {semesters.map((semester, semesterIndex) => (
                 <SemesterCard
