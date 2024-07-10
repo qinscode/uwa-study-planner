@@ -44,8 +44,8 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
         if (startWithS2) {
           // If starting with S2, we need to flip the semesters
           return (
-            (allowedSemester === 'S2' && courseAllowedSemester === 'S1') ||
-            (allowedSemester === 'S1' && courseAllowedSemester === 'S2')
+            (allowedSemester === 'S2' && courseAllowedSemester === 'S2') ||
+            (allowedSemester === 'S1' && courseAllowedSemester === 'S1')
           )
         } else {
           // If starting with S1, semesters align normally
@@ -61,7 +61,7 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
       }),
     }),
     [semesterId, allowedSemester, startWithS2]
-  ) // Add dependencies here
+  )
 
   const course = selectedCourses[courseIndex]
 
