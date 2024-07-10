@@ -6,7 +6,6 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { store } from './redux/store'
 import App from './App'
 import './index.css'
-import DraggableCard from './DraggableCard'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
