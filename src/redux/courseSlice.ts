@@ -225,10 +225,10 @@ const courseSlice = createSlice({
       const planCourses = studyPlans[year]?.[semester]
       if (planCourses) {
         const semesterIds = [
-          `${startWithS2 ? 'S2' : 'S1'}-0-S1`,
-          `${startWithS2 ? 'S2' : 'S1'}-0-S2`,
-          `${startWithS2 ? 'S2' : 'S1'}-1-S1`,
-          `${startWithS2 ? 'S2' : 'S1'}-1-S2`,
+          `${startWithS2 ? 'S2' : 'S1'}-0-${startWithS2 ? 'S2' : 'S1'}`,
+          `${startWithS2 ? 'S2' : 'S1'}-0-${!startWithS2 ? 'S2' : 'S1'}`,
+          `${startWithS2 ? 'S2' : 'S1'}-1-${startWithS2 ? 'S2' : 'S1'}`,
+          `${startWithS2 ? 'S2' : 'S1'}-1-${!startWithS2 ? 'S2' : 'S1'}`,
         ]
 
         let currentSemesterIndex = 0
