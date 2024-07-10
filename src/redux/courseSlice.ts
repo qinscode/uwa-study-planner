@@ -10,7 +10,7 @@ const testCourses: Course[] = [
     code: 'CITS1003',
     name: 'Introduction to Cybersecurity',
     type: 'conversion',
-    recommendedSemester: 'S1',
+    recommendedSemester: 'S1S2',
   },
   {
     id: '2',
