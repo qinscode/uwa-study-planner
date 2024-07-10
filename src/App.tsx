@@ -29,8 +29,8 @@ const App: React.FC = () => {
             }}
           >
             <Text type="secondary">
-              UWA MIT Study Planner • ©2024 Created by Jack Qin V4.3 <br /> React • Redux •
-              AntDesign
+              UWA MIT Study Planner • ©2024 Created by Jack Qin
+              <br /> React • Redux • AntDesign
               <br /> Email: jack@fudongs.com
             </Text>
           </Footer>
