@@ -327,6 +327,11 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
   const hasCITS4009 = updatedSelectedCourses.some(c => c.course.code === 'CITS4009')
   const hasINMT5518 = updatedSelectedCourses.some(c => c.course.code === 'INMT5518')
 
+  if (optionCount > 4) {
+    message.error('You cannot select more than 4 option courses.')
+    return false
+  }
+
   if (newCourse.code === 'CITS5501' && !hasCITS2002 && !hasCITS2005) {
     message.error('You must select either CITS2002 or CITS2005 before CITS5501.')
     return false
@@ -337,7 +342,11 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
   }
 
   if (newCourse.code === 'GENG5505') {
-    message.warning('GENG5505 will be removed from 2025S1. Use PHIL4100 instead.')
+    message.warning({
+      content:
+        "GENG5505 will be removed from 2025S1. Try to take PHIL4100 instead if you haven't taken GENG5505.",
+      duration: 5,
+    })
   }
 
   if (newCourse.code === 'PHIL4100') {
