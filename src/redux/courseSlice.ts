@@ -89,6 +89,13 @@ const testCourses: Course[] = [
     recommendedSemester: 'S1',
   },
   {
+    id: '99',
+    code: 'CITS4407',
+    name: 'Open Source Tools and Scripting',
+    type: 'core',
+    recommendedSemester: 'S1',
+  },
+  {
     id: '43',
     code: 'CITS5501',
     name: 'Software Testing and Quality Assurance',
@@ -325,9 +332,20 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
     return false
   }
 
-  if (newCourse.code === 'CITS5503' && !hasCITS2002 && !hasCITS2005) {
-    message.error('You must select either CITS2002 or CITS2005 before CITS5503.')
-    return false
+  if (newCourse.code === 'CITS5501' && !hasCITS2002 && !hasCITS2005) {
+    message.error('You must select either CITS2002 or CITS2005 before CITS5501.')
+  }
+
+  if (newCourse.code === 'GENG5505') {
+    message.warning('GENG5505 will be removed from 2025S1. Use PHIL4100 instead.')
+  }
+
+  if (newCourse.code === 'PHIL4100') {
+    message.warning('PHIL4100 will be available from 2025S1.')
+  }
+
+  if (newCourse.code === 'CITS4407') {
+    message.warning('CITS4407 will be option course from 2025S1.')
   }
 
   if (newCourse.code === 'CITS5504' && (!hasCITS1401 || !hasCITS1402)) {
@@ -414,6 +432,9 @@ const courseSlice = createSlice({
         course,
       }
       if (!checkprerequisites(state, course)) {
+        return
+      }
+      if (!isValidSelection(state, course)) {
         return
       }
       state.selectedCourses.push(newSemesterCourse)
