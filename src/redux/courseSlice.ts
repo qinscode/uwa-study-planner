@@ -2,6 +2,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Course, SemesterCourse, CourseState } from '../types'
 import { message } from 'antd'
+import { v4 as uuidv4 } from 'uuid' // 需要安装uuid包
 
 const testCourses: Course[] = [
   // Conversion Courses
@@ -319,13 +320,8 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
   const hasCITS4009 = updatedSelectedCourses.some(c => c.course.code === 'CITS4009')
   const hasINMT5518 = updatedSelectedCourses.some(c => c.course.code === 'INMT5518')
 
-  console.log('newCourse.code', newCourse.code)
-
   if (newCourse.code === 'CITS5501' && !hasCITS2002 && !hasCITS2005) {
     message.error('You must select either CITS2002 or CITS2005 before CITS5501.')
-    console.log('hasCITS2005', hasCITS2005)
-    console.log('hasCITS2002', hasCITS2002)
-
     return false
   }
 
@@ -377,11 +373,6 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
     return false
   }
 
-  // if (optionCount > 4) {
-  //   message.error('You cannot select more than 4 option courses.')
-  //   return false
-  // }
-
   if (hasCITS2002 && hasCITS2005) {
     message.error('You cannot select both CITS2002 and CITS2005.')
     return false
@@ -402,44 +393,75 @@ const checkprerequisites = (state: CourseState, newCourse: Course): boolean => {
   return true
 }
 
+const getStringAfterSecondDash = (input: string): string => {
+  const parts = input.split('-')
+  return parts.length > 2 ? parts.slice(2).join('-') : ''
+}
+
 const courseSlice = createSlice({
   name: 'courses',
   initialState,
   reducers: {
-    addCourseToSemester: (state, action: PayloadAction<SemesterCourse>) => {
-      if (
-        isValidSelection(state, action.payload.course) &&
-        checkprerequisites(state, action.payload.course)
-      ) {
-        state.selectedCourses.push(action.payload)
-        state.availableCourses = sortCourses(
-          state.availableCourses.filter(course => course.id !== action.payload.course.id)
-        )
-        saveStateToLocalStorage(state) // 保存到 localStorage
+    addCourseToSemester: (
+      state,
+      action: PayloadAction<{ semesterId: string; course: Course; position: number }>
+    ) => {
+      const { semesterId, course, position } = action.payload
+      const newSemesterCourse: SemesterCourse = {
+        id: uuidv4(),
+        semesterId,
+        position,
+        course,
+      }
+      if (!checkprerequisites(state, course)) {
+        return
+      }
+      state.selectedCourses.push(newSemesterCourse)
+      state.availableCourses = state.availableCourses.filter(c => c.id !== course.id)
+    },
+    removeCourseFromSemester: (state, action: PayloadAction<{ id: string }>) => {
+      const courseToRemove = state.selectedCourses.find(c => c.id === action.payload.id)
+      if (courseToRemove) {
+        state.availableCourses.push(courseToRemove.course)
+        state.selectedCourses = state.selectedCourses.filter(c => c.id !== action.payload.id)
       }
     },
-    removeCourseFromSemester: (state, action: PayloadAction<SemesterCourse>) => {
-      state.selectedCourses = state.selectedCourses.filter(
-        course =>
-          !(
-            course.semesterId === action.payload.semesterId &&
-            course.course.id === action.payload.course.id
-          )
-      )
-      state.availableCourses = sortCourses([...state.availableCourses, action.payload.course])
-      saveStateToLocalStorage(state) // 保存到 localStorage
+    moveCourse: (
+      state,
+      action: PayloadAction<{ id: string; newSemesterId: string; newPosition: number }>
+    ) => {
+      const { id, newSemesterId, newPosition } = action.payload
+      const courseIndex = state.selectedCourses.findIndex(c => c.id === id)
+      if (courseIndex !== -1) {
+        const course = state.selectedCourses[courseIndex]
+        state.selectedCourses.splice(courseIndex, 1)
+
+        const courseSemester = getStringAfterSecondDash(course.semesterId)
+        const newSemester = getStringAfterSecondDash(newSemesterId)
+
+        const recommendedSemester = course.course.recommendedSemester
+
+        if (recommendedSemester !== 'S1S2' && recommendedSemester !== newSemester) {
+          message.error(`${course.course.code} is recommended for ${recommendedSemester}.`)
+          return
+        }
+
+        course.semesterId = newSemesterId
+
+        course.position = newPosition
+        state.selectedCourses.push(course)
+      }
     },
     clearSelectedCourses: state => {
-      state.availableCourses = sortCourses([
+      state.availableCourses = [
         ...state.availableCourses,
         ...state.selectedCourses.map(sc => sc.course),
-      ])
+      ]
       state.selectedCourses = []
-      saveStateToLocalStorage(state) // 保存到 localStorage
     },
   },
 })
 
-export const { addCourseToSemester, removeCourseFromSemester, clearSelectedCourses } =
+export const { addCourseToSemester, removeCourseFromSemester, moveCourse, clearSelectedCourses } =
   courseSlice.actions
 export default courseSlice.reducer

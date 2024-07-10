@@ -1,10 +1,9 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useDrop } from 'react-dnd'
+import { useDispatch } from 'react-redux'
+import { useDrop, useDrag } from 'react-dnd'
 import { Card, Tag, Typography } from 'antd'
-import { RootState } from '../redux/store'
-import { addCourseToSemester, removeCourseFromSemester } from '../redux/courseSlice'
-import { Course } from '../types'
+import { addCourseToSemester, removeCourseFromSemester, moveCourse } from '../redux/courseSlice'
+import { Course, SemesterCourse } from '../types'
 
 const { Text, Paragraph } = Typography
 
@@ -18,67 +17,91 @@ const typeColors: Record<CourseType, string> = {
 
 interface SemesterCellProps {
   semesterId: string
-  courseIndex: number
+  position: number
+  course?: SemesterCourse
   allowedSemester: 'S1' | 'S2' | 'S1S2'
   startWithS2: boolean
 }
 
 const SemesterCell: React.FC<SemesterCellProps> = ({
   semesterId,
-  courseIndex,
+  position,
+  course,
   allowedSemester,
   startWithS2,
 }) => {
   const dispatch = useDispatch()
-  const selectedCourses = useSelector((state: RootState) =>
-    state.courses.selectedCourses.filter(course => course.semesterId === semesterId)
+
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: 'SEMESTER_COURSE',
+      item: { id: course?.id, type: 'SEMESTER_COURSE' },
+      collect: monitor => ({
+        isDragging: !!monitor.isDragging(),
+      }),
+    }),
+    [course]
   )
 
   const [{ isOver, canDrop }, drop] = useDrop(
     () => ({
-      accept: 'COURSE',
-      canDrop: (item: { course: Course }) => {
+      accept: ['COURSE', 'SEMESTER_COURSE'],
+      canDrop: (item: { course?: Course; type: string }) => {
+        if (item.type === 'SEMESTER_COURSE') return true
+        if (!item.course) return false
+
         const courseAllowedSemester = item.course.recommendedSemester
         if (courseAllowedSemester === 'S1S2') return true
 
         if (startWithS2) {
-          // If starting with S2, we need to flip the semesters
           return (
             (allowedSemester === 'S2' && courseAllowedSemester === 'S2') ||
             (allowedSemester === 'S1' && courseAllowedSemester === 'S1')
           )
         } else {
-          // If starting with S1, semesters align normally
           return allowedSemester === courseAllowedSemester
         }
       },
-      drop: (item: { course: Course }) => {
-        dispatch(addCourseToSemester({ semesterId, course: item.course }))
+      drop: (item: { id?: string; course?: Course; type: string }) => {
+        const getStringAfterSecondDash = (input: string): string => {
+          const parts = input.split('-')
+          return parts.length > 2 ? parts.slice(2).join('-') : ''
+        }
+
+        const newSemester = getStringAfterSecondDash(semesterId)
+
+        // console.log('recommendedSemester', course?.course.recommendedSemester)
+        // // console.log('position', position)
+        // console.log('newSemester', newSemester)
+
+        if (item.type === 'SEMESTER_COURSE' && item.id) {
+          dispatch(moveCourse({ id: item.id, newSemesterId: semesterId, newPosition: position }))
+        } else if (item.course) {
+          dispatch(addCourseToSemester({ semesterId, course: item.course, position }))
+        }
       },
       collect: monitor => ({
         isOver: !!monitor.isOver(),
         canDrop: !!monitor.canDrop(),
       }),
     }),
-    [semesterId, allowedSemester, startWithS2]
+    [semesterId, position, allowedSemester, startWithS2]
   )
-
-  const course = selectedCourses[courseIndex]
 
   const handleRemoveCourse = () => {
     if (course) {
-      dispatch(removeCourseFromSemester({ semesterId, course: course.course }))
+      dispatch(removeCourseFromSemester({ id: course.id }))
     }
   }
 
   const backgroundColor =
-    course && course.course.type && course.course.type in typeColors
+    course?.course.type && course.course.type in typeColors
       ? typeColors[course.course.type as CourseType]
       : 'white'
 
   return (
     <div
-      ref={drop}
+      ref={node => drag(drop(node))}
       style={{
         height: '100%',
         minHeight: 120,
@@ -86,6 +109,7 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
         borderRadius: 4,
         padding: 8,
         background: isOver && canDrop ? '#e6f7ff' : canDrop ? '#f0f5ff' : 'white',
+        opacity: isDragging ? 0.5 : 1,
       }}
     >
       {course ? (
