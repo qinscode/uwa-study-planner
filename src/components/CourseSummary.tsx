@@ -7,7 +7,7 @@ const { Title } = Typography
 interface CourseSummaryProps {
   selectedCourses: any[]
   startWithS2: boolean
-  handleStartSemesterChange: (checked: boolean) => void
+  handleSwitch: (checked: boolean) => void
   handleExportTable: () => void
   handleClearTable: () => void
   handleLoadStudyPlan: () => void
@@ -20,7 +20,7 @@ interface CourseSummaryProps {
 const CourseSummary: React.FC<CourseSummaryProps> = ({
   selectedCourses,
   startWithS2,
-  handleStartSemesterChange,
+  handleSwitch,
   handleExportTable,
   handleClearTable,
   handleLoadStudyPlan,
@@ -57,7 +57,7 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
                 checkedChildren="S2 Start"
                 unCheckedChildren="S1 Start"
                 checked={startWithS2}
-                onChange={handleStartSemesterChange}
+                onChange={handleSwitch}
               />
               <Button onClick={handleExportTable} type="primary">
                 Download

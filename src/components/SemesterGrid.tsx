@@ -14,7 +14,7 @@ import CourseSelector from './CourseSelector'
 const { Content } = Layout
 
 const SemesterGrid: React.FC = () => {
-  const [startWithS2, setStartWithS2] = useState(false)
+  const [semesters, setSemesters] = useState(['S1', 'S2', 'S1', 'S2'])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [drawerVisible, setDrawerVisible] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
@@ -22,9 +22,6 @@ const SemesterGrid: React.FC = () => {
   const [selectedSemester, setSelectedSemester] = useState('s1')
   const selectedCourses = useSelector((state: RootState) => state.courses.selectedCourses)
   const dispatch = useDispatch()
-  const [tempStartWithS2, setTempStartWithS2] = useState(false)
-
-  const semesters = startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S2']
 
   const captureRef = useRef<HTMLDivElement>(null)
 
@@ -38,12 +35,11 @@ const SemesterGrid: React.FC = () => {
   }, [])
 
   const handleLoadStudyPlan = () => {
-    setStartWithS2(tempStartWithS2)
     dispatch(
       loadStudyPlan({
         year: selectedYear,
         semester: selectedSemester,
-        startWithS2: tempStartWithS2,
+        startWithS2: semesters[0] === 'S2',
       })
     )
   }
@@ -51,15 +47,22 @@ const SemesterGrid: React.FC = () => {
   const handleYearChange = (value: string) => {
     setSelectedYear(value)
   }
+
   const handleSemesterChange = (value: string) => {
     setSelectedSemester(value)
-    setTempStartWithS2(value === 's2')
   }
 
-  const handleStartSemesterChange = (checked: boolean) => {
-    setTempStartWithS2(checked)
-    setSelectedSemester(checked ? 's2' : 's1')
+  const handleSwitch = () => {
+    setSemesters(prevSemesters => {
+      const newSemesters = [...prevSemesters]
+      for (let i = 0; i < newSemesters.length; i++) {
+        newSemesters[i] = newSemesters[i] === 'S1' ? 'S2' : 'S1'
+      }
+      return newSemesters
+    })
+    dispatch(clearSelectedCourses())
   }
+
   const handleClearTable = () => {
     setIsModalOpen(true)
   }
@@ -114,8 +117,8 @@ const SemesterGrid: React.FC = () => {
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
               <CourseSummary
                 selectedCourses={selectedCourses}
-                startWithS2={tempStartWithS2}
-                handleStartSemesterChange={handleStartSemesterChange}
+                startWithS2={semesters[0] === 'S2'}
+                handleSwitch={handleSwitch}
                 handleExportTable={handleExportTable}
                 handleClearTable={handleClearTable}
                 handleLoadStudyPlan={handleLoadStudyPlan}
@@ -129,7 +132,7 @@ const SemesterGrid: React.FC = () => {
                   key={semesterIndex}
                   semester={semester}
                   semesterIndex={semesterIndex}
-                  startWithS2={startWithS2}
+                  startWithS2={semesters[0] === 'S2'}
                 />
               ))}
             </Space>
