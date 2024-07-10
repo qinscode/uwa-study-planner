@@ -84,7 +84,7 @@ const testCourses: Course[] = [
     id: '42',
     code: 'CITS4407',
     name: 'Open Source Tools and Scripting',
-    type: 'core',
+    type: 'option',
     recommendedSemester: 'S1',
   },
   {
