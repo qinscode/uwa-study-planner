@@ -4,7 +4,7 @@ import { useDrop } from 'react-dnd'
 import { Card, Tag, Typography } from 'antd'
 import { RootState } from '../redux/store'
 import { addCourseToSemester, removeCourseFromSemester } from '../redux/courseSlice'
-import { Course, SemesterCourse } from '../types'
+import { Course } from '../types'
 
 const { Text, Paragraph } = Typography
 
