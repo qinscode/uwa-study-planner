@@ -63,13 +63,6 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
         }
       },
       drop: (item: { id?: string; course?: Course; type: string }) => {
-        const getStringAfterSecondDash = (input: string): string => {
-          const parts = input.split('-')
-          return parts.length > 2 ? parts.slice(2).join('-') : ''
-        }
-
-        const newSemester = getStringAfterSecondDash(semesterId)
-
         if (item.type === 'SEMESTER_COURSE' && item.id) {
           dispatch(moveCourse({ id: item.id, newSemesterId: semesterId, newPosition: position }))
         } else if (item.course) {
