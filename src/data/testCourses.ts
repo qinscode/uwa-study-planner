@@ -1,4 +1,5 @@
 import { Course } from '../types'
+
 const testCourses: Course[] = [
   // Conversion Courses
   {
@@ -301,8 +302,12 @@ export const getCourseByCodeAndType = (
     .filter(course => course !== undefined) as Course[]
 }
 
-export const getCourseByCode = (codes: string[]): Course[] => {
-  return codes
-    .map(code => testCourses.find(course => course.code === code))
-    .filter(course => course !== undefined) as Course[]
+export const getCourseByCode = (codes: string[]): (Course | null)[] => {
+  return codes.map(code => {
+    if (code === '') {
+      return null
+    } else {
+      return testCourses.find(course => course.code === code) || null
+    }
+  })
 }

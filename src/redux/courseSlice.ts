@@ -235,6 +235,16 @@ const courseSlice = createSlice({
         let position = 0
 
         planCourses.forEach((course, index) => {
+          if (course === null) {
+            // Skip this position
+            position++
+            if (position >= 4) {
+              position = 0
+              currentSemesterIndex++
+            }
+            return
+          }
+
           const existingCourse = state.availableCourses.find(c => c.code === course.code)
           if (existingCourse) {
             if (position >= 4) {
