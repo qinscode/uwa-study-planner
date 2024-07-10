@@ -8,3 +8,15 @@
       }
     }
   }
+
+  @media only screen and (max-width: 600px) {
+  .responsive-space {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .responsive-space > * {
+    flex: 1 1 100%;
+    margin-bottom: 8px;
+  }
+}

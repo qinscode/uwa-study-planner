@@ -77,38 +77,36 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
             <Title level={4} className="course-summary-title">
               <div>(Experimental feature) Want to Load Official Study Plan from Handbook?</div>
             </Title>
-            <Space>
-              <Space>
-                <Select
-                  value={selectedYear}
-                  onChange={handleYearChange}
-                  options={[
-                    { value: '2024', label: '2024' },
-                    { value: '2025', label: '2025' },
-                  ]}
-                />
-                <Select
-                  value={selectedSemester}
-                  style={{ width: 120 }}
-                  onChange={handleSemesterChange}
-                  options={[
-                    { value: 's1', label: 'Semester 1' },
-                    { value: 's2', label: 'Semester 2' },
-                  ]}
-                />
-                <Select
-                  value={selectedProgram}
-                  onChange={handleProgramChange}
-                  disabled={selectedYear === '2024'}
-                  options={[
-                    { value: 'ss', label: 'Software Systems' },
-                    { value: 'ai', label: 'Artificial Intelligence' },
-                  ]}
-                />
-                <Button type="primary" onClick={handleLoadStudyPlan}>
-                  Load
-                </Button>
-              </Space>
+            <Space className="responsive-space">
+              <Select
+                value={selectedYear}
+                onChange={handleYearChange}
+                options={[
+                  { value: '2024', label: '2024' },
+                  { value: '2025', label: '2025' },
+                ]}
+              />
+              <Select
+                value={selectedSemester}
+                style={{ width: 120 }}
+                onChange={handleSemesterChange}
+                options={[
+                  { value: 's1', label: 'Semester 1' },
+                  { value: 's2', label: 'Semester 2' },
+                ]}
+              />
+              <Select
+                value={selectedProgram}
+                onChange={handleProgramChange}
+                disabled={selectedYear === '2024'}
+                options={[
+                  { value: 'ss', label: 'Software Systems' },
+                  { value: 'ai', label: 'Artificial Intelligence' },
+                ]}
+              />
+              <Button type="primary" onClick={handleLoadStudyPlan}>
+                Load
+              </Button>
             </Space>
           </div>
         </Col>
