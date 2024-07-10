@@ -10,8 +10,24 @@ interface StudyPlan {
 // 定义 studyPlans 数据
 const studyPlans: StudyPlan = {
   '2024': {
-    s1: getCourseByCode(['CITS1003', 'CITS1401', 'CITS1402', 'MGMT5504', 'CITS2002']) as Course[],
-    s2: getCourseByCode(['CITS1003', 'CITS1401']) as Course[],
+    s1: getCourseByCode([
+      'CITS1003',
+      'CITS1401',
+      'CITS1402',
+      'CITS5014',
+      'CITS5015',
+      'PHIL4100',
+      'SVLG5001',
+    ]) as Course[],
+    s2: getCourseByCode([
+      'CITS1003',
+      'CITS1401',
+      'CITS1402',
+      'CITS5014',
+      'CITS5015',
+      'PHIL4100',
+      'SVLG5001',
+    ]) as Course[],
   },
   '2025': {},
 }
