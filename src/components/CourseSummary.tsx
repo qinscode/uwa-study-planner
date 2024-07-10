@@ -1,16 +1,20 @@
 import React from 'react'
-import { Row, Col, Typography, Space, Switch, Button } from 'antd'
-import './CourseSummary.scss' // 引入自定义的SCSS文件
+import { Row, Col, Typography, Space, Switch, Button, Select, Divider } from 'antd'
+import './CourseSummary.scss'
 
 const { Title } = Typography
 
 interface CourseSummaryProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedCourses: any[]
   startWithS2: boolean
   handleStartSemesterChange: (checked: boolean) => void
   handleExportTable: () => void
   handleClearTable: () => void
+  handleLoadStudyPlan: () => void
+  handleYearChange: (value: string) => void
+  handleSemesterChange: (value: string) => void
+  selectedYear: string
+  selectedSemester: string
 }
 
 const CourseSummary: React.FC<CourseSummaryProps> = ({
@@ -19,6 +23,11 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
   handleStartSemesterChange,
   handleExportTable,
   handleClearTable,
+  handleLoadStudyPlan,
+  handleYearChange,
+  handleSemesterChange,
+  selectedYear,
+  selectedSemester,
 }) => {
   const coreCoursesCount = selectedCourses.filter(course => course['course'].type === 'core').length
   const optionCoursesCount = selectedCourses.filter(
@@ -40,6 +49,8 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
               <div>Option: {optionCoursesCount}</div>
             </Space>
           </Title>
+          <Divider />
+
           <div>
             <Space size="large">
               <Switch
@@ -49,17 +60,47 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
                 onChange={handleStartSemesterChange}
               />
               <Button onClick={handleExportTable} type="primary">
-                Export
+                Download
               </Button>
+              <Space size="large">
+                <Button onClick={handleClearTable} danger>
+                  Clear
+                </Button>
+              </Space>
             </Space>
           </div>
-        </Col>
-        <Col>
-          <Space size="large">
-            <Button onClick={handleClearTable} danger>
-              Clear
-            </Button>
-          </Space>
+
+          <div style={{ marginTop: '0' }}>
+            <Divider />
+            <Title level={4} className="course-summary-title">
+              <div>(Experimental feature) Want to Load Official Study Plan from Handbook?</div>
+            </Title>
+            <Space>
+              <Space>
+                <Select
+                  value={selectedYear}
+                  style={{ width: 120 }}
+                  onChange={handleYearChange}
+                  options={[
+                    { value: '2024', label: '2024' },
+                    { value: '2025', label: '2025' },
+                  ]}
+                />
+                <Select
+                  value={selectedSemester}
+                  style={{ width: 120 }}
+                  onChange={handleSemesterChange}
+                  options={[
+                    { value: 's1', label: 'Semester 1' },
+                    { value: 's2', label: 'Semester 2' },
+                  ]}
+                />
+                <Button type="primary" onClick={handleLoadStudyPlan}>
+                  Load
+                </Button>
+              </Space>
+            </Space>
+          </div>
         </Col>
       </Row>
     </>
