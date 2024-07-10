@@ -23,6 +23,7 @@
         "qrcode",
         "reduxjs",
         "Sider",
-        "SVLG"
+        "SVLG",
+        "uuidv"
     ],
 }

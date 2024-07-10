@@ -23,9 +23,6 @@ const App: React.FC = () => {
               textAlign: 'center',
               background: '#fff',
               borderTop: '1px solid rgba(0, 0, 0, 0.1)',
-              // padding: '20px 0',
-              // marginTop: '20px',
-              // marginBottom: '0',
             }}
           >
             <Text type="secondary">

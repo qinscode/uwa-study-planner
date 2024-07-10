@@ -10,6 +10,8 @@ import CourseSummary from './CourseSummary'
 import SemesterCard from './SemesterCard'
 import ClearModal from './ClearModal'
 import CourseSelector from './CourseSelector'
+import { DndProvider } from 'react-dnd'
+import { TouchBackend } from 'react-dnd-touch-backend'
 
 const { Content } = Layout
 
@@ -81,48 +83,50 @@ const SemesterGrid: React.FC = () => {
   const siderWidth = 'max(205px, 20vw)'
 
   return (
-    <Layout style={{ minHeight: '100vh', background: '#fff' }}>
-      <HeaderBar isMobile={isMobile} setDrawerVisible={setDrawerVisible} />
-      <Layout style={{ marginTop: 64, background: '#fff' }}>
-        {!isMobile && <Sidebar width={siderWidth} handleDragStart={handleDragStart} />}
-        <Layout style={{ marginLeft: isMobile ? 0 : siderWidth, background: '#fff' }}>
-          <Content
-            ref={captureRef}
-            style={{ margin: '0 16px 0', overflow: 'initial', background: '#fff' }}
-          >
-            <Space direction="vertical" size="large" style={{ width: '100%' }}>
-              <CourseSummary
-                selectedCourses={selectedCourses}
-                startWithS2={startWithS2}
-                handleStartSemesterChange={handleStartSemesterChange}
-                handleExportTable={handleExportTable}
-                handleClearTable={handleClearTable}
-              />
-              {semesters.map((semester, semesterIndex) => (
-                <SemesterCard
-                  key={semesterIndex}
-                  semester={semester}
-                  semesterIndex={semesterIndex}
-                  startWithS2={startWithS2} // 修改: 传递startWithS2
+    <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
+      <Layout style={{ minHeight: '100vh', background: '#fff' }}>
+        <HeaderBar isMobile={isMobile} setDrawerVisible={setDrawerVisible} />
+        <Layout style={{ marginTop: 64, background: '#fff' }}>
+          {!isMobile && <Sidebar width={siderWidth} handleDragStart={handleDragStart} />}
+          <Layout style={{ marginLeft: isMobile ? 0 : siderWidth, background: '#fff' }}>
+            <Content
+              ref={captureRef}
+              style={{ margin: '0 16px 0', overflow: 'initial', background: '#fff' }}
+            >
+              <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                <CourseSummary
+                  selectedCourses={selectedCourses}
+                  startWithS2={startWithS2}
+                  handleStartSemesterChange={handleStartSemesterChange}
+                  handleExportTable={handleExportTable}
+                  handleClearTable={handleClearTable}
                 />
-              ))}
-            </Space>
-          </Content>
+                {semesters.map((semester, semesterIndex) => (
+                  <SemesterCard
+                    key={semesterIndex}
+                    semester={semester}
+                    semesterIndex={semesterIndex}
+                    startWithS2={startWithS2} // 修改: 传递startWithS2
+                  />
+                ))}
+              </Space>
+            </Content>
+          </Layout>
         </Layout>
+        <Drawer
+          title="Course Selector"
+          placement="left"
+          closable={true}
+          onClose={() => setDrawerVisible(false)}
+          open={drawerVisible}
+          width={300}
+          style={{ position: 'absolute' }}
+        >
+          <CourseSelector onDragStart={() => setDrawerVisible(false)} />
+        </Drawer>
+        <ClearModal isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
       </Layout>
-      <Drawer
-        title="Course Selector"
-        placement="left"
-        closable={true}
-        onClose={() => setDrawerVisible(false)}
-        open={drawerVisible}
-        width={300}
-        style={{ position: 'absolute' }}
-      >
-        <CourseSelector onDragStart={() => setDrawerVisible(false)} />
-      </Drawer>
-      <ClearModal isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
-    </Layout>
+    </DndProvider>
   )
 }
 

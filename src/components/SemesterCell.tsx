@@ -70,10 +70,6 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
 
         const newSemester = getStringAfterSecondDash(semesterId)
 
-        // console.log('recommendedSemester', course?.course.recommendedSemester)
-        // // console.log('position', position)
-        // console.log('newSemester', newSemester)
-
         if (item.type === 'SEMESTER_COURSE' && item.id) {
           dispatch(moveCourse({ id: item.id, newSemesterId: semesterId, newPosition: position }))
         } else if (item.course) {
