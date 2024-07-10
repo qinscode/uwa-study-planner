@@ -377,10 +377,10 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
     return false
   }
 
-  if (optionCount > 4) {
-    message.error('You cannot select more than 4 option courses.')
-    return false
-  }
+  // if (optionCount > 4) {
+  //   message.error('You cannot select more than 4 option courses.')
+  //   return false
+  // }
 
   if (hasCITS2002 && hasCITS2005) {
     message.error('You cannot select both CITS2002 and CITS2005.')
