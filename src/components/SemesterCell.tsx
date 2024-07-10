@@ -8,10 +8,8 @@ import { Course } from '../types'
 
 const { Text, Paragraph } = Typography
 
-// 定义课程类型
 type CourseType = 'conversion' | 'core' | 'option'
 
-// 定义颜色映射
 const typeColors: Record<CourseType, string> = {
   conversion: '#e6f7ff',
   core: '#fff7e6',
@@ -22,31 +20,48 @@ interface SemesterCellProps {
   semesterId: string
   courseIndex: number
   allowedSemester: 'S1' | 'S2' | 'S1S2'
+  startWithS2: boolean
 }
 
 const SemesterCell: React.FC<SemesterCellProps> = ({
   semesterId,
   courseIndex,
   allowedSemester,
+  startWithS2,
 }) => {
   const dispatch = useDispatch()
   const selectedCourses = useSelector((state: RootState) =>
     state.courses.selectedCourses.filter(course => course.semesterId === semesterId)
   )
 
-  const [{ isOver, canDrop }, drop] = useDrop(() => ({
-    accept: 'COURSE',
-    canDrop: (item: { course: Course }) =>
-      item.course.recommendedSemester === allowedSemester ||
-      item.course.recommendedSemester === 'S1S2',
-    drop: (item: { course: Course }) => {
-      dispatch(addCourseToSemester({ semesterId, course: item.course }))
-    },
-    collect: monitor => ({
-      isOver: !!monitor.isOver(),
-      canDrop: !!monitor.canDrop(),
+  const [{ isOver, canDrop }, drop] = useDrop(
+    () => ({
+      accept: 'COURSE',
+      canDrop: (item: { course: Course }) => {
+        const courseAllowedSemester = item.course.recommendedSemester
+        if (courseAllowedSemester === 'S1S2') return true
+
+        if (startWithS2) {
+          // If starting with S2, we need to flip the semesters
+          return (
+            (allowedSemester === 'S2' && courseAllowedSemester === 'S1') ||
+            (allowedSemester === 'S1' && courseAllowedSemester === 'S2')
+          )
+        } else {
+          // If starting with S1, semesters align normally
+          return allowedSemester === courseAllowedSemester
+        }
+      },
+      drop: (item: { course: Course }) => {
+        dispatch(addCourseToSemester({ semesterId, course: item.course }))
+      },
+      collect: monitor => ({
+        isOver: !!monitor.isOver(),
+        canDrop: !!monitor.canDrop(),
+      }),
     }),
-  }))
+    [semesterId, allowedSemester, startWithS2]
+  ) // Add dependencies here
 
   const course = selectedCourses[courseIndex]
 

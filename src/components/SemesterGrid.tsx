@@ -45,11 +45,10 @@ const SemesterGrid: React.FC = () => {
 
   const handleExportTable = () => {
     if (captureRef.current) {
-      // 克隆捕获的节点并添加自定义边距
       const clonedNode = captureRef.current.cloneNode(true) as HTMLElement
       const wrapper = document.createElement('div')
-      wrapper.style.padding = '20px' // 设置自定义边距
-      wrapper.style.backgroundColor = 'white' // 设置背景色以确保边距可见
+      wrapper.style.padding = '20px'
+      wrapper.style.backgroundColor = 'white'
       wrapper.appendChild(clonedNode)
       document.body.appendChild(wrapper)
 
@@ -59,7 +58,6 @@ const SemesterGrid: React.FC = () => {
         link.download = 'screenshot.png'
         link.click()
 
-        // 清理临时节点
         document.body.removeChild(wrapper)
       })
     }
@@ -105,6 +103,7 @@ const SemesterGrid: React.FC = () => {
                   key={semesterIndex}
                   semester={semester}
                   semesterIndex={semesterIndex}
+                  startWithS2={startWithS2} // 修改: 传递startWithS2
                 />
               ))}
             </Space>
