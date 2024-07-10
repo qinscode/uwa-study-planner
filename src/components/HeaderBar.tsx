@@ -28,7 +28,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({ isMobile, setDrawerVisible }) => 
   >
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Title level={3} style={{ margin: 0, color: 'black' }}>
-        👨‍💻 UWA MIT Study Planner V4.5
+        👨‍💻 UWA MIT Study Planner V5.1
       </Title>
     </div>
     {isMobile && <Button icon={<MenuOutlined />} onClick={() => setDrawerVisible(true)} />}
