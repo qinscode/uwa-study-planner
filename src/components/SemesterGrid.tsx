@@ -35,11 +35,16 @@ const SemesterGrid: React.FC = () => {
   }, [])
 
   const handleLoadStudyPlan = () => {
+    const startWithS2 = selectedSemester === 's2'
+    const newSemesters = startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S2']
+
+    setSemesters(newSemesters)
+    dispatch(clearSelectedCourses())
     dispatch(
       loadStudyPlan({
         year: selectedYear,
         semester: selectedSemester,
-        startWithS2: semesters[0] === 'S2',
+        startWithS2: startWithS2,
       })
     )
   }
