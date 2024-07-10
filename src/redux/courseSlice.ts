@@ -344,17 +344,21 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
   if (newCourse.code === 'GENG5505') {
     message.warning({
       content:
-        "GENG5505 will be removed from 2025S1. Try to take PHIL4100 instead if you haven't taken GENG5505.",
+        "GENG5505 will be removed from 2025 S1. Try to take PHIL4100 instead if you haven't taken GENG5505.",
       duration: 5,
     })
   }
 
   if (newCourse.code === 'PHIL4100') {
-    message.warning('PHIL4100 will be available from 2025S1.')
+    message.warning('PHIL4100 will be available from 2025 S1.')
+  }
+
+  if (newCourse.code === 'CITS4419') {
+    message.warning('CITS4419 will be available from 2026 S1.')
   }
 
   if (newCourse.code === 'CITS4407') {
-    message.warning('CITS4407 will be option course from 2025S1.')
+    message.warning('CITS4407 will be option course from 2025 S1.')
   }
 
   if (newCourse.code === 'CITS5504' && (!hasCITS1401 || !hasCITS1402)) {
@@ -376,7 +380,7 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
     return false
   }
 
-  if (newCourse.code === 'CITS5526') {
+  if (newCourse.code === 'CITS5206') {
     const levelFourOrFiveCourses = state.selectedCourses.filter(
       sc => sc.course.code && (sc.course.code[4] === '4' || sc.course.code[4] === '5')
     )
