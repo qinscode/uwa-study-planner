@@ -13,6 +13,8 @@ export const useDragAndDrop = (
 ) => {
   const dispatch = useDispatch()
 
+  console.log(position)
+
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'SEMESTER_COURSE',

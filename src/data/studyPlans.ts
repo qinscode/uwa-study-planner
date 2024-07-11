@@ -9,7 +9,6 @@ export interface StudyPlan {
   }
 }
 
-// Define studyPlans data
 const studyPlans: StudyPlan = {
   '2024': {
     default: {
