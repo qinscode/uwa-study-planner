@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Course, SemesterCourse, CourseState } from '../types'
 import { message } from 'antd'
 import { v4 as uuidv4 } from 'uuid' // 需要安装uuid包
-import studyPlans from '../data/studyPlans'
+import studyPlans, { getStudyPlan } from '../data/studyPlans'
 import testCourses from '../data/testCourses'
 
 const storedState = localStorage.getItem('courseState')
@@ -211,18 +211,25 @@ const courseSlice = createSlice({
       ]
       state.selectedCourses = []
     },
+
     loadStudyPlan: (
       state,
-      action: PayloadAction<{ year: string; semester: string; startWithS2: boolean }>
+      action: PayloadAction<{
+        year: string
+        semester: string
+        startWithS2: boolean
+        program: string
+      }>
     ) => {
-      const { year, semester, startWithS2 } = action.payload
+      const { year, semester, startWithS2, program } = action.payload
+      console.log('program', program)
       state.availableCourses = [
         ...state.availableCourses,
         ...state.selectedCourses.map(sc => sc.course),
       ]
       state.selectedCourses = []
 
-      const planCourses = studyPlans[year]?.[semester]
+      const planCourses = getStudyPlan(year, semester, program)
       if (planCourses) {
         const semesterIds = [
           `${startWithS2 ? 'S2' : 'S1'}-0-${startWithS2 ? 'S2' : 'S1'}`,
