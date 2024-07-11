@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Card, Row, Col } from 'antd'
 import SemesterCell from './SemesterCell'
 import { motion } from 'framer-motion'
-import { useCourses } from '../hooks/useCourses'
+import { useCourses } from '../hooks/useCourse'
 
 interface SemesterCardProps {
   semester: string
