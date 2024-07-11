@@ -189,6 +189,8 @@ const courseSlice = createSlice({
         state.selectedCourses.splice(courseIndex, 1)
 
         const newSemester = getStringAfterSecondDash(newSemesterId)
+        console.log('newSemesterId', newSemesterId)
+        console.log('newSemester', newSemester)
 
         const recommendedSemester = course.course.recommendedSemester
 

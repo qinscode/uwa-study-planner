@@ -46,6 +46,7 @@ export const useDragAndDrop = (
         }
       },
       drop: (item: { id?: string; course?: Course; type: string }) => {
+        console.log('course', course)
         if (item.type === 'SEMESTER_COURSE' && item.id) {
           dispatch(moveCourse({ id: item.id, newSemesterId: semesterId, newPosition: position }))
         } else if (item.course) {

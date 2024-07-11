@@ -1,13 +1,12 @@
-// components/SemesterCell.tsx
 import React from 'react'
-import { Card, Tag, Typography } from 'antd'
 import { useDispatch } from 'react-redux'
-import { removeCourseFromSemester } from '../redux/courseSlice'
-import { useDragAndDrop } from '../hooks/useDragAndDrop'
-import { SemesterCourse } from '../types'
-import styles from '../styles/SemesterCell.module.scss'
+import { useDrop, useDrag } from 'react-dnd'
+import { Card, Tag, Typography } from 'antd'
+import { addCourseToSemester, removeCourseFromSemester, moveCourse } from '../redux/courseSlice'
+import { Course, SemesterCourse } from '../types'
 
 const { Text, Paragraph } = Typography
+
 type CourseType = 'conversion' | 'core' | 'option'
 
 const typeColors: Record<CourseType, string> = {
@@ -32,12 +31,50 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
   startWithS2,
 }) => {
   const dispatch = useDispatch()
-  const { isDragging, isOver, canDrop, drag, drop } = useDragAndDrop(
-    semesterId,
-    position,
-    allowedSemester,
-    startWithS2,
-    course?.course
+
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: 'SEMESTER_COURSE',
+      item: { id: course?.id, type: 'SEMESTER_COURSE' },
+      collect: monitor => ({
+        isDragging: !!monitor.isDragging(),
+      }),
+    }),
+    [course]
+  )
+
+  const [{ isOver, canDrop }, drop] = useDrop(
+    () => ({
+      accept: ['COURSE', 'SEMESTER_COURSE'],
+      canDrop: (item: { course?: Course; type: string }) => {
+        if (item.type === 'SEMESTER_COURSE') return true
+        if (!item.course) return false
+
+        const courseAllowedSemester = item.course.recommendedSemester
+        if (courseAllowedSemester === 'S1S2') return true
+
+        if (startWithS2) {
+          return (
+            (allowedSemester === 'S2' && courseAllowedSemester === 'S2') ||
+            (allowedSemester === 'S1' && courseAllowedSemester === 'S1')
+          )
+        } else {
+          return allowedSemester === courseAllowedSemester
+        }
+      },
+      drop: (item: { id?: string; course?: Course; type: string }) => {
+        if (item.type === 'SEMESTER_COURSE' && item.id) {
+          dispatch(moveCourse({ id: item.id, newSemesterId: semesterId, newPosition: position }))
+        } else if (item.course) {
+          dispatch(addCourseToSemester({ semesterId, course: item.course, position }))
+        }
+      },
+      collect: monitor => ({
+        isOver: !!monitor.isOver(),
+        canDrop: !!monitor.canDrop(),
+      }),
+    }),
+    [semesterId, position, allowedSemester, startWithS2]
   )
 
   const handleRemoveCourse = () => {
@@ -54,16 +91,39 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
   return (
     <div
       ref={node => drag(drop(node))}
-      className={`${styles.semesterCell} ${isDragging ? styles.isDragging : ''} ${
-        canDrop ? styles.canDrop : ''
-      } ${isOver ? styles.isOver : ''}`}
+      style={{
+        height: '100%',
+        minHeight: 120,
+        border: '1px dashed #ccc',
+        borderRadius: 4,
+        padding: 8,
+        background: isOver && canDrop ? '#e6f7ff' : canDrop ? '#f0f5ff' : 'white',
+        opacity: isDragging ? 0.5 : 1,
+      }}
     >
       {course ? (
         <Card
           size="small"
           title={
-            <div className={styles.cardTitle}>
-              <Paragraph className={styles.paragraph}>{course.course.code}</Paragraph>
+            <div
+              style={{
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                height: '100%',
+              }}
+            >
+              <Paragraph
+                style={{
+                  margin: 0,
+                  whiteSpace: 'normal',
+                  width: '100%',
+                  overflowWrap: 'break-word',
+                }}
+              >
+                {course.course.code}
+              </Paragraph>
             </div>
           }
           extra={
