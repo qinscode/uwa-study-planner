@@ -13,7 +13,6 @@ export const useDragAndDrop = (
 ) => {
   const dispatch = useDispatch()
 
-
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'SEMESTER_COURSE',
@@ -45,7 +44,6 @@ export const useDragAndDrop = (
         }
       },
       drop: (item: { id?: string; course?: Course; type: string }) => {
-
         if (item.type === 'SEMESTER_COURSE' && item.id) {
           dispatch(moveCourse({ id: item.id, newSemesterId: semesterId, newPosition: position }))
         } else if (item.course) {
