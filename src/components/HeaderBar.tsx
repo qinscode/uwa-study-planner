@@ -1,3 +1,35 @@
+/**
+ * HeaderBar Component
+ *
+ * A fixed navigation bar at the top of the application, displaying the app title.
+ * On mobile devices, it includes a button to open the sidebar.
+ *
+ * Key Features:
+ *
+ * 1. Fixed Top Bar
+ *    - Uses Ant Design's Header component fixed at the top of the page
+ *    - Provides consistent navigation experience
+ *
+ * 2. Mobile Device Support
+ *    - Displays a button on mobile devices to open the sidebar
+ *
+ * 3. Application Title
+ *    - Shows the application title "MIT Study Planner V5.1"
+ *
+ * 4. Animation
+ *    - Uses framer-motion to animate the header sliding in from the top
+ *
+ * Implementation Details:
+ *
+ * - Uses Ant Design components: Layout, Button, Typography
+ * - Implements responsive design with conditional rendering for mobile
+ * - Applies custom styling for layout and appearance
+ * - Utilizes framer-motion for entrance animation
+ *
+ * @param {boolean} isMobile - Indicates if the app is being viewed on a mobile device
+ * @param {function} setDrawerVisible - Function to toggle the visibility of the sidebar drawer
+ */
+
 import React from 'react'
 import { Layout, Button, Typography } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'

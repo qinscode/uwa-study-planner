@@ -1,4 +1,30 @@
-// components/SemesterGrid.tsx
+/**
+ * SemesterGrid Component
+ *
+ * The main layout component of the application, responsible for:
+ * - Rendering the entire page layout (header, sidebar, main content)
+ * - Managing global state
+ * - Providing user interaction functionalities
+ *
+ * Key Features:
+ *
+ * 1. Layout and State Management
+ *    - Uses useState and useRef for internal state and references
+ *
+ * 2. Redux Integration
+ *    - Utilizes useSelector to retrieve state from Redux store
+ *    - Employs useDispatch for dispatching actions
+ *
+ * 3. Responsive Design
+ *    - Dynamically shows/hides sidebar and drawer based on screen size
+ *
+ * 4. User Interaction Functionalities
+ *    - Loading study plans
+ *    - Switching between semesters
+ *    - Clearing the table
+ *    - Exporting table data
+ */
+
 import React, { useRef, useState } from 'react'
 import { Layout, Drawer } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'

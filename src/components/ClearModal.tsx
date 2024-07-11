@@ -1,4 +1,19 @@
-// components/ClearModal.tsx
+/**
+ * ClearModal Component
+ *
+ * A modal dialog for confirming the action to clear all selected courses.
+ * Utilizes framer-motion for animation effects.
+ *
+ * Key Features:
+ *
+ * 1. Modal Display
+ *    - Controls visibility based on the isModalOpen state
+ *
+ * 2. Confirmation Actions
+ *    - Provides confirm and cancel buttons
+ *    - Calls handleOk and handleCancel functions respectively
+ */
+
 import React from 'react'
 import { Modal, Button } from 'antd'
 import { motion, AnimatePresence } from 'framer-motion'

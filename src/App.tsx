@@ -1,3 +1,28 @@
+/**
+ * App Component
+ *
+ * The root component of the application, responsible for initializing and
+ * configuring global state, drag-and-drop functionality, responsive design,
+ * and user guide modal. Utilizes Ant Design, Framer Motion, and React DnD libraries.
+ *
+ * Key Features:
+ *
+ * 1. Global State Management
+ *    - Uses Provider component to make Redux store available throughout the app
+ *
+ * 2. Drag and Drop Support
+ *    - Configures DndProvider for drag-and-drop functionality
+ *    - Supports both touch and mouse events
+ *
+ * 3. Responsive Design
+ *    - Implements useMediaQuery for responsive design
+ *    - Determines if the device is mobile based on window width
+ *
+ * 4. User Guide Modal
+ *    - Displays a user guide modal on first visit
+ *    - Provides a button to view the guide again
+ */
+
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react'
 import { Typography, FloatButton, Modal, Row, Col, Card, Space } from 'antd'

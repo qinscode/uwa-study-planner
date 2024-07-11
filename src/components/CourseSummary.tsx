@@ -1,3 +1,17 @@
+/**
+ * CourseSummary Component
+ *
+ * Displays a summary of selected courses and provides action buttons for various operations.
+ *
+ * Key Features:
+ *
+ * 1. Course Summary
+ *    - Shows the total number of selected courses and counts for each course type
+ *
+ * 2. Action Buttons
+ *    - Provides functionality to switch semesters, export table, clear table, and load study plans
+ */
+
 import React from 'react'
 import { Row, Col, Typography, Space, Switch, Button, Select, Divider } from 'antd'
 import '../styles/CourseSummary.scss'

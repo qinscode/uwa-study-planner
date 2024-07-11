@@ -1,3 +1,18 @@
+/**
+ * MainLayout Component
+ *
+ * The overall layout component for the application, including the content area and footer.
+ *
+ * Key Features:
+ *
+ * 1. Content Area
+ *    - Contains the SemesterGrid component for displaying the semester grid
+ *
+ * 2. Footer
+ *    - Displays application copyright information
+ *    - Shows developer contact information
+ */
+
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react'
 import { Layout, Typography } from 'antd'

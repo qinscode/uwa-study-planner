@@ -1,3 +1,20 @@
+/**
+ * CourseItem Component
+ *
+ * Represents a draggable course item. Implements drag functionality using react-dnd
+ * and adds animation effects with framer-motion.
+ *
+ * Key Features:
+ *
+ * 1. Drag Functionality
+ *    - Uses useDrag hook to make the course draggable
+ *    - Allows users to drag courses to different semester cells
+ *
+ * 2. Course Information Display
+ *    - Shows different background colors based on course type
+ *    - Displays course code, name, and recommended semester
+ */
+
 import React from 'react'
 import { Card, Tag } from 'antd'
 import { useDrag } from 'react-dnd'

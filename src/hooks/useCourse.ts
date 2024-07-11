@@ -1,4 +1,18 @@
-// hooks/useCourses.ts
+/**
+ * useCourses Hook
+ *
+ * A custom hook that simplifies interactions with the Redux store for course management.
+ *
+ * Key Features:
+ *
+ * 1. State Retrieval
+ *    - Uses useSelector to fetch selectedCourses and availableCourses from the store
+ *
+ * 2. Action Dispatching
+ *    - Provides functions to add, remove, and move courses
+ *    - Internally uses useDispatch to dispatch corresponding Redux actions
+ */
+
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
 import { addCourseToSemester, removeCourseFromSemester, moveCourse } from '../redux/courseSlice'

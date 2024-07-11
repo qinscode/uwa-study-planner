@@ -1,3 +1,18 @@
+/**
+ * CourseSelector Component
+ *
+ * Displays a tabbed interface for selecting different types of courses.
+ * Contains multiple CourseItem components that can be dragged to semester cells.
+ *
+ * Key Features:
+ *
+ * 1. Course Type Tabs
+ *    - Uses Tabs component to show different course types (Transfer, Core, Elective)
+ *
+ * 2. Course List
+ *    - Filters and displays course list based on the selected course type
+ */
+
 import React, { useState } from 'react'
 import { Tabs, List } from 'antd'
 import { useSelector } from 'react-redux'

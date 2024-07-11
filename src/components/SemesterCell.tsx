@@ -1,3 +1,22 @@
+/**
+ * SemesterCell Component
+ *
+ * Represents a single cell within a semester card. Implements drag-and-drop
+ * functionality for courses using useDrag and useDrop hooks.
+ *
+ * Key Features:
+ *
+ * 1. Drag and Drop Functionality
+ *    - Uses useDrag and useDrop hooks to enable course dragging between cells
+ *
+ * 2. Course Information Display
+ *    - Shows detailed course information if a course is present in the cell
+ *    - Displays course code, name, and recommended semester
+ *
+ * 3. Course Removal
+ *    - Provides functionality to remove a course by clicking on the card
+ */
+
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useDrop, useDrag } from 'react-dnd'

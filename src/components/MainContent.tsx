@@ -1,3 +1,19 @@
+/**
+ * MainContent Component
+ *
+ * Represents the main content area of the application. Displays course summary
+ * information and multiple semester cards.
+ **
+ * Key Features:
+ *
+ * 1. Course Summary Display
+ *    - Uses CourseSummary component to show statistics of selected courses
+ *    - Includes action buttons for various operations
+ *
+ * 2. Semester Cards Display
+ *    - Renders multiple SemesterCard components based on the provided semesters array
+ */
+
 import React, { RefObject } from 'react'
 import { Layout, Space } from 'antd'
 import CourseSummary from './CourseSummary'

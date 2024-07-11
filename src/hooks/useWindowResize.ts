@@ -1,3 +1,23 @@
+/**
+ * useWindowResize Hook
+ *
+ * A custom hook for detecting and responding to window resize events,
+ * particularly for determining if the device is mobile.
+ *
+ * Key Features:
+ *
+ * 1. Initial Window Size Detection
+ *    - Sets initial state based on current window width
+ *    - Considers devices with width < 768px as mobile
+ *
+ * 2. Event Listener Management
+ *    - Adds a resize event listener on component mount
+ *    - Removes the listener on component unmount to prevent memory leaks
+ *
+ * 3. State Updates
+ *    - Updates isMobile state when window size changes
+ */
+
 import { useEffect, useState } from 'react'
 
 const useWindowResize = () => {

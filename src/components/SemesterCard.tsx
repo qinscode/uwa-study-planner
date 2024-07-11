@@ -1,3 +1,22 @@
+/**
+ * SemesterCard Component
+ *
+ * Represents a semester card, displaying semester information and contained courses.
+ * Uses SemesterCell components to show courses at each position.
+ *
+ * Key Features:
+ *
+ * 1. Card Layout and Animation
+ *    - Utilizes the Card component for layout
+ *    - Implements animation effects using the framer-motion library
+ *
+ * 2. Course Filtering
+ *    - Filters courses for the current semester based on semesterId
+ *
+ * 3. Integration with SemesterCell Component
+ *    - Renders a grid containing multiple SemesterCell components
+ */
+
 import React, { useState } from 'react'
 import { Card, Row, Col } from 'antd'
 import SemesterCell from './SemesterCell'

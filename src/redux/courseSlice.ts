@@ -3,8 +3,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Course, SemesterCourse, CourseState } from '../types'
 import { message } from 'antd'
 import { v4 as uuidv4 } from 'uuid'
-import studyPlans, { getStudyPlan } from '../data/studyPlans'
-import testCourses from '../data/testCourses'
+import { getStudyPlan } from '../data/studyPlans'
+import testCourses from '../data/availableCourse'
 
 const storedState = localStorage.getItem('courseState')
 const initialState: CourseState = storedState
