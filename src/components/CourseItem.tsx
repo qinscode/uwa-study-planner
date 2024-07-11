@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, Tag } from 'antd'
 import { useDrag } from 'react-dnd'
 import { Course } from '../types'
+import { motion } from 'framer-motion'
 
 // 定义课程类型
 type CourseType = 'conversion' | 'core' | 'option'
@@ -35,7 +36,21 @@ const CourseItem: React.FC<CourseItemProps> = ({ course, onDragStart }) => {
     course.type && course.type in typeColors ? typeColors[course.type as CourseType] : 'white'
 
   return (
-    <div ref={preview} style={{ opacity: isDragging ? 0.5 : 1, cursor: 'move', marginBottom: 8 }}>
+    <motion.div
+      ref={preview}
+      style={{
+        opacity: isDragging ? 0.5 : 1,
+        cursor: 'move',
+        marginBottom: 8,
+      }}
+      initial={{ scale: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}
+      whileHover={{
+        scale: 1.03,
+        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.15)',
+        transition: { duration: 0.2 },
+      }}
+      whileTap={{ scale: 0.98 }}
+    >
       <div ref={drag}>
         <Card
           size="small"
@@ -55,13 +70,18 @@ const CourseItem: React.FC<CourseItemProps> = ({ course, onDragStart }) => {
               </Tag>
             )
           }
-          style={{ backgroundColor }}
+          style={{
+            backgroundColor,
+            transition: 'all 0.3s ease',
+            borderRadius: '8px',
+            overflow: 'hidden',
+          }}
         >
           <p>{course.name}</p>
           {course.note && <p style={{ fontSize: '12px', color: '#888' }}>{course.note}</p>}
         </Card>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

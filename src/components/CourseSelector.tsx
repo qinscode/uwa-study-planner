@@ -3,6 +3,7 @@ import { Tabs, List } from 'antd'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
 import CourseItem from './CourseItem'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface CourseSelectorProps {
   onDragStart?: () => void
@@ -26,12 +27,26 @@ const CourseSelector: React.FC<CourseSelectorProps> = ({ onDragStart }) => {
       items={items.map(item => ({
         ...item,
         children: (
-          <List
-            dataSource={filteredCourses}
-            renderItem={course => <CourseItem course={course} onDragStart={onDragStart} />}
-            split={false}
-            itemLayout="vertical"
-          />
+          <AnimatePresence mode="wait" key={item.key}>
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <List
+                dataSource={filteredCourses}
+                renderItem={course => (
+                  <motion.div whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}>
+                    <CourseItem course={course} onDragStart={onDragStart} />
+                  </motion.div>
+                )}
+                split={false}
+                itemLayout="vertical"
+              />
+            </motion.div>
+          </AnimatePresence>
         ),
       }))}
       size="small"
