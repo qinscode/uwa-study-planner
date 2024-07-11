@@ -76,7 +76,7 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
           <div style={{ marginTop: '0' }}>
             <Divider />
             <Title level={4} className="course-summary-title">
-              <div>Want to Load UWA Official Study Plan from Handbook?</div>
+              <div>Want to Load UWA Official Study Plan from Handbook ?</div>
             </Title>
             <Space className="responsive-space">
               <Select

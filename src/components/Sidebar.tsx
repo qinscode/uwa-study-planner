@@ -40,7 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ width, handleDragStart }) => (
         transition={{ delay: 0.3, duration: 0.5 }}
         style={{ padding: '16px' }}
       >
-        <Title level={3}>Course Selector</Title>
+        <Title level={3}>Unit Selector</Title>
         <CourseSelector onDragStart={handleDragStart} />
       </motion.div>
     </Sider>

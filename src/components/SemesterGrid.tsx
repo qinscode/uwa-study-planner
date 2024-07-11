@@ -208,7 +208,7 @@ const SemesterGrid: React.FC = () => {
         </Layout>
       </Layout>
       <Drawer
-        title="Course Selector"
+        title="Unit Selector"
         placement="left"
         closable={true}
         onClose={() => setDrawerVisible(false)}

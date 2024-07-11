@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Course, SemesterCourse, CourseState } from '../types'
 import { message } from 'antd'
-import { v4 as uuidv4 } from 'uuid' // 需要安装uuid包
+import { v4 as uuidv4 } from 'uuid'
 import studyPlans, { getStudyPlan } from '../data/studyPlans'
 import testCourses from '../data/testCourses'
 
@@ -43,7 +43,7 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
   const hasINMT5518 = updatedSelectedCourses.some(c => c.course.code === 'INMT5518')
 
   if (optionCount > 4) {
-    message.error('You cannot select more than 4 option courses.')
+    message.error('You cannot select more than 4 option units.')
     return false
   }
 
@@ -73,7 +73,7 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
   }
 
   if (newCourse.code === 'CITS4407') {
-    message.warning('CITS4407 will be option course from 2025 S1.')
+    message.warning('CITS4407 will be a option unit from 2025 S1.')
   }
 
   if (newCourse.code === 'CITS5504' && (!hasCITS1401 || !hasCITS1402)) {
@@ -91,7 +91,7 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
   }
 
   if (newCourse.code === 'INMT5526' && !hasINMT5518) {
-    message.error('You must select INMT5518 units before INMT5526.')
+    message.error('You must select INMT5518 before INMT5526.')
     return false
   }
 
@@ -100,7 +100,7 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
       sc => sc.course.code && (sc.course.code[4] === '4' || sc.course.code[4] === '5')
     )
     if (levelFourOrFiveCourses.length < 4) {
-      message.error('You must select at least 4 level 4 or level 5 courses before CITS5526.')
+      message.error('You must select at least 4 level 4 or level 5 units before CITS5526.')
       return false
     }
   }
@@ -115,7 +115,7 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
   }
 
   if (conversionCount > 4) {
-    message.error('You cannot select more than 4 conversion courses.')
+    message.error('You cannot select more than 4 conversion units.')
     return false
   }
 
@@ -188,7 +188,6 @@ const courseSlice = createSlice({
         const course = state.selectedCourses[courseIndex]
         state.selectedCourses.splice(courseIndex, 1)
 
-        const courseSemester = getStringAfterSecondDash(course.semesterId)
         const newSemester = getStringAfterSecondDash(newSemesterId)
 
         const recommendedSemester = course.course.recommendedSemester

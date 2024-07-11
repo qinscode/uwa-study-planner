@@ -1,0 +1,31 @@
+// Variables
+$sidebar-width: max(205px, 20vw);
+
+// Global styles
+.dashboard {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.header-bar {
+  margin-top: 64px;
+  background: #fff;
+}
+
+.sidebar {
+  width: $sidebar-width;
+}
+
+.content {
+  margin: 0 16px 0;
+  overflow: initial;
+  background: #fff;
+}
+
+.space {
+  width: 100%;
+}
+
+.drawer {
+  position: absolute;
+}
