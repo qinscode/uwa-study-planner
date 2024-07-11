@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { Card, Row, Col } from 'antd'
-import { useSelector } from 'react-redux'
-import { RootState } from '../redux/store'
 import SemesterCell from './SemesterCell'
 import { motion } from 'framer-motion'
+import { useCourses } from '../hooks/useCourses'
 
 interface SemesterCardProps {
   semester: string
@@ -12,11 +11,11 @@ interface SemesterCardProps {
 }
 
 const SemesterCard: React.FC<SemesterCardProps> = ({ semester, semesterIndex, startWithS2 }) => {
+  const { selectedCourses } = useCourses()
+
   const [isHovered, setIsHovered] = useState(false)
   const semesterId = `${startWithS2 ? 'S2' : 'S1'}-${Math.floor(semesterIndex / 2)}-${semester}`
-  const coursesInSemester = useSelector((state: RootState) =>
-    state.courses.selectedCourses.filter(course => course.semesterId === semesterId)
-  )
+  const coursesInSemester = selectedCourses.filter(course => course.semesterId === semesterId)
 
   return (
     <motion.div

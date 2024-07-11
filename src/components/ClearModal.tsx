@@ -1,3 +1,4 @@
+// components/ClearModal.tsx
 import React from 'react'
 import { Modal, Button } from 'antd'
 import { motion, AnimatePresence } from 'framer-motion'

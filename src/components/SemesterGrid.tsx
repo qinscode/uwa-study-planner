@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
+// components/SemesterGrid.tsx
+import React, { useRef, useState } from 'react'
 import { Layout, Drawer } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../redux/store'
@@ -9,12 +10,14 @@ import MainContent from './MainContent'
 import ClearModal from './ClearModal'
 import CourseSelector from './CourseSelector'
 import exportTableToPNG from '../utils/exportTableToPNG'
+import { useModal } from '../hooks/useModal'
+import { useResponsive } from '../hooks/useResponsive'
 
 const SemesterGrid: React.FC = () => {
+  const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
+  const { isMobile } = useResponsive()
   const [semesters, setSemesters] = useState(['S1', 'S2', 'S1', 'S2'])
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [drawerVisible, setDrawerVisible] = useState(false)
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
   const [selectedYear, setSelectedYear] = useState('2024')
   const [selectedSemester, setSelectedSemester] = useState('s1')
   const [selectedProgram, setSelectedProgram] = useState('Software Systems')
@@ -22,15 +25,6 @@ const SemesterGrid: React.FC = () => {
   const dispatch = useDispatch()
 
   const captureRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
 
   const handleLoadStudyPlan = () => {
     const startWithS2 = selectedSemester === 's2'
@@ -72,7 +66,7 @@ const SemesterGrid: React.FC = () => {
   }
 
   const handleClearTable = () => {
-    setIsModalOpen(true)
+    handleOpenModal()
   }
 
   const handleExportTable = () => {
@@ -81,11 +75,11 @@ const SemesterGrid: React.FC = () => {
 
   const handleOk = () => {
     dispatch(clearSelectedCourses())
-    setIsModalOpen(false)
+    handleCloseModal()
   }
 
   const handleCancel = () => {
-    setIsModalOpen(false)
+    handleCloseModal()
   }
 
   const handleDragStart = () => {

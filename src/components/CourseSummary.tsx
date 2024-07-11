@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Col, Typography, Space, Switch, Button, Select, Divider } from 'antd'
-import './CourseSummary.scss'
+import '../styles/CourseSummary.scss'
 
 const { Title } = Typography
 
