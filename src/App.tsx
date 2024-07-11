@@ -64,7 +64,7 @@ const App: React.FC = () => {
                 onCancel={handleInstructionsModalClose}
                 footer={null}
                 width={isMobile ? '100%' : 800}
-                style={{ top: isMobile ? 0 : 20 }}
+                style={{ top: isMobile ? 0 : 100 }}
               >
                 <Paragraph
                   style={{

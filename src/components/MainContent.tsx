@@ -8,6 +8,7 @@ const { Content } = Layout
 interface MainContentProps {
   captureRef: RefObject<HTMLDivElement>
   semesters: string[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedCourses: any[]
   handleSwitch: () => void
   handleExportTable: () => void
