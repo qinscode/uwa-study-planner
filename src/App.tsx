@@ -1,8 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react'
-import { Layout, Typography, FloatButton, Modal, Row, Col, Card, Space } from 'antd'
+import { Typography, FloatButton, Modal, Row, Col, Card, Space } from 'antd'
 import { motion, AnimatePresence } from 'framer-motion'
-
 import {
   QuestionCircleOutlined,
   DragOutlined,
@@ -11,15 +10,13 @@ import {
   BulbOutlined,
 } from '@ant-design/icons'
 import { useMediaQuery } from 'react-responsive'
-import SemesterGrid from './components/SemesterGrid'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import { DndProvider } from 'react-dnd'
 import { TouchBackend } from 'react-dnd-touch-backend'
+import MainLayout from './layouts/MainLayout'
 
-const { Content, Footer } = Layout
 const { Text, Title, Paragraph } = Typography
-
 const App: React.FC = () => {
   const [isInstructionsModalVisible, setIsInstructionsModalVisible] = useState(false)
   const isMobile = useMediaQuery({ maxWidth: 768 })
@@ -43,24 +40,7 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
-        <Layout style={{ minHeight: '100vh' }}>
-          <Content style={{ paddingTop: '20px', paddingBottom: '35px', background: '#fff' }}>
-            <SemesterGrid />
-          </Content>
-          <Footer
-            style={{
-              textAlign: 'center',
-              background: '#fff',
-              borderTop: '1px solid rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            <Text type="secondary" style={{ fontSize: isMobile ? '14px' : '12px' }}>
-              UWA MIT Study Planner • ©2024 Created by Jack Qin
-              <br /> React • Redux • AntDesign
-              <br /> Email: jack@fudongs.com
-            </Text>
-          </Footer>
-        </Layout>
+        <MainLayout isMobile={isMobile} />
         <FloatButton.Group shape="circle" style={{ right: 24 }}>
           <FloatButton icon={<QuestionCircleOutlined />} onClick={showInstructions} />
           <FloatButton.BackTop visibilityHeight={0} />
@@ -128,7 +108,7 @@ const App: React.FC = () => {
                       color: '#faad14',
                       title: '4. Get Suggestions',
                       desc: [
-                        "Try 'Load Study Plan' for recommendations",
+                        'Try Load Study Plan for recommendations',
                         'Choose start year, semester, and specialization',
                       ],
                     },
