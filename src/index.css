@@ -10,3 +10,6 @@ body, html, #root {
 }
 
 /* 其他全局样式 */
+* {
+  user-select: none;
+}

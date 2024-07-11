@@ -44,6 +44,7 @@ const CourseSelector: React.FC<CourseSelectorProps> = ({ onDragStart }) => {
                 )}
                 split={false}
                 itemLayout="vertical"
+                style={{ backgroundColor: 'transparent', border: 'none', boxShadow: 'none' }} // 添加这行，确保List不覆盖子组件样式
               />
             </motion.div>
           </AnimatePresence>

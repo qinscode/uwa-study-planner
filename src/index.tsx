@@ -14,7 +14,6 @@ root.render(
     <Provider store={store}>
       <DndProvider backend={HTML5Backend}>
         <App />
-        {/* <DraggableCard /> */}
       </DndProvider>
     </Provider>
   </React.StrictMode>
