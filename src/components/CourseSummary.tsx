@@ -5,6 +5,7 @@ import './CourseSummary.scss'
 const { Title } = Typography
 
 interface CourseSummaryProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedCourses: any[]
   startWithS2: boolean
   handleSwitch: (checked: boolean) => void

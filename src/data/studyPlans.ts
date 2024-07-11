@@ -1,5 +1,5 @@
 import { Course } from '../types'
-import { getCourseByCode, getCourseByCodeAndType } from './testCourses'
+import { getCourseByCode } from './testCourses'
 
 interface StudyPlan {
   [key: string]: {
