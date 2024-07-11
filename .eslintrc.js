@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
-    '@typescript-eslint/no-empty-function': 'off', // 根据需要配置规则
+    '@typescript-eslint/no-empty-function': 'off',
   },
   settings: {
     react: {
