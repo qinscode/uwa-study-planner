@@ -6,12 +6,10 @@ export const useModal = () => {
 
   const handleOpenModal = () => {
     setIsModalOpen(true)
-    console.log('Modal opened', isModalOpen)
   }
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
-    console.log('handleCloseModal', isModalOpen)
   }
 
   return {

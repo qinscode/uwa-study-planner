@@ -152,7 +152,6 @@ const courseSlice = createSlice({
       state,
       action: PayloadAction<{ semesterId: string; course: Course; position: number }>
     ) => {
-      console.log('state.selectedCourses', state.selectedCourses)
       const { semesterId, course, position } = action.payload
       const newSemesterCourse: SemesterCourse = {
         id: uuidv4(),
@@ -160,7 +159,6 @@ const courseSlice = createSlice({
         position,
         course,
       }
-      console.log('newSemesterCourse', newSemesterCourse)
       if (!checkprerequisites(state, course)) {
         return
       }
@@ -168,7 +166,6 @@ const courseSlice = createSlice({
         return
       }
       state.selectedCourses.push(newSemesterCourse)
-      console.log('newSemesterCourse', newSemesterCourse)
       state.availableCourses = state.availableCourses.filter(c => c.id !== course.id)
     },
     removeCourseFromSemester: (state, action: PayloadAction<{ id: string }>) => {
@@ -189,8 +186,6 @@ const courseSlice = createSlice({
         state.selectedCourses.splice(courseIndex, 1)
 
         const newSemester = getStringAfterSecondDash(newSemesterId)
-        console.log('newSemesterId', newSemesterId)
-        console.log('newSemester', newSemester)
 
         const recommendedSemester = course.course.recommendedSemester
 
@@ -223,7 +218,6 @@ const courseSlice = createSlice({
       }>
     ) => {
       const { year, semester, startWithS2, program } = action.payload
-      console.log('program', program)
       state.availableCourses = [
         ...state.availableCourses,
         ...state.selectedCourses.map(sc => sc.course),
