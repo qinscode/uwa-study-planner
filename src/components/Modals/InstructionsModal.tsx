@@ -10,8 +10,8 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons'
 import InstructionCard from './InstructionCard'
-import styles from '../styles/InstructionsModal.module.scss'
-import sharedStyles from '../styles/App.module.scss'
+import styles from '../../styles/InstructionsModal.module.scss'
+import sharedStyles from '../../styles/App.module.scss'
 
 const { Text, Title, Paragraph } = Typography
 

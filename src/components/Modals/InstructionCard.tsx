@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Typography, Space } from 'antd'
-import styles from '../styles/InstructionCard.module.scss'
+import styles from '../../styles/InstructionCard.module.scss'
 
 const { Text } = Typography
 

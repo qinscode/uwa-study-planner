@@ -2,7 +2,7 @@
  * CourseSelector Component
  *
  * Displays a tabbed interface for selecting different types of courses.
- * Contains multiple CourseItem components that can be dragged to semester cells.
+ * Contains multiple CourseCard components that can be dragged to semester cells.
  *
  * Key Features:
  *
@@ -16,8 +16,8 @@
 import React, { useState } from 'react'
 import { Tabs, List } from 'antd'
 import { useSelector } from 'react-redux'
-import { RootState } from '../redux/store'
-import CourseItem from './CourseItem'
+import { RootState } from '../../redux/store'
+import CourseCard from './CourseCard'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface CourseSelectorProps {
@@ -49,7 +49,7 @@ const CourseSelector: React.FC<CourseSelectorProps> = ({ onDragStart }) => {
                 dataSource={filteredCourses}
                 renderItem={course => (
                   <motion.div whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}>
-                    <CourseItem course={course} onDragStart={onDragStart} />
+                    <CourseCard course={course} onDragStart={onDragStart} />
                   </motion.div>
                 )}
                 split={false}

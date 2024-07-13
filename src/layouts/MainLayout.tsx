@@ -17,7 +17,7 @@
 import React from 'react'
 import { Layout, Typography } from 'antd'
 
-import SemesterGrid from '../components/SemesterGrid'
+import SemesterGrid from '../components/Main/SemesterGrid'
 
 const { Content, Footer } = Layout
 const { Text } = Typography

@@ -1,5 +1,5 @@
 /**
- * CourseItem Component
+ * CourseCard Component
  *
  * Represents a draggable course item. Implements drag functionality using react-dnd
  * and adds animation effects with framer-motion.
@@ -18,16 +18,16 @@
 import React from 'react'
 import { Card, Tag } from 'antd'
 import { useDrag } from 'react-dnd'
-import { Course } from '../types'
+import { Course } from '../../types'
 import { motion } from 'framer-motion'
-import { typeColors, CourseType } from '../types'
+import { typeColors, CourseType } from '../../types'
 
-interface CourseItemProps {
+interface CourseCardProps {
   course: Course
   onDragStart?: () => void
 }
 
-const CourseItem: React.FC<CourseItemProps> = ({ course, onDragStart }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ course, onDragStart }) => {
   const [{ isDragging }, drag, preview] = useDrag({
     type: 'COURSE',
     item: () => {
@@ -93,4 +93,4 @@ const CourseItem: React.FC<CourseItemProps> = ({ course, onDragStart }) => {
   )
 }
 
-export default CourseItem
+export default CourseCard

@@ -19,10 +19,10 @@
 
 import React from 'react'
 import { Card, Tag, Typography } from 'antd'
-import { CourseType, SemesterCourse, typeColors } from '../types'
-import { useCourseDrag } from '../hooks/useCourseDrag'
-import { useCourseDrop } from '../hooks/useCourseDrop'
-import styles from '../styles/SemesterCell.module.scss'
+import { CourseType, SemesterCourse, typeColors } from '../../types'
+import { useCourseDrag } from '../../hooks/useCourseDrag'
+import { useCourseDrop } from '../../hooks/useCourseDrop'
+import styles from '../../styles/SemesterCell.module.scss'
 
 const { Text, Paragraph } = Typography
 
