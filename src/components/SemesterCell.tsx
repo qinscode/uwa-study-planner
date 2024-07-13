@@ -18,12 +18,11 @@
  */
 
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { useDrop, useDrag } from 'react-dnd'
 import { Card, Tag, Typography } from 'antd'
-import { addCourseToSemester, removeCourseFromSemester, moveCourse } from '../redux/courseSlice'
-import { Course, SemesterCourse } from '../types'
-import { typeColors, CourseType } from '../types'
+import { CourseType, SemesterCourse, typeColors } from '../types'
+import { useCourseDrag } from '../hooks/useCourseDrag'
+import { useCourseDrop } from '../hooks/useCourseDrop'
+import styles from '../styles/SemesterCell.module.scss'
 
 const { Text, Paragraph } = Typography
 
@@ -42,58 +41,13 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
   allowedSemester,
   startWithS2,
 }) => {
-  const dispatch = useDispatch()
-
-  const [{ isDragging }, drag] = useDrag(
-    () => ({
-      type: 'SEMESTER_COURSE',
-      item: { id: course?.id, type: 'SEMESTER_COURSE' },
-      collect: monitor => ({
-        isDragging: !!monitor.isDragging(),
-      }),
-    }),
-    [course]
-  )
-
-  const [{ isOver, canDrop }, drop] = useDrop(
-    () => ({
-      accept: ['COURSE', 'SEMESTER_COURSE'],
-      canDrop: (item: { course?: Course; type: string }) => {
-        if (item.type === 'SEMESTER_COURSE') return true
-        if (!item.course) return false
-
-        const courseAllowedSemester = item.course.recommendedSemester
-        if (courseAllowedSemester === 'S1S2') return true
-
-        if (startWithS2) {
-          return (
-            (allowedSemester === 'S2' && courseAllowedSemester === 'S2') ||
-            (allowedSemester === 'S1' && courseAllowedSemester === 'S1')
-          )
-        } else {
-          return allowedSemester === courseAllowedSemester
-        }
-      },
-      drop: (item: { id?: string; course?: Course; type: string }) => {
-        if (item.type === 'SEMESTER_COURSE' && item.id) {
-          dispatch(moveCourse({ id: item.id, newSemesterId: semesterId, newPosition: position }))
-        } else if (item.course) {
-          dispatch(addCourseToSemester({ semesterId, course: item.course, position }))
-        }
-      },
-      collect: monitor => ({
-        isOver: !!monitor.isOver(),
-        canDrop: !!monitor.canDrop(),
-      }),
-    }),
-    [semesterId, position, allowedSemester, startWithS2]
-  )
-
-  const handleRemoveCourse = () => {
-    if (course) {
-      dispatch(removeCourseFromSemester({ id: course.id }))
-    }
-  }
+  const { isDragging, drag } = useCourseDrag(course?.id)
+  const { isOver, canDrop, drop } = useCourseDrop({
+    semesterId,
+    position,
+    allowedSemester,
+    startWithS2,
+  })
 
   const backgroundColor =
     course?.course.type && course.course.type in typeColors
@@ -103,39 +57,16 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
   return (
     <div
       ref={node => drag(drop(node))}
-      style={{
-        height: '100%',
-        minHeight: 120,
-        border: '1px dashed #ccc',
-        borderRadius: 4,
-        padding: 8,
-        background: isOver && canDrop ? '#e6f7ff' : canDrop ? '#f0f5ff' : 'white',
-        opacity: isDragging ? 0.5 : 1,
-      }}
+      className={`${styles.semesterCell} ${isDragging ? styles.isDragging : ''} ${
+        canDrop ? styles.canDrop : ''
+      } ${isOver ? styles.isOver : ''}`}
     >
       {course ? (
         <Card
           size="small"
           title={
-            <div
-              style={{
-                textAlign: 'center',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                height: '100%',
-              }}
-            >
-              <Paragraph
-                style={{
-                  margin: 0,
-                  whiteSpace: 'normal',
-                  width: '100%',
-                  overflowWrap: 'break-word',
-                }}
-              >
-                {course.course.code}
-              </Paragraph>
+            <div className={styles.cardTitle}>
+              <Paragraph className={styles.paragraph}>{course.course.code}</Paragraph>
             </div>
           }
           extra={
@@ -154,7 +85,6 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
             )
           }
           style={{ width: '100%', backgroundColor }}
-          onClick={handleRemoveCourse}
         >
           {course.course.name} <br />
           {course.course.note && <Text type="secondary">{course.course.note}</Text>}

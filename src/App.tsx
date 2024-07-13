@@ -7,19 +7,10 @@ import MainLayout from './layouts/MainLayout'
 import { store } from './redux/store'
 import FloatButtonGroup from './components/FloatButtonGroup'
 import InstructionsModal from './components/InstructionsModal'
-import styles from './styles/App.module.scss'
 
 const App: React.FC = () => {
   const [isInstructionsModalVisible, setIsInstructionsModalVisible] = useState(false)
   const isMobile = useMediaQuery({ maxWidth: 768 })
-
-  useEffect(() => {
-    const hasVisitedBefore = localStorage.getItem('hasVisitedBefore')
-    if (!hasVisitedBefore) {
-      setIsInstructionsModalVisible(true)
-      localStorage.setItem('hasVisitedBefore', 'true')
-    }
-  }, [])
 
   const showInstructions = () => {
     setIsInstructionsModalVisible(true)
