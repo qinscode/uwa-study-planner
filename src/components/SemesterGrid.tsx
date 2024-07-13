@@ -145,7 +145,7 @@ const SemesterGrid: React.FC = () => {
         closable={true}
         onClose={() => setDrawerVisible(false)}
         open={drawerVisible}
-        width={300}
+        width={350}
         style={{ position: 'absolute' }}
       >
         <CourseSelector onDragStart={() => setDrawerVisible(false)} />

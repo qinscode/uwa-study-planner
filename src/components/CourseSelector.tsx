@@ -19,7 +19,6 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
 import CourseItem from './CourseItem'
 import { motion, AnimatePresence } from 'framer-motion'
-import useCourseTabs from '../hooks/useItems'
 
 interface CourseSelectorProps {
   onDragStart?: () => void

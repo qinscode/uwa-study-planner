@@ -64,9 +64,7 @@ const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
 
   if (newCourse.code === 'GENG5505') {
     message.warning({
-      content:
-        "GENG5505 will be removed from 2025 S1. Try to take PHIL4100 instead if you haven't taken GENG5505.",
-      duration: 5,
+      content: 'GENG5505 will be removed from 2025 S1.',
     })
   }
 

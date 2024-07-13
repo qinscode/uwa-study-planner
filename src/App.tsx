@@ -88,8 +88,8 @@ const App: React.FC = () => {
                 onOk={handleInstructionsModalClose}
                 onCancel={handleInstructionsModalClose}
                 footer={null}
-                width={isMobile ? '100%' : 800}
-                style={{ top: isMobile ? 0 : 100 }}
+                width={isMobile ? '80%' : 800}
+                style={{ top: isMobile ? 0 : 100, marginTop: isMobile ? 100 : 50 }}
               >
                 <Paragraph
                   style={{
@@ -196,7 +196,7 @@ const App: React.FC = () => {
                     borderRadius: '4px',
                   }}
                 >
-                  Tip: If you need to see these instructions again, click the{' '}
+                  Tip: If you need to see these instructions again, click the
                   <QuestionCircleOutlined /> button in the bottom right corner of the screen.
                 </Text>
               </Modal>{' '}
