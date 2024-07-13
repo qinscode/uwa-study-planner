@@ -11,9 +11,14 @@ const storedState = localStorage.getItem('courseState')
 const initialState: CourseState = storedState
   ? JSON.parse(storedState)
   : {
-      availableCourses: testCourses || [], // 确保这里总是一个数组
+      availableCourses: testCourses || [],
       selectedCourses: [],
       allCourses: [],
+      tags: [
+        { key: 'conversion', label: 'Conversion' },
+        { key: 'core', label: 'Core' },
+        { key: 'option', label: 'Option' },
+      ],
     }
 
 // 保存状态到 localStorage 的辅助函数
@@ -140,6 +145,17 @@ const checkprerequisites = (state: CourseState, newCourse: Course): boolean => {
   return true
 }
 
+const updateCoursesTypes = (
+  courses: Course[],
+  updates: Array<{ courseCode: string; newType: string }>
+): Course[] => {
+  const updateMap = new Map(updates.map(update => [update.courseCode, update.newType]))
+  return courses.map(course => {
+    const newType = updateMap.get(course.code)
+    return newType ? { ...course, type: newType } : course
+  })
+}
+
 const getStringAfterSecondDash = (input: string): string => {
   const parts = input.split('-')
   return parts.length > 2 ? parts.slice(2).join('-') : ''
@@ -209,6 +225,10 @@ const courseSlice = createSlice({
       state.selectedCourses = []
     },
 
+    updateTag: (state, action: PayloadAction<Array<{ key: string; label: string }>>) => {
+      state.tags = action.payload
+    },
+
     loadStudyPlan: (
       state,
       action: PayloadAction<{
@@ -219,6 +239,57 @@ const courseSlice = createSlice({
       }>
     ) => {
       const { year, semester, startWithS2, program } = action.payload
+
+      if (year === '2025' && program === 'ai') {
+        const updates = [
+          { courseCode: '4407', newType: 'option' },
+
+          { courseCode: 'CITS5501', newType: 'option' },
+          { courseCode: 'CITS5506', newType: 'option' },
+          { courseCode: 'CITS5503', newType: 'option' },
+          { courseCode: 'CITS5507', newType: 'option' },
+          { courseCode: 'CITS4012', newType: 'ais' },
+          { courseCode: 'CITS5508', newType: 'ais' },
+          { courseCode: 'CITS4404', newType: 'ais' },
+          { courseCode: 'CITS5017', newType: 'ais' },
+        ]
+        state.tags = [
+          { key: 'conversion', label: 'Conversion' },
+          { key: 'core', label: 'Core' },
+          { key: 'option', label: 'Option' },
+          { key: 'ais', label: 'AIS' },
+        ]
+        state.availableCourses = updateCoursesTypes(state.availableCourses, updates)
+      }
+      if (year === '2025' && program === 'ss') {
+        const updates = [
+          { courseCode: '4407', newType: 'option' },
+
+          { courseCode: 'CITS5501', newType: 'sss' },
+          { courseCode: 'CITS5506', newType: 'sss' },
+          { courseCode: 'CITS5503', newType: 'sss' },
+          { courseCode: 'CITS5507', newType: 'sss' },
+          { courseCode: 'CITS4012', newType: 'option' },
+          { courseCode: 'CITS5508', newType: 'option' },
+          { courseCode: 'CITS4404', newType: 'option' },
+          { courseCode: 'CITS5017', newType: 'option' },
+        ]
+        state.tags = [
+          { key: 'conversion', label: 'Conversion' },
+          { key: 'core', label: 'Core' },
+          { key: 'option', label: 'Option' },
+          { key: 'sss', label: 'SSS' },
+        ]
+        state.availableCourses = updateCoursesTypes(state.availableCourses, updates)
+        console.log('tags', state.tags)
+        console.log('availableCourses', state.availableCourses)
+      }
+      if (year === '2024') {
+        state.availableCourses = testCourses
+        state.tags = []
+        console.log('tags', state.tags)
+      }
+
       state.availableCourses = [
         ...state.availableCourses,
         ...(state.selectedCourses?.map(sc => sc.course) || []),
@@ -271,6 +342,7 @@ const courseSlice = createSlice({
             state.selectedCourses.push(newSemesterCourse)
             position++
           }
+          console.log('state.selectedCourses', state.selectedCourses)
         })
       }
     },

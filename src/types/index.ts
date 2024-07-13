@@ -19,9 +19,21 @@ export interface CourseState {
   selectedCourses: SemesterCourse[]
   currentCourse: Course | null // 新增字段
   currentCourses: Course[] // 新增字段
+  tags: Array<{ key: string; label: string }>
 }
 
 export interface CourseState {
   availableCourses: Course[]
   selectedCourses: SemesterCourse[]
+}
+
+export type CourseType = 'conversion' | 'core' | 'option' | 'sss' | 'ais'
+
+export const typeColors: Record<CourseType, string> = {
+  option: '#e6f7ff', // 浅蓝色
+  conversion: '#fff2cd', // 浅橙色
+  core: '#f6ffed', // 浅绿色
+
+  sss: '#fbe4d5', // 浅黄色
+  ais: '#fbe4d5', // 浅黄色
 }

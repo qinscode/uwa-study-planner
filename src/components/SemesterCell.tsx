@@ -23,16 +23,9 @@ import { useDrop, useDrag } from 'react-dnd'
 import { Card, Tag, Typography } from 'antd'
 import { addCourseToSemester, removeCourseFromSemester, moveCourse } from '../redux/courseSlice'
 import { Course, SemesterCourse } from '../types'
+import { typeColors, CourseType } from '../types'
 
 const { Text, Paragraph } = Typography
-
-type CourseType = 'conversion' | 'core' | 'option'
-
-const typeColors: Record<CourseType, string> = {
-  conversion: '#e6f7ff',
-  core: '#fff7e6',
-  option: '#f6ffed',
-}
 
 interface SemesterCellProps {
   semesterId: string

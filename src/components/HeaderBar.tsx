@@ -73,7 +73,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({ isMobile, setDrawerVisible }) => 
           />
         )}
         <Title level={3} style={{ margin: 0, color: '#1890ff' }}>
-          👨‍💻 MIT Study Planner V5.1
+          👨‍💻 MIT Study Planner V6.0
         </Title>
       </div>
     </Header>

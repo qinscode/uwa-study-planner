@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
 import CourseItem from './CourseItem'
 import { motion, AnimatePresence } from 'framer-motion'
+import useCourseTabs from '../hooks/useItems'
 
 interface CourseSelectorProps {
   onDragStart?: () => void
@@ -28,18 +29,13 @@ const CourseSelector: React.FC<CourseSelectorProps> = ({ onDragStart }) => {
   const [activeTab, setActiveTab] = useState<string>('conversion')
   const availableCourses = useSelector((state: RootState) => state.courses.availableCourses)
   const filteredCourses = availableCourses.filter(course => course.type === activeTab)
-
-  const items = [
-    { key: 'conversion', label: 'Conversion' },
-    { key: 'core', label: 'Core' },
-    { key: 'option', label: 'Option' },
-  ]
+  const tags = useSelector((state: RootState) => state.courses.tags)
 
   return (
     <Tabs
       activeKey={activeTab}
       onChange={setActiveTab}
-      items={items.map(item => ({
+      items={tags.map(item => ({
         ...item,
         children: (
           <AnimatePresence mode="wait" key={item.key}>

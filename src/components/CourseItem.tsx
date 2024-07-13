@@ -20,16 +20,7 @@ import { Card, Tag } from 'antd'
 import { useDrag } from 'react-dnd'
 import { Course } from '../types'
 import { motion } from 'framer-motion'
-
-// 定义课程类型
-type CourseType = 'conversion' | 'core' | 'option'
-
-// 定义颜色映射
-const typeColors: Record<CourseType, string> = {
-  conversion: '#e6f7ff', // 浅蓝色
-  core: '#fff7e6', // 浅橙色
-  option: '#f6ffed', // 浅绿色
-}
+import { typeColors, CourseType } from '../types'
 
 interface CourseItemProps {
   course: Course

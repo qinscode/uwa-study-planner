@@ -77,13 +77,7 @@ const testCourses: Course[] = [
     note: 'CITS1401 and advisable prior study: CITS1402',
     prereq: ['CITS1401'],
   },
-  {
-    id: '42',
-    code: 'CITS4407',
-    name: 'Open Source Tools and Scripting',
-    type: 'option',
-    recommendedSemester: 'S1',
-  },
+
   {
     id: '99',
     code: 'CITS4407',
