@@ -1,0 +1,49 @@
+.instructionsModal {
+    &.mobile {
+      top: 0;
+      margin-top: 100px;
+    }
+    &.desktop {
+      top: 100px;
+      margin-top: 50px;
+    }
+  }
+  
+  .instructionsText {
+    text-align: center;
+    margin-bottom: 24px;
+    &.mobile {
+      font-size: 16px;
+    }
+    &.desktop {
+      font-size: 16px;
+    }
+  }
+  
+  .footerText {
+    text-align: center;
+    margin-top: 24px;
+    font-style: italic;
+    &.mobile {
+      font-size: 14px;
+    }
+    &.desktop {
+      font-size: 14px;
+    }
+  }
+  
+  .tipText {
+    display: block;
+    text-align: center;
+    margin-top: 24px;
+    color: #1890ff;
+    background-color: #e6f7ff;
+    padding: 8px;
+    border-radius: 4px;
+    &.mobile {
+      font-size: 14px;
+    }
+    &.desktop {
+      font-size: 14px;
+    }
+  }

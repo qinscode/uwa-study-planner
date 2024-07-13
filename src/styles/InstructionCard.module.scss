@@ -1,0 +1,22 @@
+.cardIcon {
+    font-size: 48px;
+    margin-top: 24px;
+  }
+  
+  .cardTitle {
+    &.mobile {
+      font-size: 20px;
+    }
+    &.desktop {
+      font-size: 18px;
+    }
+  }
+  
+  .cardDescription {
+    &.mobile {
+      font-size: 16px;
+    }
+    &.desktop {
+      font-size: 14px;
+    }
+  }
