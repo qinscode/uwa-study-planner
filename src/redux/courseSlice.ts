@@ -284,7 +284,11 @@ const courseSlice = createSlice({
       }
       if (year === '2024') {
         state.availableCourses = testCourses
-        state.tags = []
+        state.tags = [
+          { key: 'conversion', label: 'Conversion' },
+          { key: 'core', label: 'Core' },
+          { key: 'option', label: 'Option' },
+        ]
         console.log('tags', state.tags)
       }
 
