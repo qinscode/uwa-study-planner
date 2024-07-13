@@ -27,6 +27,11 @@ interface MainLayoutProps {
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ isMobile }) => {
+  const commonStyle = {
+    marginLeft: isMobile ? '0' : '350px',
+    fontSize: isMobile ? '14px' : '12px',
+  }
+
   return (
     <>
       <Layout style={{ minHeight: '100vh' }}>
@@ -40,11 +45,18 @@ const MainLayout: React.FC<MainLayoutProps> = ({ isMobile }) => {
             borderTop: '1px solid rgba(0, 0, 0, 0.1)',
           }}
         >
-          <Text type="secondary" style={{ fontSize: isMobile ? '14px' : '12px' }}>
-            UWA MIT Study Planner • ©2024 Created by Jack Qin
-            <br /> React • Redux • AntDesign
-            <br /> Email: jack@fudongs.com
-          </Text>
+          {[
+            'UWA MIT Study Planner • ©2024 Created by Jack Qin',
+            'React • Redux • AntDesign',
+            'jack@fudongs.com',
+          ].map((text, index) => (
+            <div key={index}>
+              <Text type="secondary" style={commonStyle}>
+                {text}
+              </Text>
+              <br />
+            </div>
+          ))}
         </Footer>
       </Layout>
     </>

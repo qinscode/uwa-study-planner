@@ -1,23 +1,18 @@
-{
-  /**
-   * Sidebar Component
-   *
-   * Represents the sidebar of the application, used for displaying the course selector.
-   * Allows users to choose courses and drag them into semester cells.
-   */
-}
+/**
+ * Sidebar Component
+ *
+ * Represents the sidebar of the application, used for displaying the course selector.
+ * Allows users to choose courses and drag them into semester cells.
+ *
+ * Key Features:
+ *
+ * 1. Sidebar Display
+ *    - Uses Sider component to create a fixed sidebar
+ *
+ * 2. Course Selector
+ *    - Contains CourseSelector component for displaying available courses
+ */
 
-{
-  /**
-   * Key Features:
-   *
-   * 1. Sidebar Display
-   *    - Uses Sider component to create a fixed sidebar
-   *
-   * 2. Course Selector
-   *    - Contains CourseSelector component for displaying available courses
-   */
-}
 import React from 'react'
 import { Layout, Typography } from 'antd'
 import CourseSelector from './CourseSelector'
