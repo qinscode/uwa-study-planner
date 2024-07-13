@@ -1,6 +1,6 @@
 export interface Course {
   id: string
-  code?: string
+  code: string
   name?: string
   type?: string
   recommendedSemester?: string
@@ -17,6 +17,8 @@ export interface SemesterCourse {
 export interface CourseState {
   allCourses: Course[]
   selectedCourses: SemesterCourse[]
+  currentCourse: Course | null // 新增字段
+  currentCourses: Course[] // 新增字段
 }
 
 export interface CourseState {

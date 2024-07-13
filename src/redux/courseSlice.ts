@@ -5,12 +5,13 @@ import { message } from 'antd'
 import { v4 as uuidv4 } from 'uuid'
 import { getStudyPlan } from '../data/studyPlans'
 import testCourses from '../data/availableCourse'
+import { RootState } from './store'
 
 const storedState = localStorage.getItem('courseState')
 const initialState: CourseState = storedState
   ? JSON.parse(storedState)
   : {
-      availableCourses: testCourses,
+      availableCourses: testCourses || [], // 确保这里总是一个数组
       selectedCourses: [],
       allCourses: [],
     }
@@ -220,11 +221,12 @@ const courseSlice = createSlice({
       const { year, semester, startWithS2, program } = action.payload
       state.availableCourses = [
         ...state.availableCourses,
-        ...state.selectedCourses.map(sc => sc.course),
+        ...(state.selectedCourses?.map(sc => sc.course) || []),
       ]
       state.selectedCourses = []
 
-      const planCourses = getStudyPlan(year, semester, program)
+      const planCourses = getStudyPlan({ courses: state }, year, semester, program)
+      console.log('planCourses', planCourses)
       if (planCourses) {
         const semesterIds = [
           `${startWithS2 ? 'S2' : 'S1'}-0-${startWithS2 ? 'S2' : 'S1'}`,
@@ -283,3 +285,15 @@ export const {
   loadStudyPlan,
 } = courseSlice.actions
 export default courseSlice.reducer
+
+export const selectCourseByCode =
+  (code: string) =>
+  (state: RootState): Course | undefined => {
+    const availableCourses = state.courses?.availableCourses || []
+    console.log('Available courses:', availableCourses)
+    return availableCourses.find(course => course.code === code)
+  }
+
+export const selectAllAvailableCourses = (state: RootState): Course[] => {
+  return state.courses?.availableCourses || []
+}
