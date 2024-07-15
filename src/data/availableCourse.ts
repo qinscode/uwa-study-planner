@@ -201,7 +201,7 @@ const testCourses: Course[] = [
     code: 'ENVT4411',
     name: 'Geographic Information System Applications',
     type: 'option',
-    recommendedSemester: '',
+    recommendedSemester: 'S1S2',
     note: '',
   },
   {
@@ -209,9 +209,7 @@ const testCourses: Course[] = [
     code: 'GENG5507',
     name: 'Risk, Reliability and Safety',
     type: 'option',
-    recommendedSemester: '',
-    note: 'MATH1011 & MATH1012',
-    prereq: ['MATH1011', 'MATH1012'],
+    recommendedSemester: 'S1S2',
   },
   {
     id: '26',

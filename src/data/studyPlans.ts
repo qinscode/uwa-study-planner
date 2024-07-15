@@ -130,14 +130,10 @@ const studyPlans: StudyPlan = {
         '',
       ],
     },
-    // Add more specializations as needed
   },
-  // Add more years as needed
 }
 
 export default studyPlans
-
-// 更新获取学习计划的函数
 
 export function getStudyPlan(
   state: RootState,
