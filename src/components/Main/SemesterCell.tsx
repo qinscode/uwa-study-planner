@@ -1,27 +1,11 @@
-/**
- * SemesterCell Component
- *
- * Represents a single cell within a semester card. Implements drag-and-drop
- * functionality for courses using useDrag and useDrop hooks.
- *
- * Key Features:
- *
- * 1. Drag and Drop Functionality
- *    - Uses useDrag and useDrop hooks to enable course dragging between cells
- *
- * 2. Course Information Display
- *    - Shows detailed course information if a course is present in the cell
- *    - Displays course code, name, and recommended semester
- *
- * 3. Course Removal
- *    - Provides functionality to remove a course by clicking on the card
- */
-
+// SemesterCell.tsx
 import React from 'react'
 import { Card, Tag, Typography } from 'antd'
 import { CourseType, SemesterCourse, typeColors } from '../../types'
 import { useCourseDrag } from '../../hooks/useCourseDrag'
 import { useCourseDrop } from '../../hooks/useCourseDrop'
+import { useDispatch } from 'react-redux'
+import { removeCourseFromSemester } from '../../redux/courseSlice' // Import the action
 import styles from '../../styles/SemesterCell.module.scss'
 
 const { Text, Paragraph } = Typography
@@ -49,10 +33,18 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
     startWithS2,
   })
 
+  const dispatch = useDispatch() // Initialize dispatch
+
   const backgroundColor =
     course?.course.type && course.course.type in typeColors
       ? typeColors[course.course.type as CourseType]
       : 'white'
+
+  const handleRemoveCourse = () => {
+    if (course) {
+      dispatch(removeCourseFromSemester({ id: course.id })) // Dispatch the action
+    }
+  }
 
   return (
     <div
@@ -85,6 +77,7 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
             )
           }
           style={{ width: '100%', backgroundColor }}
+          onClick={handleRemoveCourse} // Attach the click handler
         >
           {course.course.name} <br />
           {course.course.note && <Text type="secondary">{course.course.note}</Text>}
