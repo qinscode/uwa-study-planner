@@ -1,22 +1,32 @@
 .course-summary-title {
-    .course-summary-space {
-      display: flex;
-      flex-direction: column;
-  
-      @media (min-width: 576px) {
-        flex-direction: row;
-      }
+  .course-summary-space {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 576px) {
+      flex-direction: row;
     }
   }
+}
 
-  @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   .responsive-space {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start; /* Align items to the left */
   }
   .responsive-space > * {
-    flex: 1 1 100%;
+    flex: 1 1 auto; /* Ensure items don't stretch to fill the width */
+    margin-bottom: 8px;
+  }
+  .right-aligned-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align items to the left */
+    width: auto; /* Adjust width to auto to avoid stretching */
+  }
+  .right-aligned-buttons > * {
+    flex: 1 1 auto; /* Ensure items don't stretch to fill the width */
     margin-bottom: 8px;
   }
 }

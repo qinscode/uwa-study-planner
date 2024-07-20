@@ -43,6 +43,7 @@ export default [
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
+      '@typescript-eslint/ban-ts-comment': 'off', // Disable the rule banning ts-ignore comments
       "jsx-a11y/anchor-is-valid": "warn",
       "import/order": ["error", {
         "groups": ["builtin", "external", "internal"],

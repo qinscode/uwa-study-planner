@@ -17,12 +17,15 @@
  *    - Provides functionality to remove a course by clicking on the card
  */
 
+// SemesterCell.tsx
 import React from 'react'
 import { Card, Tag, Typography } from 'antd'
 import { CourseType, SemesterCourse, typeColors } from '../../types'
 import { useCourseDrag } from '../../hooks/useCourseDrag'
 import { useCourseDrop } from '../../hooks/useCourseDrop'
+import { useDispatch } from 'react-redux'
 import styles from '../../styles/SemesterCell.module.scss'
+import { removeCourseFromSemester } from '../../redux/courseSlice'
 
 const { Text, Paragraph } = Typography
 
@@ -49,10 +52,18 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
     startWithS2,
   })
 
+  const dispatch = useDispatch() // Initialize dispatch
+
   const backgroundColor =
     course?.course.type && course.course.type in typeColors
       ? typeColors[course.course.type as CourseType]
       : 'white'
+
+  const handleRemoveCourse = () => {
+    if (course) {
+      dispatch(removeCourseFromSemester({ id: course.id })) // Dispatch the action
+    }
+  }
 
   return (
     <div
@@ -85,6 +96,7 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
             )
           }
           style={{ width: '100%', backgroundColor }}
+          onClick={handleRemoveCourse} // Attach the click handler
         >
           {course.course.name} <br />
           {course.course.note && <Text type="secondary">{course.course.note}</Text>}
