@@ -44,7 +44,7 @@ const SemesterGrid: React.FC = () => {
   const { isMobile } = useResponsive()
   const [semesters, setSemesters] = useState(['S1', 'S2', 'S1', 'S2'])
   const [drawerVisible, setDrawerVisible] = useState(false)
-  const [selectedYear, setSelectedYear] = useState('2024')
+  const [selectedYear, setSelectedYear] = useState('2025')
   const [selectedSemester, setSelectedSemester] = useState('s1')
   const [selectedProgram, setSelectedProgram] = useState('Select Specialization')
   const selectedCourses = useSelector((state: RootState) => state.courses.selectedCourses)

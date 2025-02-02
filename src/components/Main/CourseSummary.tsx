@@ -117,6 +117,7 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
                 options={[
                   { value: 'ss', label: 'Software Systems' },
                   { value: 'ai', label: 'Artificial Intelligence' },
+                  { value: 'ac', label: 'Applied Computing' },
                 ]}
               />
               <Button type="primary" onClick={handleLoadStudyPlan}>

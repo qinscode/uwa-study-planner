@@ -20,6 +20,8 @@ const App: React.FC = () => {
     setIsInstructionsModalVisible(false)
   }
 
+
+
   return (
     <Provider store={store}>
       <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>

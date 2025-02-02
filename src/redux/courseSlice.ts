@@ -161,6 +161,36 @@ const courseSlice = createSlice({
         console.log('tags', state.tags)
         console.log('availableCourses', state.availableCourses)
       }
+            if (year === '2025' && program === 'ac') {
+        const updates = [
+
+          { courseCode: 'CITS4009', newType: 'ACS' },
+          { courseCode: 'CITS4012', newType: 'ACS' },
+          { courseCode: 'CITS4402', newType: 'ACS' },
+          { courseCode: 'CITS4403', newType: 'ACS' },
+          { courseCode: 'CITS4404', newType: 'ACS' },
+          { courseCode: 'CITS4407', newType: 'ACS' },
+          { courseCode: 'CITS4419', newType: 'ACS' },
+          { courseCode: 'CITS5017', newType: 'ACS' },
+          { courseCode: 'CITS5501', newType: 'ACS' },
+          { courseCode: 'CITS5503', newType: 'ACS' },
+          { courseCode: 'CITS5504', newType: 'ACS' },
+          { courseCode: 'CITS5506', newType: 'ACS' },
+          { courseCode: 'CITS5507', newType: 'ACS' },
+          { courseCode: 'CITS5508', newType: 'ACS' },
+
+
+        ]
+        state.tags = [
+          { key: 'conversion', label: 'Conversion' },
+          { key: 'core', label: 'Core' },
+          { key: 'option', label: 'Option' },
+          { key: 'acs', label: 'ACS' },
+        ]
+        state.availableCourses = updateCoursesTypes(state.availableCourses, updates)
+        console.log('tags', state.tags)
+        console.log('availableCourses', state.availableCourses)
+      }
       if (year === '2024') {
         state.availableCourses = testCourses
         state.tags = [
