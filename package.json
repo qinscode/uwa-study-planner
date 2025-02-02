@@ -22,7 +22,7 @@
     "react-redux": "^9.1.2",
     "react-responsive": "^10.0.0",
     "sass": "^1.77.8",
-    "uuid": "^10.0.0"
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
@@ -43,5 +43,6 @@
     "typescript": "^5.2.2",
     "typescript-eslint": "^7.16.1",
     "vite": "^5.3.4"
-  }
+  },
+  "packageManager": "yarn@4.5.0+sha512.837566d24eec14ec0f5f1411adb544e892b3454255e61fdef8fd05f3429480102806bac7446bc9daff3896b01ae4b62d00096c7e989f1596f2af10b927532f39"
 }

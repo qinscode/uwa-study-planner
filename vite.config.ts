@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react-swc'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    preview: {
+    port: 3031 // 你可以修改为任意可用端口
+  },
   plugins: [react()],
   build: {
     outDir: 'build', // 将输出目录更改为 build
