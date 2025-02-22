@@ -37,6 +37,12 @@ jobs:
       - name: Run lint
         run: yarn lint
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
@@ -61,8 +67,11 @@ jobs:
         with:
           context: .
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   deploy:
     needs: build-and-push
@@ -77,16 +86,18 @@ jobs:
           username: ${{ secrets.DEPLOY_USERNAME }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
-            # Pull the latest image
+            # 确保使用正确的平台版本
             docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
             
-            # Stop and remove the old container if it exists
+            # 停止并清理旧容器
             docker stop study-planner || true
             docker rm study-planner || true
+            docker rmi ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main || true
             
-            # Run the new container
+            # 运行新容器，指定平台
             docker run -d \
+              --platform linux/arm64 \
               --name study-planner \
               --restart unless-stopped \
               -p 127.0.0.1:5173:5173 \
-              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main 
+              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main

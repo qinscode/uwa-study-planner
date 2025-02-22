@@ -1,5 +1,5 @@
 # Build stage
-FROM node:20-alpine as builder
+FROM --platform=$TARGETPLATFORM node:20-alpine as builder
 
 WORKDIR /app
 
@@ -14,16 +14,16 @@ COPY . .
 RUN yarn build
 
 # Production stage
-FROM node:20-alpine
+FROM --platform=$TARGETPLATFORM node:20-alpine
 
 WORKDIR /app
 
-# Install serve package
+# Install serve package globally
 RUN yarn global add serve
 
 # Copy built assets from builder stage
-COPY --from=builder /app/build ./build
+COPY --from=builder /app/dist ./dist
 
 EXPOSE 5173
 
-CMD ["serve", "-s", "build", "-l", "5173"] 
+CMD ["serve", "-s", "dist", "-l", "5173"] 
