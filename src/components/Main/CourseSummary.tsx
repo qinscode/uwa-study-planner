@@ -72,7 +72,7 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 	).length;
 
 	return (
-		<Card>
+		<Card className="relative">
 			<CardHeader className="pb-2 pt-4">
 				<CardTitle>Unit Statistics</CardTitle>
 			</CardHeader>
@@ -121,10 +121,14 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 							<div className="flex flex-col gap-2">
 								<label className="text-sm font-medium">Enrolled Year</label>
 								<Select value={selectedYear} onValueChange={handleYearChange}>
-									<SelectTrigger>
+									<SelectTrigger className="w-full">
 										<SelectValue placeholder="Select Year" />
 									</SelectTrigger>
-									<SelectContent>
+									<SelectContent
+										className="w-full min-w-[8rem]"
+										position="popper"
+										sideOffset={4}
+									>
 										<SelectItem value="2024">2024</SelectItem>
 										<SelectItem value="2025">2025</SelectItem>
 									</SelectContent>
@@ -137,10 +141,14 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 									value={selectedSemester}
 									onValueChange={handleSemesterChange}
 								>
-									<SelectTrigger>
+									<SelectTrigger className="w-full">
 										<SelectValue placeholder="Select Semester" />
 									</SelectTrigger>
-									<SelectContent>
+									<SelectContent
+										className="w-full min-w-[8rem]"
+										position="popper"
+										sideOffset={4}
+									>
 										<SelectItem value="s1">Semester 1</SelectItem>
 										<SelectItem value="s2">Semester 2</SelectItem>
 									</SelectContent>
@@ -154,14 +162,18 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 									value={selectedYear === "2024" ? "default" : selectedProgram}
 									onValueChange={handleProgramChange}
 								>
-									<SelectTrigger>
+									<SelectTrigger className="w-full">
 										<SelectValue placeholder="Select Specialization">
 											{selectedYear === "2024"
 												? "Not available in 2024"
 												: undefined}
 										</SelectValue>
 									</SelectTrigger>
-									<SelectContent>
+									<SelectContent
+										className="w-full min-w-[8rem]"
+										position="popper"
+										sideOffset={4}
+									>
 										<SelectItem value="ai">Artificial Intelligence</SelectItem>
 										<SelectItem value="ss">Software Systems</SelectItem>
 										<SelectItem value="ac">Applied Computing</SelectItem>
@@ -174,10 +186,10 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 					<div className="flex flex-wrap gap-2">
 						<Button onClick={handleLoadStudyPlan}>Load Study Plan</Button>
 						<Button variant="secondary" onClick={handleExportTable}>
-							Export Table
+							Save as Picture
 						</Button>
 						<Button variant="destructive" onClick={handleClearTable}>
-							Clear Table
+							Clear Study Plan
 						</Button>
 					</div>
 				</div>
