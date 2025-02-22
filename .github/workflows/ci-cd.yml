@@ -87,5 +87,5 @@ jobs:
             docker run -d \
               --name study-planner \
               --restart unless-stopped \
-              -p 127.0.0.1:3000:3000 \
+              -p 127.0.0.1:5173:5173 \
               ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main 
