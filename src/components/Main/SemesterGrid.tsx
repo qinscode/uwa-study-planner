@@ -9,16 +9,16 @@
 
 import React, { useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../redux/store'
-import { clearSelectedCourses, loadStudyPlan } from '../../redux/courseSlice'
+import { RootState } from '@/redux/store'
+import { clearSelectedCourses, loadStudyPlan } from '@/redux/courseSlice'
 import HeaderBar from '../HeaderBar'
 import Sidebar from '../Sider/Sidebar'
 import MainContent from './MainContent'
 import ClearModal from '../Modals/ClearModal'
 import CourseSelector from '../Sider/CourseSelector'
 import exportTableToPNG from '../../utils/exportTableToPNG'
-import { useModal } from '../../hooks/useModal'
-import { useResponsive } from '../../hooks/useResponsive'
+import { useModal } from '@/hooks/useModal'
+import { useResponsive } from '@/hooks/useResponsive'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { BookOpen } from 'lucide-react'
@@ -114,7 +114,7 @@ const SemesterGrid: React.FC = () => {
         {/* Main Content Area */}
         <main 
           className={cn(
-            "flex-1 min-h-screen pt-16 pb-32",
+            "flex-1 min-h-screen pb-32",
             !isMobile && `ml-[${sidebarWidth}]`
           )}
           style={!isMobile ? { marginLeft: sidebarWidth } : undefined}

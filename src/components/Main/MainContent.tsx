@@ -50,7 +50,7 @@ const MainContent: React.FC<MainContentProps> = ({
   selectedProgram,
 }) => {
   return (
-    <div ref={captureRef} className="p-4 lg:p-6 w-full max-w-[1600px] mx-auto">
+    <div ref={captureRef} className="px-4 pt-2 pb-4 lg:px-6 w-full max-w-[1600px] mx-auto">
       <CourseSummary
         selectedCourses={selectedCourses}
         startWithS2={semesters[0] === 'S2'}

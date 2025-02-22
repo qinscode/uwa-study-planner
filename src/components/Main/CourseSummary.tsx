@@ -63,11 +63,11 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
   ).length
 
   return (
-    <Card className="mb-8">
-      <CardHeader>
+    <Card>
+      <CardHeader className="pb-2 pt-4">
         <CardTitle>Unit Statistics</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-8">
+      <CardContent className="space-y-6">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div className="text-center p-4 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
             <div className="text-2xl font-bold text-primary">{selectedCourses.length}</div>
