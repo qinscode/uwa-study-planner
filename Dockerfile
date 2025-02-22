@@ -4,21 +4,20 @@ FROM --platform=$TARGETPLATFORM node:20-alpine as builder
 # Set working directory
 WORKDIR /app
 
-# Enable Yarn Berry and set version
-RUN corepack enable && corepack prepare yarn@4.5.0 --activate
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Copy package files
-COPY package.json yarn.lock .yarnrc.yml ./
-COPY .yarn ./.yarn
+COPY package.json pnpm-lock.yaml* ./
 
 # Install dependencies
-RUN yarn install --immutable
+RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY . .
 
 # Build the application
-RUN yarn build
+RUN pnpm build
 
 # Production stage
 FROM --platform=$TARGETPLATFORM node:20-alpine
@@ -29,11 +28,13 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 # Set working directory
 WORKDIR /app
 
-# Install serve using npm
-RUN npm install -g serve
+# Install serve using pnpm
+RUN corepack enable && \
+    corepack prepare pnpm@latest --activate && \
+    pnpm add -g serve
 
 # Copy built files from builder stage
-COPY --from=builder /app/build ./build
+COPY --from=builder /app/dist ./dist
 
 # Use non-root user
 USER appuser
@@ -42,4 +43,4 @@ USER appuser
 EXPOSE 3031
 
 # Start the server
-CMD ["serve", "-s", "build", "-l", "3031"]
+CMD ["serve", "-s", "dist", "-l", "3031"]
