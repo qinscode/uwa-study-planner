@@ -1,17 +1,3 @@
-/**
- * CourseSummary Component
- *
- * Displays a summary of selected courses and provides action buttons for various operations.
- *
- * Key Features:
- *
- * 1. Course Summary
- *    - Shows the total number of selected courses and counts for each course type
- *
- * 2. Action Buttons
- *    - Provides functionality to switch semesters, export table, clear table, and load study plans
- */
-
 import type React from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -70,6 +56,22 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 	const conversionUnitsCount = selectedCourses.filter(
 		(course) => course["course"].type === "conversion"
 	).length;
+
+	const renderSpecializationSelect = () => {
+		if (selectedYear === "2024") {
+			return (
+				<SelectTrigger disabled className="w-full">
+					<span className="text-muted-foreground">Not available in 2024</span>
+				</SelectTrigger>
+			);
+		}
+
+		return (
+			<SelectTrigger className="w-full">
+				<SelectValue placeholder="Select Specialization" />
+			</SelectTrigger>
+		);
+	};
 
 	return (
 		<Card className="relative">
@@ -159,16 +161,10 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 								<label className="text-sm font-medium">Specialization</label>
 								<Select
 									disabled={selectedYear === "2024"}
-									value={selectedYear === "2024" ? "default" : selectedProgram}
+									value={selectedYear === "2024" ? undefined : selectedProgram}
 									onValueChange={handleProgramChange}
 								>
-									<SelectTrigger className="w-full">
-										<SelectValue placeholder="Select Specialization">
-											{selectedYear === "2024"
-												? "Not available in 2024"
-												: undefined}
-										</SelectValue>
-									</SelectTrigger>
+									{renderSpecializationSelect()}
 									<SelectContent
 										className="w-full min-w-[8rem]"
 										position="popper"

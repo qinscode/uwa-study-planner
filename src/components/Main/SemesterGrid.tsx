@@ -141,7 +141,10 @@ const SemesterGrid: React.FC = () => {
 
 					<footer className="fixed bottom-0 right-0 w-full border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 px-6">
 						<div className="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-muted-foreground">
-							<div>UWA MIT Study Planner • ©2025 Created by Jack Qin</div>
+							<div>
+								UWA MIT Study Planner • ©2025 Developed by Jack Qin with 💡 and
+								☕
+							</div>
 							<div className="flex items-center gap-4">
 								<span>React • Redux • Vite • Shadcn/ui</span>
 								<a
