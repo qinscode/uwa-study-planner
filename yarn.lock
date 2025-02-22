@@ -3678,6 +3678,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dom-to-image-more@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "dom-to-image-more@npm:3.5.0"
+  checksum: 10c0/390d55bdf3dbf13f97209ef3dadcbd93c1f5dd3d354aa0ff03169a66002ab1f19feffb0b16d30bf6720c9de1681abdd92c2e4c7b6209f9f9802173273b1fa43b
+  languageName: node
+  linkType: hard
+
 "dot-prop@npm:^5.1.0":
   version: 5.3.0
   resolution: "dot-prop@npm:5.3.0"
@@ -8152,6 +8159,7 @@ __metadata:
     class-variance-authority: "npm:^0.7.0"
     clsx: "npm:^2.1.0"
     cmdk: "npm:^0.2.1"
+    dom-to-image-more: "npm:^3.5.0"
     eslint: "npm:^9.9.1"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-import: "npm:^2.29.1"

@@ -30,6 +30,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.1",
+    "dom-to-image-more": "^3.5.0",
     "framer-motion": "^11.3.8",
     "html2canvas": "^1.4.1",
     "lucide-react": "^0.475.0",
