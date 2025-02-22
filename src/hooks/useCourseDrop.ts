@@ -1,8 +1,8 @@
 import { useDrop } from 'react-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCourseToSemester, moveCourse } from '../redux/courseSlice'
-import { Course } from '../types'
-import { RootState } from '../redux/store'
+import type { Course } from '../types'
+import type { RootState } from '../redux/store'
 import { message } from 'antd'
 
 interface UseCourseDropProps {

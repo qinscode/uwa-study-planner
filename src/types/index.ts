@@ -4,7 +4,7 @@ export interface Course {
   name?: string
   type?: string
   recommendedSemester?: string
-  prereq?: string[]
+  prereq?: Array<string>
   note?: string
 }
 
@@ -15,16 +15,16 @@ export interface SemesterCourse {
   course: Course
 }
 export interface CourseState {
-  allCourses: Course[]
-  selectedCourses: SemesterCourse[]
+  allCourses: Array<Course>
+  selectedCourses: Array<SemesterCourse>
   currentCourse: Course | null // 新增字段
-  currentCourses: Course[] // 新增字段
+  currentCourses: Array<Course> // 新增字段
   tags: Array<{ key: string; label: string }>
 }
 
 export interface CourseState {
-  availableCourses: Course[]
-  selectedCourses: SemesterCourse[]
+  availableCourses: Array<Course>
+  selectedCourses: Array<SemesterCourse>
 }
 
 export type CourseType = 'conversion' | 'core' | 'option' | 'sss' | 'ais'

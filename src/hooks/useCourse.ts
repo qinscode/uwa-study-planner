@@ -14,9 +14,9 @@
  */
 
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../redux/store'
+import type { RootState } from '../redux/store'
 import { addCourseToSemester, removeCourseFromSemester, moveCourse } from '../redux/courseSlice'
-import { Course } from '../types'
+import type { Course } from '../types'
 
 export const useCourses = () => {
   const dispatch = useDispatch()

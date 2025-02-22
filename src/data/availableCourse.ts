@@ -1,6 +1,6 @@
-import { Course } from '../types'
+import type { Course } from '../types'
 
-const testCourses: Course[] = [
+const testCourses: Array<Course> = [
   // Conversion Courses
   {
     id: '1',
@@ -281,8 +281,8 @@ const testCourses: Course[] = [
 
 export default testCourses
 export const getCourseByCodeAndType = (
-  codeTypeArray: { code: string; type?: string }[]
-): Course[] => {
+  codeTypeArray: Array<{ code: string; type?: string }>
+): Array<Course> => {
   return codeTypeArray
     .map(({ code, type = '' }) => {
       if (type) {
@@ -291,10 +291,10 @@ export const getCourseByCodeAndType = (
         return testCourses.find(course => course.code === code)
       }
     })
-    .filter(course => course !== undefined) as Course[]
+    .filter(course => course !== undefined)
 }
 
-export const getCourseByCode = (codes: string[]): (Course | null)[] => {
+export const getCourseByCode = (codes: Array<string>): Array<Course | null> => {
   return codes.map(code => {
     if (code === '') {
       return null

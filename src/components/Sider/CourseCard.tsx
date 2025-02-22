@@ -15,9 +15,9 @@
  *    - Displays course code, name, and recommended semester
  */
 
-import React from 'react'
+import type React from 'react'
 import { useDrag } from 'react-dnd'
-import { Course } from '../../types'
+import type { Course } from '../../types'
 import { motion } from 'framer-motion'
 import { Card, CardHeader, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -43,17 +43,17 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onDragStart }) => {
   return (
     <motion.div
       ref={preview}
+      initial={{ scale: 1 }}
+      whileTap={{ scale: 0.98 }}
       className={cn(
         'transition-all rounded-lg overflow-hidden',
         isDragging && 'opacity-50',
         'cursor-move'
       )}
-      initial={{ scale: 1 }}
       whileHover={{
         scale: 1.02,
         transition: { duration: 0.2 },
       }}
-      whileTap={{ scale: 0.98 }}
     >
       <div ref={drag}>
         <Card
@@ -69,8 +69,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onDragStart }) => {
               <span className="font-medium">{course.code}</span>
               {course.recommendedSemester && (
                 <Badge
-                  variant={course.recommendedSemester.toLowerCase() as 's1' | 's2' | 's1s2'}
                   className="shrink-0"
+                  variant={course.recommendedSemester.toLowerCase() as 's1' | 's2' | 's1s2'}
                 >
                   {course.recommendedSemester}
                 </Badge>

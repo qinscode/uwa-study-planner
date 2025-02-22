@@ -1,10 +1,10 @@
 // SemesterCell.tsx
-import React from 'react'
-import { CourseType, SemesterCourse } from '../../types'
-import { useCourseDrag } from '../../hooks/useCourseDrag'
-import { useCourseDrop } from '../../hooks/useCourseDrop'
+import type React from 'react'
+import type { SemesterCourse } from '@/types'
+import { useCourseDrag } from '@/hooks/useCourseDrag'
+import { useCourseDrop } from '@/hooks/useCourseDrop'
 import { useDispatch } from 'react-redux'
-import { removeCourseFromSemester } from '../../redux/courseSlice'
+import { removeCourseFromSemester } from '@/redux/courseSlice'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
@@ -34,7 +34,7 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
 
   const dispatch = useDispatch()
 
-  const handleRemoveCourse = () => {
+  const handleRemoveCourse = (): void => {
     if (course) {
       dispatch(removeCourseFromSemester({ id: course.id }))
     }
@@ -70,8 +70,8 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
               <span className="font-medium text-sm">{course.course.code}</span>
               {course.course.recommendedSemester && (
                 <Badge
-                  variant={course.course.recommendedSemester.toLowerCase() as 's1' | 's2' | 's1s2'}
                   className="shrink-0"
+                  variant={course.course.recommendedSemester.toLowerCase() as 's1' | 's2' | 's1s2'}
                 >
                   {course.course.recommendedSemester}
                 </Badge>

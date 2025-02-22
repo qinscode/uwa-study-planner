@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Course, SemesterCourse, CourseState } from '../types'
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
+import type { Course, SemesterCourse, CourseState } from '../types'
 import { message } from 'antd'
 import { v4 as uuidv4 } from 'uuid'
 import { getStudyPlan } from '../data/studyPlans'
 import testCourses from '../data/availableCourse'
-import { RootState } from './store'
+import type { RootState } from './store'
 import { isValidSelection } from '../utils/isValidSelection'
 import { checkprerequisites } from '../utils/checkprerequisites'
 
@@ -24,9 +25,9 @@ const initialState: CourseState = storedState
     }
 
 const updateCoursesTypes = (
-  courses: Course[],
+  courses: Array<Course>,
   updates: Array<{ courseCode: string; newType: string }>
-): Course[] => {
+): Array<Course> => {
   const updateMap = new Map(updates.map(update => [update.courseCode, update.newType]))
   return courses.map(course => {
     const newType = updateMap.get(course.code)
@@ -274,6 +275,6 @@ export const selectCourseByCode =
     return availableCourses.find(course => course.code === code)
   }
 
-export const selectAllAvailableCourses = (state: RootState): Course[] => {
+export const selectAllAvailableCourses = (state: RootState): Array<Course> => {
   return state.courses?.availableCourses || []
 }

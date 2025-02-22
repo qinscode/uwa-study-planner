@@ -30,7 +30,7 @@
  * @param {function} setDrawerVisible - Function to toggle the visibility of the sidebar drawer
  */
 
-import React from 'react'
+import type React from 'react'
 import { motion } from 'framer-motion'
 import { Menu, GraduationCap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -43,10 +43,10 @@ interface HeaderBarProps {
 
 const HeaderBar: React.FC<HeaderBarProps> = ({ isMobile, setDrawerVisible }) => (
   <motion.div
-    initial={{ y: -100, opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
-    transition={{ duration: 0.5 }}
     className="fixed top-0 left-0 right-0 z-50"
+    initial={{ y: -100, opacity: 0 }}
+    transition={{ duration: 0.5 }}
   >
     <header
       className={cn(
@@ -58,10 +58,10 @@ const HeaderBar: React.FC<HeaderBarProps> = ({ isMobile, setDrawerVisible }) => 
       <div className="flex items-center gap-3">
         {isMobile && (
           <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setDrawerVisible(true)}
             className="mr-2"
+            size="icon"
+            variant="ghost"
+            onClick={() => { setDrawerVisible(true); }}
           >
             <Menu className="h-5 w-5" />
           </Button>

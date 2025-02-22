@@ -1,13 +1,13 @@
 // studyPlan.ts
 
-import { Course } from '../types'
+import type { Course } from '../types'
 import { selectCourseByCode } from '../redux/courseSlice'
-import { RootState } from '../redux/store'
+import type { RootState } from '../redux/store'
 
 export interface StudyPlan {
   [key: string]: {
     [key: string]: {
-      [key: string]: string[]
+      [key: string]: Array<string>
     }
   }
 }
@@ -184,9 +184,9 @@ export function getStudyPlan(
   year: string,
   semester: string,
   program: string
-): (Course | null)[] | undefined {
+): Array<Course | null> | undefined {
   const yearInt = parseInt(year, 10)
-  let planCodes: string[] | undefined
+  let planCodes: Array<string> | undefined
 
   if (yearInt >= 2025) {
     planCodes = studyPlans[year]?.[program]?.[semester]

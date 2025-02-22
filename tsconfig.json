@@ -26,6 +26,6 @@
   },
   "include": [
     "src",
-    "global.d.ts" // 确保包含 global.d.ts 文件
+    "global.d.ts"
   ]
 }

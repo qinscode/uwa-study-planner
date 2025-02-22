@@ -21,7 +21,7 @@ export const useResponsive = (breakpoint = 768) => {
     }
 
     window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    return () => { window.removeEventListener('resize', handleResize); }
   }, [breakpoint])
 
   return {

@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import { Card, Typography, Space } from 'antd'
 import styles from '../../styles/InstructionCard.module.scss'
 
@@ -8,7 +8,7 @@ interface Instruction {
   icon: React.ElementType
   color: string
   title: string
-  desc: string[]
+  desc: Array<string>
 }
 
 const InstructionCard: React.FC<{ item: Instruction; isMobile: boolean }> = ({
@@ -18,31 +18,31 @@ const InstructionCard: React.FC<{ item: Instruction; isMobile: boolean }> = ({
   return (
     <Card
       hoverable
+      className={styles.instructionCard}
       cover={
         <item.icon
           className={`${styles.cardIcon} ${isMobile ? styles.mobile : styles.desktop}`}
           style={{ color: item.color }}
         />
       }
-      className={styles.instructionCard}
     >
       <Card.Meta
-        title={
-          <span className={`${styles.cardTitle} ${isMobile ? styles.mobile : styles.desktop}`}>
-            {item.title}
-          </span>
-        }
         description={
           <Space direction="vertical">
-            {item.desc.map((text: string, i: number) => (
+            {item.desc.map((text: string, index: number) => (
               <Text
-                key={i}
+                key={index}
                 className={`${styles.cardDescription} ${isMobile ? styles.mobile : styles.desktop}`}
               >
                 {text}
               </Text>
             ))}
           </Space>
+        }
+        title={
+          <span className={`${styles.cardTitle} ${isMobile ? styles.mobile : styles.desktop}`}>
+            {item.title}
+          </span>
         }
       />
     </Card>

@@ -13,15 +13,10 @@
  *    - Shows developer contact information
  */
 
-/* eslint-disable react/no-unescaped-entities */
-import React from 'react'
+import type React from 'react'
 import SemesterGrid from '../components/Main/SemesterGrid'
 
-interface MainLayoutProps {
-  isMobile: boolean
-}
-
-const MainLayout: React.FC<MainLayoutProps> = ({ isMobile }) => {
+const MainLayout: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       <main className="pt-20 pb-8">

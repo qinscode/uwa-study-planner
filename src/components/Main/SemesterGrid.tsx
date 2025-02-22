@@ -7,16 +7,17 @@
  * - Providing user interaction functionalities
  */
 
-import React, { useRef, useState } from 'react'
+import type React from 'react'
+import { useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '@/redux/store'
+import type { RootState } from '@/redux/store'
 import { clearSelectedCourses, loadStudyPlan } from '@/redux/courseSlice'
 import HeaderBar from '../HeaderBar'
 import Sidebar from '../Sider/Sidebar'
 import MainContent from './MainContent'
 import ClearModal from '../Modals/ClearModal'
 import CourseSelector from '../Sider/CourseSelector'
-import exportTableToPNG from '../../utils/exportTableToPNG'
+import exportTableToPNG from '@/utils/exportTableToPNG'
 import { useModal } from '@/hooks/useModal'
 import { useResponsive } from '@/hooks/useResponsive'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
@@ -36,7 +37,7 @@ const SemesterGrid: React.FC = () => {
 
   const captureRef = useRef<HTMLDivElement>(null)
 
-  const handleLoadStudyPlan = () => {
+  const handleLoadStudyPlan = (): void => {
     const startWithS2 = selectedSemester === 's2'
     const newSemesters = startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S2']
 
@@ -52,45 +53,45 @@ const SemesterGrid: React.FC = () => {
     )
   }
 
-  const handleYearChange = (value: string) => {
+  const handleYearChange = (value: string): void => {
     setSelectedYear(value)
   }
 
-  const handleSemesterChange = (value: string) => {
+  const handleSemesterChange = (value: string): void => {
     setSelectedSemester(value)
     const startWithS2 = value === 's2'
     setSemesters(startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S2'])
   }
 
-  const handleProgramChange = (value: string) => {
+  const handleProgramChange = (value: string): void => {
     setSelectedProgram(value)
   }
 
-  const handleSwitch = (checked: boolean) => {
+  const handleSwitch = (checked: boolean): void => {
     const startWithS2 = checked
     setSemesters(startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S2'])
     setSelectedSemester(startWithS2 ? 's2' : 's1')
     dispatch(clearSelectedCourses())
   }
 
-  const handleClearTable = () => {
+  const handleClearTable = (): void => {
     handleOpenModal()
   }
 
-  const handleExportTable = () => {
+  const handleExportTable = (): void => {
     exportTableToPNG(captureRef)
   }
 
-  const handleOk = () => {
+  const handleOk = (): void => {
     dispatch(clearSelectedCourses())
     handleCloseModal()
   }
 
-  const handleCancel = () => {
+  const handleCancel = (): void => {
     handleCloseModal()
   }
 
-  const handleDragStart = () => {
+  const handleDragStart = (): void => {
     if (isMobile) {
       setDrawerVisible(false)
     }
@@ -106,33 +107,33 @@ const SemesterGrid: React.FC = () => {
       <div className="flex">
         {/* Sidebar */}
         {!isMobile && (
-          <div style={{ width: sidebarWidth }} className="fixed left-0 top-16 bottom-0">
-            <Sidebar width={sidebarWidth} handleDragStart={handleDragStart} />
+          <div className="fixed left-0 top-16 bottom-0" style={{ width: sidebarWidth }}>
+            <Sidebar handleDragStart={handleDragStart} width={sidebarWidth} />
           </div>
         )}
 
         {/* Main Content Area */}
         <main 
+          style={!isMobile ? { marginLeft: sidebarWidth } : undefined}
           className={cn(
             "flex-1 min-h-screen pb-32",
             !isMobile && `ml-[${sidebarWidth}]`
           )}
-          style={!isMobile ? { marginLeft: sidebarWidth } : undefined}
         >
           <MainContent
             captureRef={captureRef}
-            semesters={semesters}
-            selectedCourses={selectedCourses}
-            handleSwitch={handleSwitch}
-            handleExportTable={handleExportTable}
             handleClearTable={handleClearTable}
+            handleExportTable={handleExportTable}
             handleLoadStudyPlan={handleLoadStudyPlan}
-            handleYearChange={handleYearChange}
-            handleSemesterChange={handleSemesterChange}
             handleProgramChange={handleProgramChange}
-            selectedYear={selectedYear}
-            selectedSemester={selectedSemester}
+            handleSemesterChange={handleSemesterChange}
+            handleSwitch={handleSwitch}
+            handleYearChange={handleYearChange}
+            selectedCourses={selectedCourses}
             selectedProgram={selectedProgram}
+            selectedSemester={selectedSemester}
+            selectedYear={selectedYear}
+            semesters={semesters}
           />
           
           {/* Footer */}
@@ -140,8 +141,8 @@ const SemesterGrid: React.FC = () => {
             <div className="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-muted-foreground">
               <div>UWA MIT Study Planner • ©2025 Created by Jack Qin</div>
               <div className="flex items-center gap-4">
-                <span>React • Redux • Shadcn/ui</span>
-                <a href="https://fudong.dev" className="hover:text-primary transition-colors">
+                <span>React • Redux • Vite • Shadcn/ui</span>
+                <a className="hover:text-primary transition-colors" href="https://fudong.dev">
                   fudong.dev
                 </a>
               </div>
@@ -152,18 +153,18 @@ const SemesterGrid: React.FC = () => {
 
       {/* Mobile Drawer */}
       <Sheet open={drawerVisible} onOpenChange={setDrawerVisible}>
-        <SheetContent side="left" className="w-[80vw] sm:w-[385px] p-0">
+        <SheetContent className="w-[80vw] sm:w-[385px] p-0" side="left">
           <div className="p-6">
             <div className="flex items-center gap-2 mb-6">
               <BookOpen className="h-5 w-5 text-primary" />
               <h3 className="text-xl font-semibold">Unit Selection</h3>
             </div>
-            <CourseSelector onDragStart={() => setDrawerVisible(false)} />
+            <CourseSelector onDragStart={() => { setDrawerVisible(false); }} />
           </div>
         </SheetContent>
       </Sheet>
 
-      <ClearModal isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
+      <ClearModal handleCancel={handleCancel} handleOk={handleOk} isModalOpen={isModalOpen} />
     </div>
   )
 }

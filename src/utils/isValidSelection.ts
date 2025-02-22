@@ -1,5 +1,5 @@
 import { message } from 'antd'
-import { Course, CourseState } from '../types'
+import type { Course, CourseState } from '../types'
 
 export const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
   const updatedSelectedCourses = [...state.selectedCourses, { semesterId: '', course: newCourse }]

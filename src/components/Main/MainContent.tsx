@@ -14,14 +14,15 @@
  *    - Renders multiple SemesterCard components based on the provided semesters array
  */
 
-import React, { RefObject } from 'react'
+import type { RefObject } from 'react'
 import CourseSummary from './CourseSummary'
 import SemesterCard from './SemesterCard'
+import type { SelectedCourse } from '@/types'
 
 interface MainContentProps {
   captureRef: RefObject<HTMLDivElement>
   semesters: string[]
-  selectedCourses: any[]
+  selectedCourses: SelectedCourse[]
   handleSwitch: (checked: boolean) => void
   handleExportTable: () => void
   handleClearTable: () => void
@@ -52,18 +53,18 @@ const MainContent: React.FC<MainContentProps> = ({
   return (
     <div ref={captureRef} className="px-4 pt-2 pb-4 lg:px-6 w-full max-w-[1600px] mx-auto">
       <CourseSummary
-        selectedCourses={selectedCourses}
-        startWithS2={semesters[0] === 'S2'}
-        handleSwitch={handleSwitch}
-        handleExportTable={handleExportTable}
         handleClearTable={handleClearTable}
+        handleExportTable={handleExportTable}
         handleLoadStudyPlan={handleLoadStudyPlan}
-        handleYearChange={handleYearChange}
-        handleSemesterChange={handleSemesterChange}
         handleProgramChange={handleProgramChange}
-        selectedYear={selectedYear}
-        selectedSemester={selectedSemester}
+        handleSemesterChange={handleSemesterChange}
+        handleSwitch={handleSwitch}
+        handleYearChange={handleYearChange}
+        selectedCourses={selectedCourses}
         selectedProgram={selectedProgram}
+        selectedSemester={selectedSemester}
+        selectedYear={selectedYear}
+        startWithS2={semesters[0] === 'S2'}
       />
       <div className="mt-6 space-y-6">
         {semesters.map((semester, semesterIndex) => (

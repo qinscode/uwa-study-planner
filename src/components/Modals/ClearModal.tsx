@@ -14,7 +14,7 @@
  *    - Calls handleOk and handleCancel functions respectively
  */
 
-import React from 'react'
+import type React from 'react'
 import { Modal, Button } from 'antd'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -27,11 +27,9 @@ interface ClearModalProps {
 const ClearModal: React.FC<ClearModalProps> = ({ isModalOpen, handleOk, handleCancel }) => (
   <AnimatePresence>
     {isModalOpen && (
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }} initial={{ opacity: 0 }}>
         <Modal
           open={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
           title="Clear everything?"
           footer={[
             <Button key="back" onClick={handleCancel}>
@@ -41,10 +39,12 @@ const ClearModal: React.FC<ClearModalProps> = ({ isModalOpen, handleOk, handleCa
               Confirm
             </Button>,
           ]}
+          onCancel={handleCancel}
+          onOk={handleOk}
         >
           <motion.p
-            initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
+            initial={{ y: 20, opacity: 0 }}
             transition={{ delay: 0.2 }}
           >
             Are you sure you want to clear all selected courses?

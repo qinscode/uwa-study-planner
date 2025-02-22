@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import type React from 'react';
+import { useState } from 'react'
 import { Provider } from 'react-redux'
 import { DndProvider } from 'react-dnd'
 import { TouchBackend } from 'react-dnd-touch-backend'
@@ -12,11 +13,11 @@ const App: React.FC = () => {
   const [isInstructionsModalVisible, setIsInstructionsModalVisible] = useState(false)
   const isMobile = useMediaQuery({ maxWidth: 768 })
 
-  const showInstructions = () => {
+  const showInstructions = (): void => {
     setIsInstructionsModalVisible(true)
   }
 
-  const handleInstructionsModalClose = () => {
+  const handleInstructionsModalClose = (): void => {
     setIsInstructionsModalVisible(false)
   }
 
@@ -28,9 +29,9 @@ const App: React.FC = () => {
         <MainLayout isMobile={isMobile} />
         <FloatButtonGroup showInstructions={showInstructions} />
         <InstructionsModal
+          isMobile={isMobile}
           isVisible={isInstructionsModalVisible}
           onClose={handleInstructionsModalClose}
-          isMobile={isMobile}
         />
       </DndProvider>
     </Provider>

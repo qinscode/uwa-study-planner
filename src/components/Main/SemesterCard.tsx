@@ -17,7 +17,7 @@
  *    - Renders a grid containing multiple SemesterCell components
  */
 
-import React from 'react'
+import type React from 'react'
 import SemesterCell from './SemesterCell'
 import { motion } from 'framer-motion'
 import { useCourses } from '../../hooks/useCourse'
@@ -36,8 +36,8 @@ const SemesterCard: React.FC<SemesterCardProps> = ({ semester, semesterIndex, st
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.3, delay: semesterIndex * 0.1 }}
     >
       <Card className="transition-all hover:shadow-md">
@@ -51,14 +51,14 @@ const SemesterCard: React.FC<SemesterCardProps> = ({ semester, semesterIndex, st
             {[0, 1, 2, 3].map(position => (
               <motion.div
                 key={position}
-                whileHover={{ scale: 1.01 }}
                 transition={{ type: 'spring', stiffness: 400 }}
+                whileHover={{ scale: 1.01 }}
               >
                 <SemesterCell
-                  semesterId={semesterId}
-                  position={position}
-                  course={coursesInSemester.find(c => c.position === position)}
                   allowedSemester={semester as 'S1' | 'S2' | 'S1S2'}
+                  course={coursesInSemester.find(c => c.position === position)}
+                  position={position}
+                  semesterId={semesterId}
                   startWithS2={startWithS2}
                 />
               </motion.div>

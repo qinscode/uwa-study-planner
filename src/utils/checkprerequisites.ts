@@ -1,5 +1,5 @@
 import { message } from 'antd'
-import { Course, CourseState } from '../types'
+import type { Course, CourseState } from '../types'
 
 export const checkprerequisites = (state: CourseState, newCourse: Course): boolean => {
   if (newCourse.prereq && newCourse.prereq.length > 0) {

@@ -10,30 +10,30 @@ const exportTableToPNG = (captureRef: React.RefObject<HTMLDivElement>) => {
     document.body.appendChild(wrapper)
 
     html2canvas(wrapper, {
-      onclone: clonedDoc => {
-        const elements = clonedDoc.querySelectorAll('*')
-        elements.forEach(el => {
-          if (el instanceof HTMLElement) {
-            const style = getComputedStyle(el)
+      onclone: clonedDocument => {
+        const elements = clonedDocument.querySelectorAll('*')
+        elements.forEach(element => {
+          if (element instanceof HTMLElement) {
+            const style = getComputedStyle(element)
 
             // 简化颜色函数
             if (style.color.startsWith('color(')) {
-              el.style.color = '#000000' // 替换为安全的黑色
+              element.style.color = '#000000' // 替换为安全的黑色
             }
             if (style.backgroundColor.startsWith('color(')) {
-              el.style.backgroundColor = '#ffffff' // 替换为安全的白色
+              element.style.backgroundColor = '#ffffff' // 替换为安全的白色
             }
 
             // 移除可能导致问题的样式
-            el.style.boxShadow = 'none'
-            el.style.textShadow = 'none'
+            element.style.boxShadow = 'none'
+            element.style.textShadow = 'none'
 
             // 简化字体
-            el.style.fontFamily = 'Arial, sans-serif'
+            element.style.fontFamily = 'Arial, sans-serif'
 
             // 移除任何可能的动画或过渡效果
-            el.style.transition = 'none'
-            el.style.animation = 'none'
+            element.style.transition = 'none'
+            element.style.animation = 'none'
           }
         })
       },
@@ -46,15 +46,15 @@ const exportTableToPNG = (captureRef: React.RefObject<HTMLDivElement>) => {
         const finalCanvas = document.createElement('canvas')
         finalCanvas.width = canvas.width
         finalCanvas.height = canvas.height
-        const ctx = finalCanvas.getContext('2d')
+        const context = finalCanvas.getContext('2d')
 
-        if (ctx) {
+        if (context) {
           // 填充白色背景
-          ctx.fillStyle = '#ffffff'
-          ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height)
+          context.fillStyle = '#ffffff'
+          context.fillRect(0, 0, finalCanvas.width, finalCanvas.height)
 
           // 在白色背景上绘制原始canvas内容
-          ctx.drawImage(canvas, 0, 0)
+          context.drawImage(canvas, 0, 0)
 
           // 将canvas转换为PNG并触发下载
           const link = document.createElement('a')

@@ -12,7 +12,7 @@
  *    - Provides functionality to switch semesters, export table, clear table, and load study plans
  */
 
-import React from 'react'
+import type React from 'react'
 import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -24,9 +24,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import type { SelectedCourse } from '@/types'
+
+interface Course {
+  type: 'core' | 'option' | 'conversion'
+  code: string
+  name: string
+}
 
 interface CourseSummaryProps {
-  selectedCourses: any[]
+  selectedCourses: SelectedCourse[]
   startWithS2: boolean
   handleSwitch: (checked: boolean) => void
   handleExportTable: () => void
@@ -134,13 +141,13 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-2 justify-start">
-            <Button onClick={handleLoadStudyPlan} className="flex-1 sm:flex-none min-w-[120px]">
+            <Button className="flex-1 sm:flex-none min-w-[120px]" onClick={handleLoadStudyPlan}>
               Load Plan
             </Button>
-            <Button variant="outline" onClick={handleExportTable} className="flex-1 sm:flex-none min-w-[120px]">
+            <Button className="flex-1 sm:flex-none min-w-[120px]" variant="outline" onClick={handleExportTable}>
               Export
             </Button>
-            <Button variant="destructive" onClick={handleClearTable} className="flex-1 sm:flex-none min-w-[120px]">
+            <Button className="flex-1 sm:flex-none min-w-[120px]" variant="destructive" onClick={handleClearTable}>
               Clear
             </Button>
           </div>
