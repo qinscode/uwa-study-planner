@@ -38,7 +38,7 @@ const SemesterGrid: React.FC = () => {
 
   const handleLoadStudyPlan = () => {
     const startWithS2 = selectedSemester === 's2'
-    const newSemesters = startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S1']
+    const newSemesters = startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S2']
 
     setSemesters(newSemesters)
     dispatch(clearSelectedCourses())
@@ -58,20 +58,18 @@ const SemesterGrid: React.FC = () => {
 
   const handleSemesterChange = (value: string) => {
     setSelectedSemester(value)
+    const startWithS2 = value === 's2'
+    setSemesters(startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S2'])
   }
 
   const handleProgramChange = (value: string) => {
     setSelectedProgram(value)
   }
 
-  const handleSwitch = () => {
-    setSemesters(prevSemesters => {
-      const newSemesters = [...prevSemesters]
-      for (let i = 0; i < newSemesters.length; i++) {
-        newSemesters[i] = newSemesters[i] === 'S1' ? 'S2' : 'S1'
-      }
-      return newSemesters
-    })
+  const handleSwitch = (checked: boolean) => {
+    const startWithS2 = checked
+    setSemesters(startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S2'])
+    setSelectedSemester(startWithS2 ? 's2' : 's1')
     dispatch(clearSelectedCourses())
   }
 

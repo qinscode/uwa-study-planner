@@ -21,9 +21,8 @@ import SemesterCard from './SemesterCard'
 interface MainContentProps {
   captureRef: RefObject<HTMLDivElement>
   semesters: string[]
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedCourses: any[]
-  handleSwitch: () => void
+  handleSwitch: (checked: boolean) => void
   handleExportTable: () => void
   handleClearTable: () => void
   handleLoadStudyPlan: () => void
