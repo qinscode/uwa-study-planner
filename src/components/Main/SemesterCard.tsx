@@ -17,11 +17,11 @@
  *    - Renders a grid containing multiple SemesterCell components
  */
 
-import React, { useState } from 'react'
-import { Card, Row, Col } from 'antd'
+import React from 'react'
 import SemesterCell from './SemesterCell'
 import { motion } from 'framer-motion'
 import { useCourses } from '../../hooks/useCourse'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface SemesterCardProps {
   semester: string
@@ -31,33 +31,28 @@ interface SemesterCardProps {
 
 const SemesterCard: React.FC<SemesterCardProps> = ({ semester, semesterIndex, startWithS2 }) => {
   const { selectedCourses } = useCourses()
-
-  const [isHovered, setIsHovered] = useState(false)
   const semesterId = `${startWithS2 ? 'S2' : 'S1'}-${Math.floor(semesterIndex / 2)}-${semester}`
   const coursesInSemester = selectedCourses.filter(course => course.semesterId === semesterId)
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: semesterIndex * 0.1 }}
+      transition={{ duration: 0.3, delay: semesterIndex * 0.1 }}
     >
-      <Card
-        title={`Semester ${semesterIndex + 1} (${semester})`}
-        style={{
-          boxShadow: isHovered ? '0 8px 16px rgba(0,0,0,0.2)' : '0 4px 8px rgba(0,0,0,0.1)',
-          marginBottom: '16px',
-          transition: 'box-shadow 0.3s ease-in-out',
-        }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <Row gutter={[16, 16]}>
-          {[0, 1, 2, 3].map(position => (
-            <Col xs={24} sm={12} md={12} lg={6} xl={6} key={position}>
+      <Card className="transition-all hover:shadow-md">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg font-medium">
+            Semester {semesterIndex + 1} ({semester})
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {[0, 1, 2, 3].map(position => (
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 300 }}
+                key={position}
+                whileHover={{ scale: 1.01 }}
+                transition={{ type: 'spring', stiffness: 400 }}
               >
                 <SemesterCell
                   semesterId={semesterId}
@@ -67,9 +62,9 @@ const SemesterCard: React.FC<SemesterCardProps> = ({ semester, semesterIndex, st
                   startWithS2={startWithS2}
                 />
               </motion.div>
-            </Col>
-          ))}
-        </Row>
+            ))}
+          </div>
+        </CardContent>
       </Card>
     </motion.div>
   )

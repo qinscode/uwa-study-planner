@@ -31,12 +31,10 @@
  */
 
 import React from 'react'
-import { Layout, Button, Typography } from 'antd'
-import { MenuOutlined } from '@ant-design/icons'
 import { motion } from 'framer-motion'
-
-const { Header } = Layout
-const { Title } = Typography
+import { Menu, GraduationCap } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 interface HeaderBarProps {
   isMobile: boolean
@@ -48,35 +46,37 @@ const HeaderBar: React.FC<HeaderBarProps> = ({ isMobile, setDrawerVisible }) => 
     initial={{ y: -100, opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
     transition={{ duration: 0.5 }}
+    className="fixed top-0 left-0 right-0 z-50"
   >
-    <Header
-      style={{
-        position: 'fixed',
-        zIndex: 1,
-        width: '100%',
-        background: '#fff',
-        padding: '0 16px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-        left: 0,
-        top: 0,
-      }}
+    <header
+      className={cn(
+        'h-16 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
+        'border-b',
+        'flex items-center justify-between px-6'
+      )}
     >
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div className="flex items-center gap-3">
         {isMobile && (
           <Button
-            icon={<MenuOutlined />}
+            variant="ghost"
+            size="icon"
             onClick={() => setDrawerVisible(true)}
-            style={{ border: 'none', boxShadow: 'none', marginRight: 16 }}
-          />
+            className="mr-2"
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
         )}
-        <Title level={3} style={{ margin: 0, color: '#1890ff' }}>
-          👨‍💻 MIT Study Planner V6.0
-        </Title>
+        <div className="flex items-center gap-2">
+          <GraduationCap className="h-6 w-6 text-primary" />
+          <h2 className="text-xl font-semibold text-primary tracking-tight">
+            UWA Study Planner
+          </h2>
+        </div>
       </div>
-    </Header>
+      <div className="text-sm text-muted-foreground">
+        Master of Information Technology
+      </div>
+    </header>
   </motion.div>
 )
 

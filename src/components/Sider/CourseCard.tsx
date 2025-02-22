@@ -1,7 +1,7 @@
 /**
  * CourseCard Component
  *
- * Represents a draggable course item. Implements drag functionality using react-dnd
+ * Represents a draggable unit item. Implements drag functionality using react-dnd
  * and adds animation effects with framer-motion.
  *
  * Key Features:
@@ -16,11 +16,12 @@
  */
 
 import React from 'react'
-import { Card, Tag } from 'antd'
 import { useDrag } from 'react-dnd'
 import { Course } from '../../types'
 import { motion } from 'framer-motion'
-import { typeColors, CourseType } from '../../types'
+import { Card, CardHeader, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
 
 interface CourseCardProps {
   course: Course
@@ -39,54 +40,49 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onDragStart }) => {
     }),
   })
 
-  // 根据课程类型选择背景颜色
-  const backgroundColor =
-    course.type && course.type in typeColors ? typeColors[course.type as CourseType] : 'white'
-
   return (
     <motion.div
       ref={preview}
-      style={{
-        opacity: isDragging ? 0.5 : 1,
-        cursor: 'move',
-        marginBottom: 8,
-      }}
-      initial={{ scale: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }}
+      className={cn(
+        'transition-all',
+        isDragging && 'opacity-50',
+        'cursor-move'
+      )}
+      initial={{ scale: 1 }}
       whileHover={{
-        scale: 1.03,
-        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.15)',
+        scale: 1.02,
         transition: { duration: 0.2 },
       }}
       whileTap={{ scale: 0.98 }}
     >
       <div ref={drag}>
         <Card
-          size="small"
-          title={course.code}
-          extra={
-            course.recommendedSemester && (
-              <Tag
-                color={
-                  course.recommendedSemester === 'S1'
-                    ? 'blue'
-                    : course.recommendedSemester === 'S2'
-                    ? 'green'
-                    : 'purple'
-                }
-              >
-                {course.recommendedSemester}
-              </Tag>
-            )
-          }
-          style={{
-            backgroundColor,
-            transition: 'all 0.3s ease',
-            borderRadius: '8px',
-            overflow: 'hidden',
-          }}
+          className={cn('w-full', {
+            'bg-[#fff2cd] hover:bg-[#fff0c0]': course.type === 'conversion',
+            'bg-[#f6ffed] hover:bg-[#f4ffe8]': course.type === 'core',
+            'bg-[#e6f7ff] hover:bg-[#e0f5ff]': course.type === 'option',
+            'bg-[#fbe4d5] hover:bg-[#fae0d0]': course.type === 'sss' || course.type === 'ais',
+          })}
         >
-          <p>{course.name}</p>
-          {course.note && <p style={{ fontSize: '12px', color: '#888' }}>{course.note}</p>}
+          <CardHeader className="p-3 pb-2">
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-medium">{course.code}</span>
+              {course.recommendedSemester && (
+                <Badge
+                  variant={course.recommendedSemester.toLowerCase() as 's1' | 's2' | 's1s2'}
+                  className="shrink-0"
+                >
+                  {course.recommendedSemester}
+                </Badge>
+              )}
+            </div>
+          </CardHeader>
+          <CardContent className="p-3 pt-0">
+            <p className="text-sm line-clamp-2">{course.name}</p>
+            {course.note && (
+              <p className="text-xs text-muted-foreground mt-1 line-clamp-1 italic">{course.note}</p>
+            )}
+          </CardContent>
         </Card>
       </div>
     </motion.div>

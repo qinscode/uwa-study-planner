@@ -5,28 +5,9 @@
  * - Rendering the entire page layout (header, sidebar, main content)
  * - Managing global state
  * - Providing user interaction functionalities
- *
- * Key Features:
- *
- * 1. Layout and State Management
- *    - Uses useState and useRef for internal state and references
- *
- * 2. Redux Integration
- *    - Utilizes useSelector to retrieve state from Redux store
- *    - Employs useDispatch for dispatching actions
- *
- * 3. Responsive Design
- *    - Dynamically shows/hides sidebar and drawer based on screen size
- *
- * 4. User Interaction Functionalities
- *    - Loading study plans
- *    - Switching between semesters
- *    - Clearing the table
- *    - Exporting table data
  */
 
 import React, { useRef, useState } from 'react'
-import { Layout, Drawer } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { clearSelectedCourses, loadStudyPlan } from '../../redux/courseSlice'
@@ -38,6 +19,9 @@ import CourseSelector from '../Sider/CourseSelector'
 import exportTableToPNG from '../../utils/exportTableToPNG'
 import { useModal } from '../../hooks/useModal'
 import { useResponsive } from '../../hooks/useResponsive'
+import { Sheet, SheetContent } from '@/components/ui/sheet'
+import { cn } from '@/lib/utils'
+import { BookOpen } from 'lucide-react'
 
 const SemesterGrid: React.FC = () => {
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
@@ -54,7 +38,7 @@ const SemesterGrid: React.FC = () => {
 
   const handleLoadStudyPlan = () => {
     const startWithS2 = selectedSemester === 's2'
-    const newSemesters = startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S2']
+    const newSemesters = startWithS2 ? ['S2', 'S1', 'S2', 'S1'] : ['S1', 'S2', 'S1', 'S1']
 
     setSemesters(newSemesters)
     dispatch(clearSelectedCourses())
@@ -114,14 +98,29 @@ const SemesterGrid: React.FC = () => {
     }
   }
 
-  const siderWidth = 'max(205px, 20vw)'
+  const sidebarWidth = 'min(90vw, 360px)'
 
   return (
-    <Layout style={{ minHeight: '100vh', background: '#fff' }}>
+    <div className="min-h-screen bg-background">
       <HeaderBar isMobile={isMobile} setDrawerVisible={setDrawerVisible} />
-      <Layout style={{ marginTop: 64, background: '#fff' }}>
-        {!isMobile && <Sidebar width={siderWidth} handleDragStart={handleDragStart} />}
-        <Layout style={{ marginLeft: isMobile ? 0 : siderWidth, background: '#fff' }}>
+      
+      {/* Main Layout */}
+      <div className="flex">
+        {/* Sidebar */}
+        {!isMobile && (
+          <div style={{ width: sidebarWidth }} className="fixed left-0 top-16 bottom-0">
+            <Sidebar width={sidebarWidth} handleDragStart={handleDragStart} />
+          </div>
+        )}
+
+        {/* Main Content Area */}
+        <main 
+          className={cn(
+            "flex-1 min-h-screen pt-16",
+            !isMobile && `ml-[${sidebarWidth}]`
+          )}
+          style={!isMobile ? { marginLeft: sidebarWidth } : undefined}
+        >
           <MainContent
             captureRef={captureRef}
             semesters={semesters}
@@ -137,21 +136,24 @@ const SemesterGrid: React.FC = () => {
             selectedSemester={selectedSemester}
             selectedProgram={selectedProgram}
           />
-        </Layout>
-      </Layout>
-      <Drawer
-        title="Unit Selector"
-        placement="left"
-        closable={true}
-        onClose={() => setDrawerVisible(false)}
-        open={drawerVisible}
-        width={350}
-        style={{ position: 'absolute' }}
-      >
-        <CourseSelector onDragStart={() => setDrawerVisible(false)} />
-      </Drawer>
+        </main>
+      </div>
+
+      {/* Mobile Drawer */}
+      <Sheet open={drawerVisible} onOpenChange={setDrawerVisible}>
+        <SheetContent side="left" className="w-[80vw] sm:w-[385px] p-0">
+          <div className="p-6">
+            <div className="flex items-center gap-2 mb-6">
+              <BookOpen className="h-5 w-5 text-primary" />
+              <h3 className="text-xl font-semibold">Unit Selection</h3>
+            </div>
+            <CourseSelector onDragStart={() => setDrawerVisible(false)} />
+          </div>
+        </SheetContent>
+      </Sheet>
+
       <ClearModal isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
-    </Layout>
+    </div>
   )
 }
 

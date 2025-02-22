@@ -14,11 +14,12 @@
  */
 
 import React, { useState } from 'react'
-import { Tabs, List } from 'antd'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import CourseCard from './CourseCard'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 interface CourseSelectorProps {
   onDragStart?: () => void
@@ -31,38 +32,37 @@ const CourseSelector: React.FC<CourseSelectorProps> = ({ onDragStart }) => {
   const tags = useSelector((state: RootState) => state.courses.tags)
 
   return (
-    <Tabs
-      activeKey={activeTab}
-      onChange={setActiveTab}
-      items={tags.map(item => ({
-        ...item,
-        children: (
-          <AnimatePresence mode="wait" key={item.key}>
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <List
-                dataSource={filteredCourses}
-                renderItem={course => (
-                  <motion.div whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}>
-                    <CourseCard course={course} onDragStart={onDragStart} />
-                  </motion.div>
-                )}
-                split={false}
-                itemLayout="vertical"
-                style={{ backgroundColor: 'transparent', border: 'none', boxShadow: 'none' }} // 添加这行，确保List不覆盖子组件样式
-              />
-            </motion.div>
-          </AnimatePresence>
-        ),
-      }))}
-      size="small"
-      style={{ minWidth: 0 }}
-    />
+    <Tabs defaultValue="conversion" onValueChange={setActiveTab} className="w-full">
+      <TabsList className="w-full">
+        {tags.map(tag => (
+          <TabsTrigger key={tag.key} value={tag.key} className="flex-1">
+            {tag.label}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+        >
+          <ScrollArea className="h-[calc(100vh-240px)] pr-4">
+            <div className="space-y-2 pt-4">
+              {filteredCourses.map(course => (
+                <motion.div
+                  key={course.code}
+                  whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                >
+                  <CourseCard course={course} onDragStart={onDragStart} />
+                </motion.div>
+              ))}
+            </div>
+          </ScrollArea>
+        </motion.div>
+      </AnimatePresence>
+    </Tabs>
   )
 }
 

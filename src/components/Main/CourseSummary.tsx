@@ -13,13 +13,19 @@
  */
 
 import React from 'react'
-import { Row, Col, Typography, Space, Switch, Button, Select, Divider } from 'antd'
-import '../../styles/CourseSummary.scss'
-
-const { Title } = Typography
+import { Button } from '@/components/ui/button'
+import { Switch } from '@/components/ui/switch'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 interface CourseSummaryProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedCourses: any[]
   startWithS2: boolean
   handleSwitch: (checked: boolean) => void
@@ -48,86 +54,95 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
   selectedSemester,
   selectedProgram,
 }) => {
-  const coreCoursesCount = selectedCourses.filter(course => course['course'].type === 'core').length
-  const optionCoursesCount = selectedCourses.filter(
+  const coreUnitsCount = selectedCourses.filter(course => course['course'].type === 'core').length
+  const optionUnitsCount = selectedCourses.filter(
     course => course['course'].type === 'option'
   ).length
-  const conversionCoursesCount = selectedCourses.filter(
+  const conversionUnitsCount = selectedCourses.filter(
     course => course['course'].type === 'conversion'
   ).length
 
   return (
-    <>
-      <Row justify="space-between" align="middle" style={{ marginBottom: '16px' }}>
-        <Col>
-          <Title level={3} className="course-summary-title">
-            <Space direction="vertical" size="small" className="course-summary-space">
-              <div>Selected Units: {selectedCourses.length}</div>
-              <div>Conversion: {conversionCoursesCount}</div>
-              <div>Core: {coreCoursesCount}</div>
-              <div>Option: {optionCoursesCount}</div>
-            </Space>
-          </Title>
-          <Divider />
-          <div>
-            <Space size="large">
-              <Switch
-                checkedChildren="S2 Start"
-                unCheckedChildren="S1 Start"
-                checked={startWithS2}
-                onChange={handleSwitch}
-              />
-              <Button onClick={handleExportTable} type="primary">
-                Download
-              </Button>
-              <Space size="large">
-                <Button onClick={handleClearTable} danger>
-                  Clear
-                </Button>
-              </Space>
-            </Space>
+    <Card className="mb-8">
+      <CardHeader>
+        <CardTitle>Unit Statistics</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-8">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="text-center p-4 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+            <div className="text-2xl font-bold text-primary">{selectedCourses.length}</div>
+            <div className="text-sm text-muted-foreground">Total Units</div>
           </div>
-          <div style={{ marginTop: '0' }}>
-            <Divider />
-            <Title level={4} className="course-summary-title">
-              <div>Want to Load UWA Official Study Plan from Handbook ?</div>
-            </Title>
-            <Space className="responsive-space">
-              <Select
-                value={selectedYear}
-                onChange={handleYearChange}
-                options={[
-                  { value: '2024', label: '2024' },
-                  { value: '2025', label: '2025' },
-                ]}
-              />
-              <Select
-                value={selectedSemester}
-                style={{ width: 120 }}
-                onChange={handleSemesterChange}
-                options={[
-                  { value: 's1', label: 'Semester 1' },
-                  { value: 's2', label: 'Semester 2' },
-                ]}
-              />
-              <Select
-                value={selectedProgram}
-                onChange={handleProgramChange}
-                disabled={selectedYear === '2024'}
-                options={[
-                  { value: 'ss', label: 'Software Systems' },
-                  { value: 'ai', label: 'Artificial Intelligence' },
-                  { value: 'ac', label: 'Applied Computing' },
-                ]}
-              />
-              <Button type="primary" onClick={handleLoadStudyPlan}>
-                Load
-              </Button>
-            </Space>
+          <div className="text-center p-4 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+            <div className="text-2xl font-bold text-primary">{conversionUnitsCount}</div>
+            <div className="text-sm text-muted-foreground">Conversion Units</div>
           </div>
-        </Col>
-      </Row>
-    </>
+          <div className="text-center p-4 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+            <div className="text-2xl font-bold text-primary">{coreUnitsCount}</div>
+            <div className="text-sm text-muted-foreground">Core Units</div>
+          </div>
+          <div className="text-center p-4 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors">
+            <div className="text-2xl font-bold text-primary">{optionUnitsCount}</div>
+            <div className="text-sm text-muted-foreground">Optional Units</div>
+          </div>
+        </div>
+
+        <Separator />
+
+        <div className="grid gap-6 lg:grid-cols-[2fr,1fr]">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-2">
+              <Switch checked={startWithS2} onCheckedChange={handleSwitch} />
+              <span className="text-sm">{startWithS2 ? 'Start with S2' : 'Start with S1'}</span>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <Select value={selectedYear} onValueChange={handleYearChange}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Year" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="2024">2024</SelectItem>
+                  <SelectItem value="2025">2025</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={selectedSemester} onValueChange={handleSemesterChange}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Semester" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="s1">Semester 1</SelectItem>
+                  <SelectItem value="s2">Semester 2</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <div className="sm:col-span-2 lg:col-span-1">
+                <Select value={selectedProgram} onValueChange={handleProgramChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Specialization" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="default">Default</SelectItem>
+                    <SelectItem value="ai">Artificial Intelligence</SelectItem>
+                    <SelectItem value="ss">Software Systems</SelectItem>
+                    <SelectItem value="ac">Advanced Computing</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 justify-start lg:justify-end">
+            <Button onClick={handleLoadStudyPlan} className="flex-1 sm:flex-none">Load Plan</Button>
+            <Button variant="outline" onClick={handleExportTable} className="flex-1 sm:flex-none">Export</Button>
+            <Button variant="destructive" onClick={handleClearTable} className="flex-1 sm:flex-none">
+              Clear
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 

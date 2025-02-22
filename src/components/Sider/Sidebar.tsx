@@ -1,25 +1,22 @@
 /**
  * Sidebar Component
  *
- * Represents the sidebar of the application, used for displaying the course selector.
- * Allows users to choose courses and drag them into semester cells.
+ * Represents the sidebar of the application, used for displaying the unit selector.
+ * Allows users to choose units and drag them into semester cells.
  *
  * Key Features:
  *
  * 1. Sidebar Display
- *    - Uses Sider component to create a fixed sidebar
+ *    - Uses responsive width for different screen sizes
  *
- * 2. Course Selector
- *    - Contains CourseSelector component for displaying available courses
+ * 2. Unit Selector
+ *    - Contains UnitSelector component for displaying available units
  */
 
 import React from 'react'
-import { Layout, Typography } from 'antd'
-import CourseSelector from './CourseSelector'
 import { motion } from 'framer-motion'
-
-const { Sider } = Layout
-const { Title } = Typography
+import { BookOpen } from 'lucide-react'
+import CourseSelector from './CourseSelector'
 
 interface SidebarProps {
   width: string
@@ -35,30 +32,23 @@ const Sidebar: React.FC<SidebarProps> = ({ width, handleDragStart }) => (
       duration: 0.5,
       ease: 'easeOut',
     }}
+    className="fixed left-0 top-16 bottom-0 z-40 min-w-[280px]"
+    style={{ width: 'min(90vw, 360px)' }}
   >
-    <Sider
-      width={width}
-      theme="light"
-      style={{
-        overflow: 'auto',
-        height: 'calc(100vh - 64px)',
-        position: 'fixed',
-        left: 0,
-        top: 64,
-        bottom: 0,
-        background: '#fff',
-      }}
-    >
+    <div className="h-full overflow-auto bg-background border-r">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
-        style={{ padding: '16px' }}
+        className="p-4 sm:p-6"
       >
-        <Title level={3}>Unit Selector</Title>
+        <div className="flex items-center gap-2 mb-4 sm:mb-6">
+          <BookOpen className="h-5 w-5 text-primary" />
+          <h3 className="text-xl font-semibold">Unit Selection</h3>
+        </div>
         <CourseSelector onDragStart={handleDragStart} />
       </motion.div>
-    </Sider>
+    </div>
   </motion.div>
 )
 

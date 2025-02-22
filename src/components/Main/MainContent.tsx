@@ -1,7 +1,7 @@
 /**
  * MainContent Component
  *
- * Represents the main content area of the application. Displays course summary
+ * Represents the main content area of the application. Displays unit summary
  * information and multiple semester cards.
  **
  * Key Features:
@@ -15,11 +15,8 @@
  */
 
 import React, { RefObject } from 'react'
-import { Layout, Space } from 'antd'
 import CourseSummary from './CourseSummary'
 import SemesterCard from './SemesterCard'
-
-const { Content } = Layout
 
 interface MainContentProps {
   captureRef: RefObject<HTMLDivElement>
@@ -54,11 +51,8 @@ const MainContent: React.FC<MainContentProps> = ({
   selectedProgram,
 }) => {
   return (
-    <Content
-      ref={captureRef}
-      style={{ margin: '0 16px 0', overflow: 'initial', background: '#fff' }}
-    >
-      <Space direction="vertical" size="large" style={{ width: '100%' }}>
+    <div ref={captureRef} className="p-4 lg:p-6 w-full max-w-[1600px] mx-auto">
+      <div className="mb-6">
         <CourseSummary
           selectedCourses={selectedCourses}
           startWithS2={semesters[0] === 'S2'}
@@ -73,6 +67,8 @@ const MainContent: React.FC<MainContentProps> = ({
           selectedSemester={selectedSemester}
           selectedProgram={selectedProgram}
         />
+      </div>
+      <div className="space-y-6">
         {semesters.map((semester, semesterIndex) => (
           <SemesterCard
             key={semesterIndex}
@@ -81,8 +77,8 @@ const MainContent: React.FC<MainContentProps> = ({
             startWithS2={semesters[0] === 'S2'}
           />
         ))}
-      </Space>
-    </Content>
+      </div>
+    </div>
   )
 }
 

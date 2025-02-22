@@ -5,7 +5,7 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { store } from './redux/store'
 import App from './App'
-import './index.css'
+import './styles/globals.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
