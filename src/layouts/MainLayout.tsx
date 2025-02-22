@@ -27,19 +27,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ isMobile }) => {
       <main className="pt-20 pb-8">
         <SemesterGrid />
       </main>
-      <footer className="border-t py-6 text-center">
-        <div className="space-y-2">
-          <p className="text-sm text-muted-foreground">
-            UWA MIT Study Planner • ©2024 Created by Jack Qin
-          </p>
-          <p className="text-sm text-muted-foreground">
-            React • Redux • Shadcn/ui
-          </p>
-          <p className="text-sm text-muted-foreground">
-            jack@fudongs.com
-          </p>
-        </div>
-      </footer>
     </div>
   )
 }

@@ -138,11 +138,11 @@ const SemesterGrid: React.FC = () => {
           {/* Footer */}
           <footer className="fixed bottom-0 right-0 w-full border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 px-6">
             <div className="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-muted-foreground">
-              <div>UWA MIT Study Planner • ©2024 Created by Jack Qin</div>
+              <div>UWA MIT Study Planner • ©2025 Created by Jack Qin</div>
               <div className="flex items-center gap-4">
                 <span>React • Redux • Shadcn/ui</span>
-                <a href="mailto:jack@fudongs.com" className="hover:text-primary transition-colors">
-                  jack@fudongs.com
+                <a href="https://fudong.dev" className="hover:text-primary transition-colors">
+                  fudong.dev
                 </a>
               </div>
             </div>
