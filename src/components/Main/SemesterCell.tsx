@@ -44,7 +44,7 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
 		<div
 			ref={(node) => drag(drop(node))}
 			className={cn(
-				"h-[120px] border border-dashed rounded-lg transition-all",
+				"h-[120px] border border-dashed rounded-lg transition-all ",
 				isDragging && "opacity-50",
 				canDrop && "bg-blue-50/50 border-blue-200",
 				isOver && canDrop && "bg-blue-100/50 border-blue-300",
