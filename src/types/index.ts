@@ -50,10 +50,10 @@ export interface CourseState {
 }
 
 export const typeColors: Record<CourseType, string> = {
-	option: "#e6f7ff", // Light blue
-	conversion: "#fff2cd", // Light orange
-	core: "#f6ffed", // Light green
-	sss: "#fbe4d5", // Light yellow
-	ais: "#fbe4d5", // Light yellow
-	acs: "#f3e8ff", // Light purple
+	option: "oklch(0.987 0.026 102.212)", // Light yellow
+	conversion: "oklch(0.936 0.032 17.717)", // red-200
+	core: "oklch(0.93 0.034 272.788)", // indigo-300
+	sss: "oklch(0.823 0.12 346.018)", // pink-500
+	ais: "oklch(0.917 0.08 205.041)", // cyan-300
+	acs: "oklch(0.85 0.15 85)", // yellow-400
 };

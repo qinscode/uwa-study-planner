@@ -22,6 +22,7 @@ import { motion } from "framer-motion";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { typeColors } from "@/types";
 
 interface CourseCardProps {
 	course: Course;
@@ -40,6 +41,13 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onDragStart }) => {
 		}),
 	});
 
+	const getCardStyle = (type: string) => {
+		const baseColor = typeColors[type as keyof typeof typeColors];
+		return {
+			backgroundColor: baseColor,
+		};
+	};
+
 	return (
 		<motion.div
 			ref={preview}
@@ -57,14 +65,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onDragStart }) => {
 		>
 			<div ref={drag}>
 				<Card
-					className={cn("w-full", {
-						"bg-[#fff2cd] hover:bg-[#fff0c0]": course.type === "conversion",
-						"bg-[#f6ffed] hover:bg-[#f4ffe8]": course.type === "core",
-						"bg-[#e6f7ff] hover:bg-[#e0f5ff]": course.type === "option",
-						"bg-[#fbe4d5] hover:bg-[#fae0d0]":
-							course.type === "sss" || course.type === "ais",
-						"bg-[#f3e8ff] hover:bg-[#ede4ff]": course.type === "acs", // New color for ACS
-					})}
+					className="w-full"
+					style={getCardStyle(course.type)}
 				>
 					<CardHeader className="p-3 pb-2">
 						<div className="flex items-center justify-between gap-2">

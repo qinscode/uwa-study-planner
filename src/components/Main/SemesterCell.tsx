@@ -8,6 +8,7 @@ import { removeCourseFromSemester } from "@/redux/courseSlice";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { typeColors } from "@/types";
 
 interface SemesterCellProps {
 	semesterId: string;
@@ -40,6 +41,16 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
 		}
 	};
 
+	const getCardStyle = (type: string) => {
+		const baseColor = typeColors[type as keyof typeof typeColors];
+		return {
+			backgroundColor: baseColor,
+			'&:hover': {
+				backgroundColor: baseColor
+			}
+		};
+	};
+
 	return (
 		<div
 			ref={(node) => drag(drop(node))}
@@ -53,19 +64,8 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
 		>
 			{course ? (
 				<Card
-					className={cn(
-						"h-full cursor-pointer transition-all hover:shadow-md",
-						{
-							"bg-[#fff2cd] hover:bg-[#fff0c0]":
-								course.course.type === "conversion",
-							"bg-[#f6ffed] hover:bg-[#f4ffe8]": course.course.type === "core",
-							"bg-[#e6f7ff] hover:bg-[#e0f5ff]":
-								course.course.type === "option",
-							"bg-[#fbe4d5] hover:bg-[#fae0d0]":
-								course.course.type === "sss" || course.course.type === "ais",
-							"bg-[#f3e8ff] hover:bg-[#ede4ff]": course.course.type === "acs", // New color for ACS
-						}
-					)}
+					className="h-full cursor-pointer transition-all hover:shadow-md"
+					style={course ? getCardStyle(course.course.type) : undefined}
 					onClick={handleRemoveCourse}
 				>
 					<CardContent className="h-full p-3 flex flex-col">
