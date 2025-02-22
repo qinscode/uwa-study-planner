@@ -1,20 +1,20 @@
 # Build stage
 FROM --platform=$TARGETPLATFORM node:20-alpine as builder
 
+# Set working directory
 WORKDIR /app
 
-# Enable Corepack and prepare Yarn
+# Enable Yarn Berry and set version
 RUN corepack enable && corepack prepare yarn@4.5.0 --activate
 
-# First copy only package files to leverage Docker cache
+# Copy package files
 COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn ./.yarn
 
-# Install dependencies and serve package
-RUN yarn install --immutable && \
-    yarn global add serve
+# Install dependencies
+RUN yarn install --immutable
 
-# Copy the rest of the application code
+# Copy source code
 COPY . .
 
 # Build the application
@@ -26,21 +26,20 @@ FROM --platform=$TARGETPLATFORM node:20-alpine
 # Create a non-root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
+# Set working directory
 WORKDIR /app
 
-# Copy only the built assets and serve binary from builder
+# Install serve using npm
+RUN npm install -g serve
+
+# Copy built files from builder stage
 COPY --from=builder /app/build ./build
-COPY --from=builder /usr/local/share/.config/yarn/global/node_modules/serve /usr/local/lib/node_modules/serve
-RUN ln -s /usr/local/lib/node_modules/serve/bin/serve.js /usr/local/bin/serve
 
-# Change ownership of the app directory
-RUN chown -R appuser:appgroup /app
-
-# Switch to non-root user
+# Use non-root user
 USER appuser
 
-# Expose the port that matches Vite preview configuration
+# Expose port
 EXPOSE 3031
 
-# Use serve directly since we copied it from builder stage
-CMD ["serve", "-s", "build", "-l", "3031"] 
+# Start the server
+CMD ["serve", "-s", "build", "-l", "3031"]

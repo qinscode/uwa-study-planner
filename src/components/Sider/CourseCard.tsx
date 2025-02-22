@@ -36,7 +36,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onDragStart }) => {
 			return { course };
 		},
 		collect: (monitor) => ({
-			isDragging: !!monitor.isDragging(),
+			isDragging: monitor.isDragging(),
 		}),
 	});
 
