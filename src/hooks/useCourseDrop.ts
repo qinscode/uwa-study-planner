@@ -1,6 +1,6 @@
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { addCourseToSemester, moveCourse } from "@/redux/courseSlice";
+import { addCourseToSemester, moveCourse, removeCourseFromSemester } from "@/redux/courseSlice";
 import type { Course, SemesterCourse } from "@/types";
 import type { RootState } from "@/redux/store";
 import { message } from "antd";
@@ -27,27 +27,16 @@ export const useCourseDrop = ({
 		() => ({
 			accept: ["COURSE", "SEMESTER_COURSE"],
 			canDrop: (item: { course?: Course; id?: string; type: string }) => {
-				// Check if the target position is already occupied
-				const isPositionOccupied = selectedCourses.some(
+				// 检查目标位置的课程
+				const existingCourse = selectedCourses.find(
 					(course: SemesterCourse) =>
 						course.semesterId === semesterId && course.position === position
 				);
 
-				// If the position is occupied, and it's not the same course being moved, prevent drop
-				if (isPositionOccupied) {
-					if (item.type === "SEMESTER_COURSE") {
-						const movingCourse = selectedCourses.find(
-							(c: SemesterCourse) => c.id === item.id
-						);
-						if (
-							!movingCourse ||
-							movingCourse.semesterId !== semesterId ||
-							movingCourse.position !== position
-						) {
-							return false;
-						}
-					} else {
-						return false;
+				// 如果是同一个课程移动到自己的位置，允许
+				if (item.type === "SEMESTER_COURSE" && existingCourse) {
+					if (item.id === existingCourse.id) {
+						return true;
 					}
 				}
 
@@ -85,6 +74,17 @@ export const useCourseDrop = ({
 				}
 			},
 			drop: (item: { id?: string; course?: Course; type: string }) => {
+				// 检查目标位置是否已被占用
+				const existingCourse = selectedCourses.find(
+					(course: SemesterCourse) =>
+						course.semesterId === semesterId && course.position === position
+				);
+
+				// 如果位置被占用，先移除原有课程
+				if (existingCourse) {
+					dispatch(removeCourseFromSemester({ id: existingCourse.id }));
+				}
+
 				if (item.type === "SEMESTER_COURSE" && item.id) {
 					const course = selectedCourses.find(
 						(c: SemesterCourse) => c.id === item.id
