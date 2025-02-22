@@ -2,6 +2,23 @@ import { message } from 'antd'
 import type { Course, CourseState, SemesterCourse } from '@/types/index'
 import { v4 as uuidv4 } from 'uuid'
 
+function calculateACSPoints(courses: Array<SemesterCourse>): { total: number; level5: number } {
+  return courses.reduce(
+    (acc, sc) => {
+      if (sc.course.type === 'acs') {
+        // 每门课程计为 6 学分
+        acc.total += 6
+        // 检查是否为 Level 5 课程
+        if (sc.course.code.startsWith('CITS5')) {
+          acc.level5 += 6
+        }
+      }
+      return acc
+    },
+    { total: 0, level5: 0 }
+  )
+}
+
 export function isValidSelection(state: CourseState, newCourse: Course): boolean {
   const newSemesterCourse: SemesterCourse = {
     id: uuidv4(),
@@ -21,6 +38,19 @@ export function isValidSelection(state: CourseState, newCourse: Course): boolean
   const hasCITS1402 = updatedSelectedCourses.some(c => c.course.code === 'CITS1402')
   const hasCITS4009 = updatedSelectedCourses.some(c => c.course.code === 'CITS4009')
   const hasINMT5518 = updatedSelectedCourses.some(c => c.course.code === 'INMT5518')
+
+  // 检查 Applied Computing specialisation 的要求
+  if (newCourse.type === 'acs') {
+    const { total, level5 } = calculateACSPoints(updatedSelectedCourses)
+    if (total > 24) {
+      message.error('You cannot select more than 24 points of Applied Computing units.')
+      return false
+    }
+    if (total === 24 && level5 < 12) {
+      message.error('You must have at least 12 points of Level 5 ACS units.')
+      return false
+    }
+  }
 
   if (optionCount > 4) {
     message.error('You cannot select more than 4 option units.')

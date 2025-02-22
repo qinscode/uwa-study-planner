@@ -10,8 +10,9 @@ RUN corepack enable && corepack prepare yarn@4.5.0 --activate
 COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn ./.yarn
 
-# Install dependencies
-RUN yarn install --immutable
+# Install dependencies and serve package
+RUN yarn install --immutable && \
+    yarn global add serve
 
 # Copy the rest of the application code
 COPY . .
@@ -27,11 +28,10 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 WORKDIR /app
 
-# Install serve package globally
-RUN yarn global add serve
-
-# Copy built assets from builder stage
+# Copy only the built assets and serve binary from builder
 COPY --from=builder /app/build ./build
+COPY --from=builder /usr/local/share/.config/yarn/global/node_modules/serve /usr/local/lib/node_modules/serve
+RUN ln -s /usr/local/lib/node_modules/serve/bin/serve.js /usr/local/bin/serve
 
 # Change ownership of the app directory
 RUN chown -R appuser:appgroup /app
@@ -42,5 +42,5 @@ USER appuser
 # Expose the port that matches Vite preview configuration
 EXPOSE 3031
 
-# Use node directly to run serve for better compatibility
-CMD ["node", "/usr/local/bin/serve", "-s", "build", "-l", "3031"] 
+# Use serve directly since we copied it from builder stage
+CMD ["serve", "-s", "build", "-l", "3031"] 

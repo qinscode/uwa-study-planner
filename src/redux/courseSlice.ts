@@ -176,6 +176,7 @@ const courseSlice = createSlice({
           { courseCode: 'CITS5506', newType: 'acs' },
           { courseCode: 'CITS5507', newType: 'acs' },
           { courseCode: 'CITS5508', newType: 'acs' },
+          { courseCode: 'AUTO4508', newType: 'acs' },
         ]
         state.tags = [
           { key: 'conversion', label: 'Conversion' },
