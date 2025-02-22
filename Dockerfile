@@ -4,8 +4,8 @@ FROM --platform=$TARGETPLATFORM node:20-alpine as builder
 # Set working directory
 WORKDIR /app
 
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Install pnpm using npm instead of corepack
+RUN npm install -g pnpm@latest
 
 # Copy package files
 COPY package.json pnpm-lock.yaml* ./
@@ -28,13 +28,14 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 # Set working directory
 WORKDIR /app
 
-# Install serve using pnpm
-RUN corepack enable && \
-    corepack prepare pnpm@latest --activate && \
-    pnpm add -g serve
+# Install serve directly with npm
+RUN npm install -g serve
 
 # Copy built files from builder stage
 COPY --from=builder /app/dist ./dist
+
+# Set ownership of the app directory
+RUN chown -R appuser:appgroup /app
 
 # Use non-root user
 USER appuser

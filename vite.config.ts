@@ -7,7 +7,7 @@ import { defineConfig } from "vitest/config";
 // https://vitejs.dev/config/
 export default defineConfig({
 	preview: {
-		port: 3031
+		port: 3031,
 	},
 	plugins: [react()],
 	server: {
@@ -16,16 +16,16 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
-			'@': path.resolve(__dirname, './src'),
+			"@": path.resolve(__dirname, "./src"),
 		},
 	},
 	build: {
-		outDir: 'build',
+		outDir: "dist",
 		rollupOptions: {
 			output: {
 				manualChunks(id) {
-					if (id.includes('node_modules')) {
-						return 'vendor'
+					if (id.includes("node_modules")) {
+						return "vendor";
 					}
 				},
 			},
