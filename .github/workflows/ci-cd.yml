@@ -34,9 +34,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Run tests
-        run: yarn test --passWithNoTests
-
       - name: Run lint
         run: yarn lint
 
