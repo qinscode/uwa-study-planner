@@ -31,7 +31,7 @@ const SemesterGrid: React.FC = () => {
   const [drawerVisible, setDrawerVisible] = useState(false)
   const [selectedYear, setSelectedYear] = useState('2025')
   const [selectedSemester, setSelectedSemester] = useState('s1')
-  const [selectedProgram, setSelectedProgram] = useState('Select Specialization')
+  const [selectedProgram, setSelectedProgram] = useState('ac')
   const selectedCourses = useSelector((state: RootState) => state.courses.selectedCourses)
   const dispatch = useDispatch()
 
