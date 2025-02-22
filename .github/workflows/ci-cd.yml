@@ -99,5 +99,5 @@ jobs:
               --platform linux/arm64 \
               --name study-planner \
               --restart unless-stopped \
-              -p 127.0.0.1:5173:5173 \
+              -p 127.0.0.1:3031:3031 \
               ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
