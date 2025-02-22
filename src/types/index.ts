@@ -16,19 +16,19 @@ export interface Course {
 	note?: string;
 }
 
-// 基础课程选择接口
+// Interface for basic course selection
 interface BaseCourse {
 	id: string;
 	course: Course;
 }
 
-// 用于拖放和显示的课程接口
+// Interface for courses used in drag-and-drop and display
 export interface SemesterCourse extends BaseCourse {
 	semesterId: string;
 	position: number;
 }
 
-// 用于统计和验证的课程接口
+// Interface for courses used in statistics and validation
 export interface SelectedCourse extends BaseCourse {
 	semesterId: string;
 	position: number;
