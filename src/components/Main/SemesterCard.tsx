@@ -43,7 +43,7 @@ const SemesterCard: React.FC<SemesterCardProps> = ({ semester, semesterIndex, st
       <Card className="transition-all hover:shadow-md">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg font-medium">
-            Semester {semesterIndex + 1} ({semester})
+            Year {Math.floor(semesterIndex / 2) + 1} Semester {semester}
           </CardTitle>
         </CardHeader>
         <CardContent>
