@@ -90,6 +90,8 @@ const typescriptConfig = {
     "@typescript-eslint/no-unsafe-member-access": "off",
   "no-use-before-defined": "off",
     "@typescript-eslint/no-unused-expressions": "off",
+        "@no-use-before-define": "off",
+
     "@typescript-eslint/no-misused-promises": [
     "error",
     {
