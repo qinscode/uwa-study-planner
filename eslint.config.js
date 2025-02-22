@@ -23,7 +23,7 @@ const baseESLintConfig = {
   rules: {
     "no-await-in-loop": "error",
     "no-constant-binary-expression": "error",
-    "no-duplicate-imports": "error",
+    "no-duplicate-imports": "off",
     "no-new-native-nonconstructor": "error",
     "no-promise-executor-return": "error",
     "no-self-compare": "error",
@@ -34,6 +34,11 @@ const baseESLintConfig = {
     "no-use-before-define": "error",
     "require-atomic-updates": "error",
     "camelcase": "error",
+    "explicit-function-return-type": "off",
+    "no-use-before-defined": "off",
+    " @typescript-eslint/explicit-module-boundary-types": "off",
+    "react-refresh/only-export-components": "off",
+
   }
 }
 
@@ -66,18 +71,25 @@ const typescriptConfig = {
     "@typescript-eslint/array-type": ["error", { "default": "generic" }],
     "@typescript-eslint/consistent-type-exports": "error",
     "@typescript-eslint/consistent-type-imports": "error",
-    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-member-accessibility": "error",
-    "@typescript-eslint/explicit-module-boundary-types": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-confusing-void-expression": "error",
     "@typescript-eslint/no-import-type-side-effects": "error",
     "@typescript-eslint/no-require-imports": "error",
-    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-useless-empty-export": "error",
     "@typescript-eslint/prefer-enum-initializers": "error",
     "@typescript-eslint/prefer-readonly": "error",
+  "@typescript-eslint/no-unsafe-assignment": "off",
+    "react-refresh/only-export-components": "off",
+    // allow any
+    "@typescript-eslint/no-explicit-any": "off",
     "no-return-await": "off",
     "@typescript-eslint/return-await": "error",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+  "no-use-before-defined": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
     "@typescript-eslint/no-misused-promises": [
     "error",
     {

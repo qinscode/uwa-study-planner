@@ -1,6 +1,7 @@
 import html2canvas from 'html2canvas'
+import type { RefObject } from 'react'
 
-const exportTableToPNG = (captureRef: React.RefObject<HTMLDivElement>) => {
+export function exportTableToPNG(captureRef: RefObject<HTMLDivElement>): void {
   if (captureRef.current) {
     const clonedNode = captureRef.current.cloneNode(true) as HTMLElement
     const wrapper = document.createElement('div')
@@ -74,5 +75,3 @@ const exportTableToPNG = (captureRef: React.RefObject<HTMLDivElement>) => {
     alert('无法找到要捕获的元素。请刷新页面后重试。')
   }
 }
-
-export default exportTableToPNG

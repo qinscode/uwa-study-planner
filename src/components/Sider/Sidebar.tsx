@@ -20,14 +20,15 @@ import CourseSelector from './CourseSelector'
 
 interface SidebarProps {
   handleDragStart: () => void
+  width?: string
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ handleDragStart }) => (
+const Sidebar: React.FC<SidebarProps> = ({ handleDragStart, width }) => (
   <motion.div
     animate={{ x: 0, opacity: 1 }}
     className="fixed left-0 top-16 bottom-0 z-40 min-w-[280px]"
     initial={{ x: -300, opacity: 0 }}
-    style={{ width: 'min(90vw, 360px)' }}
+    style={{ width: width || 'min(90vw, 360px)' }}
     transition={{
       type: 'tween',
       duration: 0.5,

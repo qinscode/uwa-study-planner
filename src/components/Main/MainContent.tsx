@@ -17,12 +17,12 @@
 import type { RefObject } from 'react'
 import CourseSummary from './CourseSummary'
 import SemesterCard from './SemesterCard'
-import type { SelectedCourse } from '@/types'
+import type { SemesterCourse } from '@/types/index'
 
 interface MainContentProps {
   captureRef: RefObject<HTMLDivElement>
-  semesters: string[]
-  selectedCourses: SelectedCourse[]
+  semesters: Array<string>
+  selectedCourses: Array<SemesterCourse>
   handleSwitch: (checked: boolean) => void
   handleExportTable: () => void
   handleClearTable: () => void

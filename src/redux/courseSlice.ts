@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit'
-import type { Course, SemesterCourse, CourseState } from '../types'
+import type { Course, SemesterCourse, CourseState, CourseType } from '@/types/index'
 import { message } from 'antd'
 import { v4 as uuidv4 } from 'uuid'
-import { getStudyPlan } from '../data/studyPlans'
+import { getStudyPlan } from '@/data/studyPlans'
 import testCourses from '../data/availableCourse'
 import type { RootState } from './store'
-import { isValidSelection } from '../utils/isValidSelection'
-import { checkprerequisites } from '../utils/checkprerequisites'
+import { isValidSelection } from '@/utils/isValidSelection'
+import { checkprerequisites } from '@/utils/checkprerequisites'
 
 const storedState = localStorage.getItem('courseState')
 const initialState: CourseState = storedState
@@ -26,7 +25,7 @@ const initialState: CourseState = storedState
 
 const updateCoursesTypes = (
   courses: Array<Course>,
-  updates: Array<{ courseCode: string; newType: string }>
+  updates: Array<{ courseCode: string; newType: CourseType }>
 ): Array<Course> => {
   const updateMap = new Map(updates.map(update => [update.courseCode, update.newType]))
   return courses.map(course => {
@@ -62,13 +61,13 @@ const courseSlice = createSlice({
         return
       }
       state.selectedCourses.push(newSemesterCourse)
-      state.availableCourses = state.availableCourses.filter(c => c.id !== course.id)
+      state.availableCourses = state.availableCourses.filter((c: Course) => c.id !== course.id)
     },
     removeCourseFromSemester: (state, action: PayloadAction<{ id: string }>) => {
-      const courseToRemove = state.selectedCourses.find(c => c.id === action.payload.id)
+      const courseToRemove = state.selectedCourses.find((c: SemesterCourse) => c.id === action.payload.id)
       if (courseToRemove) {
         state.availableCourses.push(courseToRemove.course)
-        state.selectedCourses = state.selectedCourses.filter(c => c.id !== action.payload.id)
+        state.selectedCourses = state.selectedCourses.filter((c: SemesterCourse) => c.id !== action.payload.id)
       }
     },
     moveCourse: (
@@ -76,7 +75,7 @@ const courseSlice = createSlice({
       action: PayloadAction<{ id: string; newSemesterId: string; newPosition: number }>
     ) => {
       const { id, newSemesterId, newPosition } = action.payload
-      const courseIndex = state.selectedCourses.findIndex(c => c.id === id)
+      const courseIndex = state.selectedCourses.findIndex((c: SemesterCourse) => c.id === id)
       if (courseIndex !== -1) {
         const course = state.selectedCourses[courseIndex]
         state.selectedCourses.splice(courseIndex, 1)
@@ -99,7 +98,7 @@ const courseSlice = createSlice({
     clearSelectedCourses: state => {
       state.availableCourses = [
         ...state.availableCourses,
-        ...state.selectedCourses.map(sc => sc.course),
+        ...state.selectedCourses.map((sc: SemesterCourse) => sc.course),
       ]
       state.selectedCourses = []
     },
@@ -120,7 +119,7 @@ const courseSlice = createSlice({
       const { year, semester, startWithS2, program } = action.payload
 
       if (year === '2025' && program === 'ai') {
-        const updates = [
+        const updates: Array<{ courseCode: string; newType: CourseType }> = [
           { courseCode: '4407', newType: 'option' },
           { courseCode: 'CITS5501', newType: 'option' },
           { courseCode: 'CITS5506', newType: 'option' },
@@ -140,9 +139,8 @@ const courseSlice = createSlice({
         state.availableCourses = updateCoursesTypes(state.availableCourses, updates)
       }
       if (year === '2025' && program === 'ss') {
-        const updates = [
+        const updates: Array<{ courseCode: string; newType: CourseType }> = [
           { courseCode: '4407', newType: 'option' },
-
           { courseCode: 'CITS5501', newType: 'sss' },
           { courseCode: 'CITS5506', newType: 'sss' },
           { courseCode: 'CITS5503', newType: 'sss' },
@@ -163,7 +161,7 @@ const courseSlice = createSlice({
         console.log('availableCourses', state.availableCourses)
       }
       if (year === '2025' && program === 'ac') {
-        const updates = [
+        const updates: Array<{ courseCode: string; newType: CourseType }> = [
           { courseCode: 'CITS4009', newType: 'acs' },
           { courseCode: 'CITS4012', newType: 'acs' },
           { courseCode: 'CITS4402', newType: 'acs' },
@@ -201,7 +199,7 @@ const courseSlice = createSlice({
 
       state.availableCourses = [
         ...state.availableCourses,
-        ...(state.selectedCourses?.map(sc => sc.course) || []),
+        ...(state.selectedCourses?.map((sc: SemesterCourse) => sc.course) || []),
       ]
       state.selectedCourses = []
 
@@ -229,7 +227,7 @@ const courseSlice = createSlice({
             return
           }
 
-          const existingCourse = state.availableCourses.find(c => c.code === course.code)
+          const existingCourse = state.availableCourses.find((c: Course) => c.code === course.code)
           if (existingCourse) {
             if (position >= 4) {
               position = 0
@@ -241,7 +239,7 @@ const courseSlice = createSlice({
               return
             }
 
-            state.availableCourses = state.availableCourses.filter(c => c.code !== course.code)
+            state.availableCourses = state.availableCourses.filter((c: Course) => c.code !== course.code)
             const newSemesterCourse: SemesterCourse = {
               id: uuidv4(),
               semesterId: semesterIds[currentSemesterIndex],
@@ -272,7 +270,7 @@ export const selectCourseByCode =
   (state: RootState): Course | undefined => {
     const availableCourses = state.courses?.availableCourses || []
     console.log('Available courses:', availableCourses)
-    return availableCourses.find(course => course.code === code)
+    return availableCourses.find((course: Course) => course.code === code)
   }
 
 export const selectAllAvailableCourses = (state: RootState): Array<Course> => {

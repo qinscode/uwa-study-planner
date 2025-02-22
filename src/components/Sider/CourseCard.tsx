@@ -17,7 +17,7 @@
 
 import type React from 'react'
 import { useDrag } from 'react-dnd'
-import type { Course } from '../../types'
+import type { Course } from '@/types'
 import { motion } from 'framer-motion'
 import { Card, CardHeader, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'

@@ -1,14 +1,16 @@
 import { message } from 'antd'
-import type { Course, CourseState, SelectedCourse } from '@/types'
+import type { Course, CourseState, SemesterCourse } from '@/types/index'
+import { v4 as uuidv4 } from 'uuid'
 
 export function isValidSelection(state: CourseState, newCourse: Course): boolean {
-  const newSelectedCourse: SelectedCourse = {
+  const newSemesterCourse: SemesterCourse = {
+    id: uuidv4(),
     course: newCourse,
-    semester: 0,
-    semesterId: ''
+    semesterId: '',
+    position: 0
   }
   
-  const updatedSelectedCourses: SelectedCourse[] = [...state.selectedCourses, newSelectedCourse]
+  const updatedSelectedCourses: Array<SemesterCourse> = [...state.selectedCourses, newSemesterCourse]
   
   const conversionCount = updatedSelectedCourses.filter(c => c.course.type === 'conversion').length
   const optionCount = updatedSelectedCourses.filter(c => c.course.type === 'option').length
@@ -69,7 +71,7 @@ export function isValidSelection(state: CourseState, newCourse: Course): boolean
 
   if (newCourse.code === 'CITS5206') {
     const levelFourOrFiveCourses = state.selectedCourses.filter(
-      (sc: SelectedCourse) => {
+      (sc: SemesterCourse) => {
         const code = sc.course.code
         return code && (code[4] === '4' || code[4] === '5')
       }

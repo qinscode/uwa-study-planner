@@ -24,7 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import type { SelectedCourse } from '@/types'
+import type { SemesterCourse } from '@/types/index'
 
 interface Course {
   type: 'core' | 'option' | 'conversion'
@@ -33,7 +33,7 @@ interface Course {
 }
 
 interface CourseSummaryProps {
-  selectedCourses: Array<SelectedCourse>
+  selectedCourses: Array<SemesterCourse>
   startWithS2: boolean
   handleSwitch: (checked: boolean) => void
   handleExportTable: () => void
