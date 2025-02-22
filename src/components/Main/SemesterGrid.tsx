@@ -1,12 +1,3 @@
-/**
- * SemesterGrid Component
- *
- * The main layout component of the application, responsible for:
- * - Rendering the entire page layout (header, sidebar, main content)
- * - Managing global state
- * - Providing user interaction functionalities
- */
-
 import type React from "react";
 import { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -86,8 +77,12 @@ const SemesterGrid: React.FC = () => {
 		handleOpenModal();
 	};
 
-	const handleExportTable = (): void => {
-		exportTableToPNG(captureRef, { quality: 1, scale: 2 });
+	const handleExportTable = async (): Promise<void> => {
+		try {
+			await exportTableToPNG(captureRef);
+		} catch (error) {
+			console.error("Failed to export table:", error);
+		}
 	};
 
 	const handleOk = (): void => {
@@ -111,9 +106,7 @@ const SemesterGrid: React.FC = () => {
 		<div className="min-h-screen bg-background">
 			<HeaderBar isMobile={isMobile} setDrawerVisible={setDrawerVisible} />
 
-			{/* Main Layout */}
 			<div className="flex">
-				{/* Sidebar */}
 				{!isMobile && (
 					<div
 						className="fixed left-0 top-16 bottom-0"
@@ -123,7 +116,6 @@ const SemesterGrid: React.FC = () => {
 					</div>
 				)}
 
-				{/* Main Content Area */}
 				<main
 					style={!isMobile ? { marginLeft: sidebarWidth } : undefined}
 					className={cn(
@@ -147,7 +139,6 @@ const SemesterGrid: React.FC = () => {
 						semesters={semesters}
 					/>
 
-					{/* Footer */}
 					<footer className="fixed bottom-0 right-0 w-full border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 px-6">
 						<div className="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-muted-foreground">
 							<div>UWA MIT Study Planner • ©2025 Created by Jack Qin</div>
@@ -165,7 +156,6 @@ const SemesterGrid: React.FC = () => {
 				</main>
 			</div>
 
-			{/* Mobile Drawer */}
 			<Sheet open={drawerVisible} onOpenChange={setDrawerVisible}>
 				<SheetContent className="w-[80vw] sm:w-[385px] p-0" side="left">
 					<div className="p-6">
