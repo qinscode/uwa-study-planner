@@ -5,80 +5,6 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"-studyplanner@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "-studyplanner@workspace:."
-  dependencies:
-    "@commitlint/cli": "npm:^19.4.1"
-    "@commitlint/config-conventional": "npm:^19.4.1"
-    "@eslint/compat": "npm:^1.1.1"
-    "@eslint/js": "npm:^9.9.1"
-    "@hookform/resolvers": "npm:^3.3.4"
-    "@radix-ui/react-alert-dialog": "npm:^1.0.5"
-    "@radix-ui/react-avatar": "npm:^1.0.4"
-    "@radix-ui/react-dialog": "npm:^1.0.5"
-    "@radix-ui/react-dropdown-menu": "npm:^2.0.6"
-    "@radix-ui/react-label": "npm:^2.0.2"
-    "@radix-ui/react-popover": "npm:^1.0.7"
-    "@radix-ui/react-scroll-area": "npm:^1.2.3"
-    "@radix-ui/react-select": "npm:^2.1.6"
-    "@radix-ui/react-separator": "npm:^1.1.2"
-    "@radix-ui/react-slot": "npm:^1.0.2"
-    "@radix-ui/react-switch": "npm:^1.1.3"
-    "@radix-ui/react-tabs": "npm:^1.1.3"
-    "@radix-ui/react-toast": "npm:^1.1.5"
-    "@reduxjs/toolkit": "npm:^2.2.6"
-    "@types/node": "npm:^22.5.1"
-    "@types/react": "npm:^18.3.5"
-    "@types/react-dom": "npm:^18.3.0"
-    "@typescript-eslint/eslint-plugin": "npm:^8.3.0"
-    "@typescript-eslint/parser": "npm:^8.3.0"
-    "@vitejs/plugin-react-swc": "npm:^3.7.0"
-    "@vitest/coverage-v8": "npm:2.0.5"
-    antd: "npm:^5.24.1"
-    autoprefixer: "npm:^10.4.20"
-    class-variance-authority: "npm:^0.7.0"
-    clsx: "npm:^2.1.0"
-    cmdk: "npm:^0.2.1"
-    eslint: "npm:^9.9.1"
-    eslint-config-prettier: "npm:^9.1.0"
-    eslint-plugin-import: "npm:^2.29.1"
-    eslint-plugin-jsx-a11y: "npm:^6.9.0"
-    eslint-plugin-prettier: "npm:^5.2.1"
-    eslint-plugin-react: "npm:^7.35.0"
-    eslint-plugin-react-hooks: "npm:^4.6.2"
-    eslint-plugin-react-refresh: "npm:^0.4.11"
-    eslint-plugin-storybook: "npm:^0.8.0"
-    eslint-plugin-unicorn: "npm:^55.0.0"
-    framer-motion: "npm:^11.3.8"
-    globals: "npm:^15.9.0"
-    html2canvas: "npm:^1.4.1"
-    husky: "npm:^9.1.5"
-    jsdom: "npm:^25.0.0"
-    lucide-react: "npm:^0.475.0"
-    next-themes: "npm:^0.3.0"
-    postcss: "npm:^8.4.41"
-    prettier: "npm:^3.3.3"
-    react: "npm:^18.3.1"
-    react-dnd: "npm:^16.0.1"
-    react-dnd-html5-backend: "npm:^16.0.1"
-    react-dnd-touch-backend: "npm:^16.0.1"
-    react-dom: "npm:^18.3.1"
-    react-hook-form: "npm:^7.51.1"
-    react-redux: "npm:^9.1.2"
-    react-responsive: "npm:^10.0.0"
-    sass: "npm:^1.77.8"
-    tailwind-merge: "npm:^2.2.1"
-    tailwindcss: "npm:^3.4.10"
-    tailwindcss-animate: "npm:^1.0.7"
-    typescript: "npm:^5.5.4"
-    typescript-eslint: "npm:^8.3.0"
-    uuid: "npm:^11.0.5"
-    vite: "npm:5.4.2"
-    zod: "npm:^3.22.4"
-  languageName: unknown
-  linkType: soft
-
 "@alloc/quick-lru@npm:^5.2.0":
   version: 5.2.0
   resolution: "@alloc/quick-lru@npm:5.2.0"
@@ -5010,15 +4936,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^9.1.5":
-  version: 9.1.7
-  resolution: "husky@npm:9.1.7"
-  bin:
-    husky: bin.js
-  checksum: 10c0/35bb110a71086c48906aa7cd3ed4913fb913823715359d65e32e0b964cb1e255593b0ae8014a5005c66a68e6fa66c38dcfa8056dbbdfb8b0187c0ffe7ee3a58f
-  languageName: node
-  linkType: hard
-
 "hyphenate-style-name@npm:^1.0.0":
   version: 1.1.0
   resolution: "hyphenate-style-name@npm:1.1.0"
@@ -8199,6 +8116,79 @@ __metadata:
   checksum: 10c0/9681a6257b925a7fa0f285851c0e613cc934a50661fa7bb41ca9cbbff89686bb4a0ee366e6ecedc4daafd01e83eee0720111ab294366fe7c185e935475ebcecd
   languageName: node
   linkType: hard
+
+"studypalnner@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "studypalnner@workspace:."
+  dependencies:
+    "@commitlint/cli": "npm:^19.4.1"
+    "@commitlint/config-conventional": "npm:^19.4.1"
+    "@eslint/compat": "npm:^1.1.1"
+    "@eslint/js": "npm:^9.9.1"
+    "@hookform/resolvers": "npm:^3.3.4"
+    "@radix-ui/react-alert-dialog": "npm:^1.0.5"
+    "@radix-ui/react-avatar": "npm:^1.0.4"
+    "@radix-ui/react-dialog": "npm:^1.0.5"
+    "@radix-ui/react-dropdown-menu": "npm:^2.0.6"
+    "@radix-ui/react-label": "npm:^2.0.2"
+    "@radix-ui/react-popover": "npm:^1.0.7"
+    "@radix-ui/react-scroll-area": "npm:^1.2.3"
+    "@radix-ui/react-select": "npm:^2.1.6"
+    "@radix-ui/react-separator": "npm:^1.1.2"
+    "@radix-ui/react-slot": "npm:^1.0.2"
+    "@radix-ui/react-switch": "npm:^1.1.3"
+    "@radix-ui/react-tabs": "npm:^1.1.3"
+    "@radix-ui/react-toast": "npm:^1.1.5"
+    "@reduxjs/toolkit": "npm:^2.2.6"
+    "@types/node": "npm:^22.5.1"
+    "@types/react": "npm:^18.3.5"
+    "@types/react-dom": "npm:^18.3.0"
+    "@typescript-eslint/eslint-plugin": "npm:^8.3.0"
+    "@typescript-eslint/parser": "npm:^8.3.0"
+    "@vitejs/plugin-react-swc": "npm:^3.7.0"
+    "@vitest/coverage-v8": "npm:2.0.5"
+    antd: "npm:^5.24.1"
+    autoprefixer: "npm:^10.4.20"
+    class-variance-authority: "npm:^0.7.0"
+    clsx: "npm:^2.1.0"
+    cmdk: "npm:^0.2.1"
+    eslint: "npm:^9.9.1"
+    eslint-config-prettier: "npm:^9.1.0"
+    eslint-plugin-import: "npm:^2.29.1"
+    eslint-plugin-jsx-a11y: "npm:^6.9.0"
+    eslint-plugin-prettier: "npm:^5.2.1"
+    eslint-plugin-react: "npm:^7.35.0"
+    eslint-plugin-react-hooks: "npm:^4.6.2"
+    eslint-plugin-react-refresh: "npm:^0.4.11"
+    eslint-plugin-storybook: "npm:^0.8.0"
+    eslint-plugin-unicorn: "npm:^55.0.0"
+    framer-motion: "npm:^11.3.8"
+    globals: "npm:^15.9.0"
+    html2canvas: "npm:^1.4.1"
+    jsdom: "npm:^25.0.0"
+    lucide-react: "npm:^0.475.0"
+    next-themes: "npm:^0.3.0"
+    postcss: "npm:^8.4.41"
+    prettier: "npm:^3.3.3"
+    react: "npm:^18.3.1"
+    react-dnd: "npm:^16.0.1"
+    react-dnd-html5-backend: "npm:^16.0.1"
+    react-dnd-touch-backend: "npm:^16.0.1"
+    react-dom: "npm:^18.3.1"
+    react-hook-form: "npm:^7.51.1"
+    react-redux: "npm:^9.1.2"
+    react-responsive: "npm:^10.0.0"
+    sass: "npm:^1.77.8"
+    tailwind-merge: "npm:^2.2.1"
+    tailwindcss: "npm:^3.4.10"
+    tailwindcss-animate: "npm:^1.0.7"
+    typescript: "npm:^5.5.4"
+    typescript-eslint: "npm:^8.3.0"
+    uuid: "npm:^11.0.5"
+    vite: "npm:5.4.2"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
 
 "stylis@npm:^4.3.4":
   version: 4.3.6

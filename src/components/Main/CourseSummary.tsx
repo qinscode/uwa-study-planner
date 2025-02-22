@@ -33,7 +33,7 @@ interface Course {
 }
 
 interface CourseSummaryProps {
-  selectedCourses: SelectedCourse[]
+  selectedCourses: Array<SelectedCourse>
   startWithS2: boolean
   handleSwitch: (checked: boolean) => void
   handleExportTable: () => void

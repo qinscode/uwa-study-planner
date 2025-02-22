@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint --max-warnings 0",
-        "lint:fix": "eslint --max-warnings 0 --fix",
-
+    "lint:fix": "eslint --max-warnings 0 --fix",
     "preview": "vite preview"
   },
   "dependencies": {

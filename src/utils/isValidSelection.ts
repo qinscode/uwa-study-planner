@@ -1,8 +1,15 @@
 import { message } from 'antd'
-import type { Course, CourseState } from '../types'
+import type { Course, CourseState, SelectedCourse } from '@/types'
 
-export const isValidSelection = (state: CourseState, newCourse: Course): boolean => {
-  const updatedSelectedCourses = [...state.selectedCourses, { semesterId: '', course: newCourse }]
+export function isValidSelection(state: CourseState, newCourse: Course): boolean {
+  const newSelectedCourse: SelectedCourse = {
+    course: newCourse,
+    semester: 0,
+    semesterId: ''
+  }
+  
+  const updatedSelectedCourses: SelectedCourse[] = [...state.selectedCourses, newSelectedCourse]
+  
   const conversionCount = updatedSelectedCourses.filter(c => c.course.type === 'conversion').length
   const optionCount = updatedSelectedCourses.filter(c => c.course.type === 'option').length
 
@@ -21,10 +28,6 @@ export const isValidSelection = (state: CourseState, newCourse: Course): boolean
   if (newCourse.code === 'CITS5501' && !hasCITS2002 && !hasCITS2005) {
     message.error('You must select either CITS2002 or CITS2005 before CITS5501.')
     return false
-  }
-
-  if (newCourse.code === 'CITS5501' && !hasCITS2002 && !hasCITS2005) {
-    message.error('You must select either CITS2002 or CITS2005 before CITS5501.')
   }
 
   if (newCourse.code === 'GENG5505') {
@@ -66,7 +69,10 @@ export const isValidSelection = (state: CourseState, newCourse: Course): boolean
 
   if (newCourse.code === 'CITS5206') {
     const levelFourOrFiveCourses = state.selectedCourses.filter(
-      sc => sc.course.code && (sc.course.code[4] === '4' || sc.course.code[4] === '5')
+      (sc: SelectedCourse) => {
+        const code = sc.course.code
+        return code && (code[4] === '4' || code[4] === '5')
+      }
     )
     if (levelFourOrFiveCourses.length < 4) {
       message.error('You must select at least 4 level 4 or level 5 units before CITS5526.')
