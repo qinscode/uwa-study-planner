@@ -1,4 +1,3 @@
-// SemesterCell.tsx
 import type React from "react";
 import type { SemesterCourse } from "@/types";
 import { useCourseDrag } from "@/hooks/useCourseDrag";
@@ -8,7 +7,6 @@ import { removeCourseFromSemester } from "@/redux/courseSlice";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { typeColors } from "@/types";
 
 interface SemesterCellProps {
 	semesterId: string;
@@ -41,21 +39,11 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
 		}
 	};
 
-	const getCardStyle = (type: string) => {
-		const baseColor = typeColors[type as keyof typeof typeColors];
-		return {
-			backgroundColor: baseColor,
-			'&:hover': {
-				backgroundColor: baseColor
-			}
-		};
-	};
-
 	return (
 		<div
 			ref={(node) => drag(drop(node))}
 			className={cn(
-				"h-[120px] border border-dashed rounded-lg transition-all ",
+				"h-[120px] border border-dashed rounded-lg transition-all",
 				isDragging && "opacity-50",
 				canDrop && "bg-blue-50/50 border-blue-200",
 				isOver && canDrop && "bg-blue-100/50 border-blue-300",
@@ -64,16 +52,28 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
 		>
 			{course ? (
 				<Card
-					className="h-full cursor-pointer transition-all hover:shadow-md"
-					style={course ? getCardStyle(course.course.type) : undefined}
+					className={cn(
+						"h-full cursor-pointer transition-all hover:shadow-md",
+						{
+							"bg-[#fff2cd] hover:bg-[#fff0c0]":
+								course.course.type === "conversion",
+							"bg-[#f6ffed] hover:bg-[#f4ffe8]": course.course.type === "core",
+							"bg-[#e6f7ff] hover:bg-[#e0f5ff]":
+								course.course.type === "option",
+							"bg-[#fbe4d5] hover:bg-[#fae0d0]":
+								course.course.type === "sss" || course.course.type === "ais",
+						}
+					)}
 					onClick={handleRemoveCourse}
 				>
 					<CardContent className="h-full p-3 flex flex-col">
-						<div className="flex items-center justify-between gap-2">
-							<span className="font-medium text-sm">{course.course.code}</span>
+						<div className="flex items-center justify-between gap-1">
+							<span className="font-medium text-sm shrink-0">
+								{course.course.code}
+							</span>
 							{course.course.recommendedSemester && (
 								<Badge
-									className="shrink-0"
+									className="shrink-0 px-1.5 py-0 text-[11px]"
 									variant={
 										course.course.recommendedSemester.toLowerCase() as
 											| "s1"

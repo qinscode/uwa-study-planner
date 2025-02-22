@@ -1,8 +1,8 @@
 // studyPlan.ts
 
-import type { Course } from "../types";
-import { selectCourseByCode } from "../redux/courseSlice";
-import type { RootState } from "../redux/store";
+import type { Course } from "@/types";
+import { selectCourseByCode } from "@/redux/courseSlice";
+import type { RootState } from "@/redux/store";
 
 export interface StudyPlan {
 	[key: string]: {
@@ -251,7 +251,6 @@ const studyPlans: StudyPlan = {
 				"",
 			],
 		},
-
 		ac: {
 			s1: [
 				"CITS1003",
