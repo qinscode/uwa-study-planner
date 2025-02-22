@@ -52,23 +52,21 @@ const MainContent: React.FC<MainContentProps> = ({
 }) => {
   return (
     <div ref={captureRef} className="p-4 lg:p-6 w-full max-w-[1600px] mx-auto">
-      <div className="mb-6">
-        <CourseSummary
-          selectedCourses={selectedCourses}
-          startWithS2={semesters[0] === 'S2'}
-          handleSwitch={handleSwitch}
-          handleExportTable={handleExportTable}
-          handleClearTable={handleClearTable}
-          handleLoadStudyPlan={handleLoadStudyPlan}
-          handleYearChange={handleYearChange}
-          handleSemesterChange={handleSemesterChange}
-          handleProgramChange={handleProgramChange}
-          selectedYear={selectedYear}
-          selectedSemester={selectedSemester}
-          selectedProgram={selectedProgram}
-        />
-      </div>
-      <div className="space-y-6">
+      <CourseSummary
+        selectedCourses={selectedCourses}
+        startWithS2={semesters[0] === 'S2'}
+        handleSwitch={handleSwitch}
+        handleExportTable={handleExportTable}
+        handleClearTable={handleClearTable}
+        handleLoadStudyPlan={handleLoadStudyPlan}
+        handleYearChange={handleYearChange}
+        handleSemesterChange={handleSemesterChange}
+        handleProgramChange={handleProgramChange}
+        selectedYear={selectedYear}
+        selectedSemester={selectedSemester}
+        selectedProgram={selectedProgram}
+      />
+      <div className="mt-6 space-y-6">
         {semesters.map((semester, semesterIndex) => (
           <SemesterCard
             key={semesterIndex}

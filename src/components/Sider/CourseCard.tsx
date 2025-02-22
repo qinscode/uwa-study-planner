@@ -44,7 +44,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onDragStart }) => {
     <motion.div
       ref={preview}
       className={cn(
-        'transition-all',
+        'transition-all rounded-lg overflow-hidden',
         isDragging && 'opacity-50',
         'cursor-move'
       )}

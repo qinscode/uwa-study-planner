@@ -89,7 +89,7 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 
         <Separator />
 
-        <div className="grid gap-6 lg:grid-cols-[2fr,1fr]">
+        <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
               <Switch checked={startWithS2} onCheckedChange={handleSwitch} />
@@ -133,10 +133,14 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 justify-start lg:justify-end">
-            <Button onClick={handleLoadStudyPlan} className="flex-1 sm:flex-none">Load Plan</Button>
-            <Button variant="outline" onClick={handleExportTable} className="flex-1 sm:flex-none">Export</Button>
-            <Button variant="destructive" onClick={handleClearTable} className="flex-1 sm:flex-none">
+          <div className="flex flex-wrap items-center gap-2 justify-start">
+            <Button onClick={handleLoadStudyPlan} className="flex-1 sm:flex-none min-w-[120px]">
+              Load Plan
+            </Button>
+            <Button variant="outline" onClick={handleExportTable} className="flex-1 sm:flex-none min-w-[120px]">
+              Export
+            </Button>
+            <Button variant="destructive" onClick={handleClearTable} className="flex-1 sm:flex-none min-w-[120px]">
               Clear
             </Button>
           </div>
