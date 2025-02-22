@@ -47,3 +47,5 @@ yarn-error.log*
 .vscode/settings.json
 yarn.lock
 yarn.lock
+
+.yarn/*
