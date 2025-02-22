@@ -11,10 +11,14 @@ export async function exportTableToPNG(
 	}
 
 	try {
-		await new Promise((resolve) => setTimeout(resolve, 500));
+		// Wait for animations to complete
+		await new Promise((resolve) => {
+			setTimeout(resolve, 500);
+		});
 		const node = captureRef.current.cloneNode(true) as HTMLElement;
 		document.body.appendChild(node);
 
+		// Set node position and dimensions
 		node.style.position = "absolute";
 		node.style.left = "-9999px";
 		const actualWidth = captureRef.current.offsetWidth;
@@ -25,18 +29,18 @@ export async function exportTableToPNG(
 		node.style.backgroundColor = "#ffffff";
 		node.style.padding = "20px";
 
-		// 清理样式函数
+		// Element cleanup function
 		const cleanupElement = (element: HTMLElement) => {
-			// 移除所有阴影效果
+			// Remove shadow effects
 			element.style.boxShadow = "none";
 			element.style.transition = "none";
 			element.style.animation = "none";
 
-			// 移除所有边框
+			// Remove borders
 			element.style.border = "none";
 			element.style.outline = "none";
 
-			// 保持背景色
+			// Preserve background color
 			const computedStyle = window.getComputedStyle(element);
 			const backgroundColor = computedStyle.backgroundColor;
 			if (
@@ -48,45 +52,34 @@ export async function exportTableToPNG(
 			}
 		};
 
+		// Export options with quality control
 		const options = {
-			quality: 1.0,
+			quality: 2.0, // Increase quality (1.0 is default)
 			bgcolor: "#ffffff",
-			height: actualHeight,
-			width: actualWidth,
+			height: actualHeight * 2, // Double the height for better quality
+			width: actualWidth * 2, // Double the width for better quality
 			style: {
-				transform: "none",
-				"transform-origin": "none",
+				transform: "scale(2)", // Scale up for better quality
+				"transform-origin": "top left",
 				background: "#ffffff",
 			},
 			filter: (element: Node) => {
 				if (element instanceof HTMLElement) {
-					// 移除所有Card组件的边框
-					// if (
-					// 	element.classList.contains("rounded-lg") ||
-					// 	element.classList.contains("border") ||
-					// 	element.classList.contains("shadow-sm")
-					// ) {
-					// 	cleanupElement(element);
-					// }
-
-					// 保持学期标题的样式
+					// Maintain semester title styles
 					if (
 						element.classList.contains("text-lg") &&
 						element.textContent?.includes("Year")
 					) {
-						element.style.borderBottom = "none";
+						element.style.border = "none";
 						return true;
 					}
 
-					// 保持课程卡片的样式
+					// Maintain course card styles
 					if (element.classList.contains("bg-card")) {
-						// 只保留圆角，移除其他边框
-						// element.style.border = "none";
-						// element.style.borderRadius = "8px";
 						return true;
 					}
 
-					// 保持学期标签的样式
+					// Maintain semester label styles
 					if (
 						element.classList.contains("S1") ||
 						element.classList.contains("S2") ||
@@ -95,23 +88,23 @@ export async function exportTableToPNG(
 						return true;
 					}
 
-					// // 移除空单元格的边框
-					// if (
-					// 	!element.textContent?.trim() &&
-					// 	!element.querySelector("img") &&
-					// 	!element.querySelector("svg")
-					// ) {
-					// 	element.style.border = "none";
-					// 	element.style.boxShadow = "none";
-					// }
-					//
-					// // 移除网格容器的边框
-					// if (element.classList.contains("grid")) {
-					// 	element.style.gap = "12px";
-					// 	element.style.border = "none";
-					// }
+					// Remove empty cell borders
+					if (
+						!element.textContent?.trim() &&
+						!element.querySelector("img") &&
+						!element.querySelector("svg")
+					) {
+						element.style.border = "none";
+						element.style.boxShadow = "none";
+					}
 
-					// 为每个学期板块添加一点空间
+					// Remove grid container borders
+					if (element.classList.contains("grid")) {
+						element.style.gap = "12px";
+						element.style.border = "none";
+					}
+
+					// Add spacing for semester blocks
 					if (element.classList.contains("space-y-6")) {
 						element.style.marginBottom = "24px";
 					}
@@ -122,6 +115,7 @@ export async function exportTableToPNG(
 			},
 		};
 
+		// Generate and download image
 		const dataUrl = await domtoimage.toPng(node, options);
 		document.body.removeChild(node);
 
