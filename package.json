@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -48,6 +48,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.0",
     "@eslint/js": "^9.7.0",
     "@types/node": "^22.13.5",
     "@types/react": "^18.3.3",
@@ -70,7 +71,7 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
     "typescript-eslint": "^7.16.1",
-    "vite": "^5.3.4"
+    "vite": "6.0.9"
   },
   "packageManager": "yarn@4.5.0+sha512.837566d24eec14ec0f5f1411adb544e892b3454255e61fdef8fd05f3429480102806bac7446bc9daff3896b01ae4b62d00096c7e989f1596f2af10b927532f39"
 }
