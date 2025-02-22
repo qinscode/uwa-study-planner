@@ -24,7 +24,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import type { SemesterCourse } from "@/types/index";
+import type { SemesterCourse } from "@/types";
 
 interface Course {
 	type: "core" | "option" | "conversion";
