@@ -1,4 +1,4 @@
-import type { Course } from "../types";
+import type { Course } from "@/types";
 
 const testCourses: Array<Course> = [
 	// Conversion Courses
@@ -225,8 +225,8 @@ const testCourses: Array<Course> = [
 		name: "Business Intelligence",
 		type: "option",
 		recommendedSemester: "S1S2",
-		note: "INMT5518 or BUSN5002 or BUSN5101",
-		prereq: ["INMT5518"],
+		note: "INMT5518 or BUSN5002 or BUSN5101 or CITS1401",
+		prereq: ["CITS1401"],
 	},
 	{
 		id: "28",

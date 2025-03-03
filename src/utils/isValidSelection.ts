@@ -22,6 +22,34 @@ function calculateACSPoints(courses: Array<SemesterCourse>): {
 	);
 }
 
+function calculateAISPonts(courses: Array<SemesterCourse>): {
+	total: number;
+} {
+	return courses.reduce(
+		(accumulator, sc) => {
+			if (sc.course.type === "ais") {
+				accumulator.total += 6;
+			}
+			return accumulator;
+		},
+		{ total: 0 }
+	);
+}
+
+function calculateSSSPonts(courses: Array<SemesterCourse>): {
+	total: number;
+} {
+	return courses.reduce(
+		(accumulator, sc) => {
+			if (sc.course.type === "sss") {
+				accumulator.total += 6;
+			}
+			return accumulator;
+		},
+		{ total: 0 }
+	);
+}
+
 export function isValidSelection(
 	state: CourseState,
 	newCourse: Course
@@ -60,9 +88,9 @@ export function isValidSelection(
 	const hasCITS4009 = updatedSelectedCourses.some(
 		(c) => c.course.code === "CITS4009"
 	);
-	const hasINMT5518 = updatedSelectedCourses.some(
-		(c) => c.course.code === "INMT5518"
-	);
+	// const hasINMT5518 = updatedSelectedCourses.some(
+	// 	(c) => c.course.code === "INMT5518"
+	// );
 
 	// Check requirements for Applied Computing specialisation
 	if (newCourse.type === "acs") {
@@ -75,6 +103,26 @@ export function isValidSelection(
 		}
 		if (total === 24 && level5 < 12) {
 			message.error("You must have at least 12 points of Level 5 ACS units.");
+			return false;
+		}
+	}
+
+	if (newCourse.type === "ais") {
+		const { total } = calculateAISPonts(updatedSelectedCourses);
+		if (total > 24) {
+			message.error(
+				"You cannot select more than 24 points of AI stream units."
+			);
+			return false;
+		}
+	}
+
+	if (newCourse.type === "sss") {
+		const { total } = calculateSSSPonts(updatedSelectedCourses);
+		if (total > 24) {
+			message.error(
+				"You cannot select more than 24 points of SS stream units."
+			);
 			return false;
 		}
 	}
@@ -130,10 +178,10 @@ export function isValidSelection(
 		return false;
 	}
 
-	if (newCourse.code === "INMT5526" && !hasINMT5518) {
-		message.error("You must select INMT5518 before INMT5526.");
-		return false;
-	}
+	// if (newCourse.code === "INMT5526" && (!hasINMT5518 || !hasCITS1401)) {
+	// 	message.error("You must select INMT5518 or CITS1401 before INMT5526.");
+	// 	return false;
+	// }
 
 	if (newCourse.code === "CITS5206") {
 		const levelFourOrFiveCourses = state.selectedCourses.filter(
