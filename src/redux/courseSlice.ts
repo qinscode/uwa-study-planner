@@ -147,7 +147,7 @@ const courseSlice = createSlice({
 		) => {
 			const { year, semester, startWithS2, program } = action.payload;
 
-			if (year === "2025" && program === "ai") {
+			if (program === "ai") {
 				const updates: Array<{ courseCode: string; newType: CourseType }> = [
 					{ courseCode: "4407", newType: "option" },
 					{ courseCode: "CITS5501", newType: "option" },
@@ -170,7 +170,7 @@ const courseSlice = createSlice({
 					updates
 				);
 			}
-			if (year === "2025" && program === "ss") {
+			if (program === "ss") {
 				const updates: Array<{ courseCode: string; newType: CourseType }> = [
 					{ courseCode: "4407", newType: "option" },
 					{ courseCode: "CITS5501", newType: "sss" },
@@ -195,7 +195,7 @@ const courseSlice = createSlice({
 				console.log("tags", state.tags);
 				console.log("availableCourses", state.availableCourses);
 			}
-			if (year === "2025" && program === "ac") {
+			if (program === "ac") {
 				const updates: Array<{ courseCode: string; newType: CourseType }> = [
 					{ courseCode: "CITS4009", newType: "acs" },
 					{ courseCode: "CITS4012", newType: "acs" },
