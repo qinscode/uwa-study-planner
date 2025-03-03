@@ -172,7 +172,7 @@ const courseSlice = createSlice({
 			}
 			if (program === "ss") {
 				const updates: Array<{ courseCode: string; newType: CourseType }> = [
-					{ courseCode: "4407", newType: "option" },
+					{ courseCode: "CITS4407", newType: "option" },
 					{ courseCode: "CITS5501", newType: "sss" },
 					{ courseCode: "CITS5506", newType: "sss" },
 					{ courseCode: "CITS5503", newType: "sss" },
@@ -212,6 +212,7 @@ const courseSlice = createSlice({
 					{ courseCode: "CITS5507", newType: "acs" },
 					{ courseCode: "CITS5508", newType: "acs" },
 					{ courseCode: "AUTO4508", newType: "acs" },
+					{ courseCode: "CITS4407", newType: "option" },
 				];
 				state.tags = [
 					{ key: "conversion", label: "Conversion" },
