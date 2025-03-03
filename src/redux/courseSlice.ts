@@ -262,9 +262,9 @@ const courseSlice = createSlice({
 				let currentSemesterIndex = 0;
 				let position = 0;
 
+				//ts-ignore
 				planCourses.forEach((course, index) => {
 					if (course === null) {
-						// Skip this position
 						position++;
 						if (position >= 4) {
 							position = 0;
