@@ -7,6 +7,7 @@ import { removeCourseFromSemester } from "@/redux/courseSlice";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { typeColors } from "@/types";
 
 interface SemesterCellProps {
 	semesterId: string;
@@ -52,18 +53,11 @@ const SemesterCell: React.FC<SemesterCellProps> = ({
 		>
 			{course ? (
 				<Card
-					className={cn(
-						"h-full cursor-pointer transition-all hover:shadow-md",
-						{
-							"bg-[#fff2cd] hover:bg-[#fff0c0]":
-								course.course.type === "conversion",
-							"bg-[#f6ffed] hover:bg-[#f4ffe8]": course.course.type === "core",
-							"bg-[#e6f7ff] hover:bg-[#e0f5ff]":
-								course.course.type === "option",
-							"bg-[#fbe4d5] hover:bg-[#fae0d0]":
-								course.course.type === "sss" || course.course.type === "ais",
-						}
-					)}
+					className="h-full cursor-pointer transition-all hover:shadow-md"
+					style={{
+						backgroundColor: typeColors[course.course.type],
+						transition: "background-color 0.2s ease-in-out",
+					}}
 					onClick={handleRemoveCourse}
 				>
 					<CardContent className="h-full p-3 flex flex-col">
