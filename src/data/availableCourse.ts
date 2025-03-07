@@ -216,7 +216,7 @@ const testCourses: Array<Course> = [
 		code: "INMT5518",
 		name: "Supply Chain Analytics",
 		type: "option",
-		recommendedSemester: "S1",
+		recommendedSemester: "S1S2",
 		note: "",
 	},
 	{
