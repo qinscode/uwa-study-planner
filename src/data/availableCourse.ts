@@ -157,7 +157,7 @@ const testCourses: Array<Course> = [
 		code: "CITS4404",
 		name: "Artificial Intelligence and Adaptive Systems",
 		type: "option",
-		recommendedSemester: "S2",
+		recommendedSemester: "S1",
 		note: "CITS1401 + CITS4009 or CITS2002 or CITS2005",
 		prereq: ["CITS1401"],
 	},
