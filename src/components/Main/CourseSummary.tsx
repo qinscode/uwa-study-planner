@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/select";
 import type { SemesterCourse } from "@/types";
 import { useDispatch, useSelector } from 'react-redux'
-import { togglePrerequisiteCheck } from '@/redux/courseSlice'
+import { togglePrerequisiteCheck, clearSelectedCourses } from '@/redux/courseSlice'
 import type { RootState } from '@/redux/store'
+import { useState } from "react";
+import PrerequisiteModal from "../Modals/PrerequisiteModal";
 
 interface CourseSummaryProps {
 	selectedCourses: Array<SemesterCourse>;
@@ -46,6 +48,7 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 }) => {
 	const dispatch = useDispatch()
 	const disablePrerequisites = useSelector((state: RootState) => state.courses.disablePrerequisites)
+	const [isPrerequisiteModalOpen, setIsPrerequisiteModalOpen] = useState(false)
 
 	const coreUnitsCount = selectedCourses.filter(
 		(course) => course["course"].type === "core"
@@ -58,9 +61,17 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 	).length;
 
 	const handlePrerequisiteToggle = (checked: boolean) => {
+		setIsPrerequisiteModalOpen(true)
+	}
+
+	const handlePrerequisiteConfirm = () => {
 		dispatch(togglePrerequisiteCheck())
-		// Clear all selected courses when toggling prerequisite mode
-		handleClearTable()
+		dispatch(clearSelectedCourses())
+		setIsPrerequisiteModalOpen(false)
+	}
+
+	const handlePrerequisiteCancel = () => {
+		setIsPrerequisiteModalOpen(false)
 	}
 
 	const renderSpecializationSelect = () => {
@@ -131,7 +142,7 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 								onCheckedChange={handlePrerequisiteToggle} 
 							/>
 							<span className="text-sm">
-								{disablePrerequisites ? "Prerequisites Disabled" : "Prerequisites Enabled"}
+								{disablePrerequisites ? "Disable Prerequisites" : "Enable Prerequisites"}
 							</span>
 						</div>
 
@@ -207,6 +218,13 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 					</div>
 				</div>
 			</CardContent>
+
+			<PrerequisiteModal
+				handleCancel={handlePrerequisiteCancel}
+				handleOk={handlePrerequisiteConfirm}
+				isModalOpen={isPrerequisiteModalOpen}
+				isPrerequisitesEnabled={!disablePrerequisites}
+			/>
 		</Card>
 	);
 };
