@@ -1,6 +1,5 @@
 import type React from "react";
 import { Card, Typography, Space } from "antd";
-import styles from "../../styles/InstructionCard.module.scss";
 
 const { Text } = Typography;
 
@@ -20,10 +19,10 @@ const InstructionCard: React.FC<{ item: Instruction; isMobile: boolean }> = ({
 	return (
 		<Card
 			hoverable
-			className={styles["InstructionCard"]}
+			className="transition-all hover:shadow-md"
 			cover={
 				<IconComponent
-					className={`${styles["cardIcon"]} ${isMobile ? styles["mobile"] : styles["desktop"]}`}
+					className={`text-[48px] mt-6 ${isMobile ? 'text-[20px]' : 'text-[18px]'}`}
 					style={{ color: item.color }}
 				/>
 			}
@@ -34,7 +33,7 @@ const InstructionCard: React.FC<{ item: Instruction; isMobile: boolean }> = ({
 						{item.desc.map((text: string, index: number) => (
 							<Text
 								key={index}
-								className={`${styles["cardDescription"]} ${isMobile ? styles["mobile"] : styles["desktop"]}`}
+								className={`${isMobile ? 'text-[16px]' : 'text-[14px]'}`}
 							>
 								{text}
 							</Text>
@@ -43,7 +42,7 @@ const InstructionCard: React.FC<{ item: Instruction; isMobile: boolean }> = ({
 				}
 				title={
 					<span
-						className={`${styles["cardTitle"]} ${isMobile ? styles["mobile"] : styles["desktop"]}`}
+						className={`font-medium ${isMobile ? 'text-[20px]' : 'text-[18px]'}`}
 					>
 						{item.title}
 					</span>
