@@ -11,6 +11,9 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import type { SemesterCourse } from "@/types";
+import { useDispatch, useSelector } from 'react-redux'
+import { togglePrerequisiteCheck } from '@/redux/courseSlice'
+import type { RootState } from '@/redux/store'
 
 interface CourseSummaryProps {
 	selectedCourses: Array<SemesterCourse>;
@@ -41,6 +44,9 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 	selectedSemester,
 	selectedProgram,
 }) => {
+	const dispatch = useDispatch()
+	const disablePrerequisites = useSelector((state: RootState) => state.courses.disablePrerequisites)
+
 	const coreUnitsCount = selectedCourses.filter(
 		(course) => course["course"].type === "core"
 	).length;
@@ -50,6 +56,12 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 	const conversionUnitsCount = selectedCourses.filter(
 		(course) => course["course"].type === "conversion"
 	).length;
+
+	const handlePrerequisiteToggle = (checked: boolean) => {
+		dispatch(togglePrerequisiteCheck())
+		// Clear all selected courses when toggling prerequisite mode
+		handleClearTable()
+	}
 
 	const renderSpecializationSelect = () => {
 		if (selectedYear === "2024") {
@@ -110,6 +122,16 @@ const CourseSummary: React.FC<CourseSummaryProps> = ({
 							<Switch checked={startWithS2} onCheckedChange={handleSwitch} />
 							<span className="text-sm">
 								{startWithS2 ? "Start with S2" : "Start with S1"}
+							</span>
+						</div>
+
+						<div className="flex items-center gap-2">
+							<Switch 
+								checked={disablePrerequisites} 
+								onCheckedChange={handlePrerequisiteToggle} 
+							/>
+							<span className="text-sm">
+								{disablePrerequisites ? "Prerequisites Disabled" : "Prerequisites Enabled"}
 							</span>
 						</div>
 

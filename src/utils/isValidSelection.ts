@@ -54,6 +54,11 @@ export function isValidSelection(
 	state: CourseState,
 	newCourse: Course
 ): boolean {
+	// Skip all validation if prerequisites are disabled
+	if (state.disablePrerequisites) {
+		return true;
+	}
+
 	const newSemesterCourse: SemesterCourse = {
 		id: uuidv4(),
 		course: newCourse,

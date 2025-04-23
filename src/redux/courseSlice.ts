@@ -21,6 +21,7 @@ const initialState: CourseState = storedState
 				{ key: "core", label: "Core" },
 				{ key: "option", label: "Option" },
 			],
+			disablePrerequisites: false
 		};
 
 const updateCoursesTypes = (
@@ -304,6 +305,9 @@ const courseSlice = createSlice({
 				});
 			}
 		},
+		togglePrerequisiteCheck: (state) => {
+			state.disablePrerequisites = !state.disablePrerequisites
+		}
 	},
 });
 
@@ -313,6 +317,7 @@ export const {
 	moveCourse,
 	clearSelectedCourses,
 	loadStudyPlan,
+	togglePrerequisiteCheck
 } = courseSlice.actions;
 export default courseSlice.reducer;
 

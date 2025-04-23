@@ -47,6 +47,7 @@ export interface CourseState {
 	currentCourse?: Course | null;
 	currentCourses?: Array<Course>;
 	tags: Array<Tag>;
+	disablePrerequisites: boolean;
 }
 
 export const typeColors: Record<CourseType, string> = {
