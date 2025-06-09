@@ -55,7 +55,7 @@ const testCourses: Array<Course> = [
 		code: "CITS5506",
 		name: "The Internet of Things",
 		type: "core",
-		recommendedSemester: "S1S2",
+		recommendedSemester: "S1",
 		note: "CITS1401",
 		prereq: ["CITS1401"],
 	},
